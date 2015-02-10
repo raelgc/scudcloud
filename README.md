@@ -2,7 +2,7 @@
 
 ![ScudCloud Logo](/scudcloud-0.9/resources/scudcloud.png?raw=true "Optional Title") 
 
-ScudCloud is a **non official** open-source Ubuntu desktop client for [Slack&copy;](http://slack.com).
+ScudCloud is a **non official** open-source Ubuntu/Linux desktop client for [Slack&copy;](http://slack.com).
 
 [Slack&copy;](http://slack.com) is a platform for team communication.
 
