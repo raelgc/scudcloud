@@ -24,4 +24,4 @@ sudo apt-get install scudcloud
 
 # License
 
-ScudCloud is is released under the [MIT License](http://opensource.org/licenses/mit-license.php).
+ScudCloud is is released under the [MIT License](/LICENSE).
