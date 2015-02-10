@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=ScudCloud
+Exec=/opt/scudcloud/scudcloud
+Icon=/opt/scudcloud/resources/scudcloud.png
+

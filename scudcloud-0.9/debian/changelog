@@ -1,0 +1,17 @@
+scudcloud (0.9-3) trusty; urgency=low
+
+  * Adding a wrapper to .pyc when python3 mime-type is not configured
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 09 Feb 2015 22:10:01 -0200
+
+scudcloud (0.9-2) trusty; urgency=low
+
+  * Adding check for null cookies (usually at the first start)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 09 Feb 2015 20:56:26 -0200
+
+scudcloud (0.9-1) trusty; urgency=low
+
+  * Initial release
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 09 Feb 2015 19:12:26 -0200

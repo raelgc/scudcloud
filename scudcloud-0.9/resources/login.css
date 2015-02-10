@@ -1,0 +1,2 @@
+body > header{display: none;}
+#page_contents > div:nth-child(3) > p:nth-child(2){display: none;}
