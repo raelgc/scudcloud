@@ -14,7 +14,7 @@ ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.web
 
 # Install
 
-To install it, open a Termainal (Ctrl+Alt+T) and run:
+To install it, open a Terminal (Ctrl+Alt+T) and run:
 
 ```term
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
