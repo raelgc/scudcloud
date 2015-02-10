@@ -10,7 +10,7 @@ ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.web
 
 * native system notifications,
 * count of unread notifications at launcher icon,
-* and Launcher icon wobbling on new messages.
+* and launcher icon wobbling on new messages.
 
 # Install
 
