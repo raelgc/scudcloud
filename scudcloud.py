@@ -46,6 +46,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.webView.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.webView.linkClicked.connect(self.linkClicked)
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         self.gridLayout.addWidget(self.webView)
         self.mainLayout.addWidget(self.frame)
         self.setCentralWidget(self.centralwidget)
@@ -68,7 +69,7 @@ class ScudCloud(QtGui.QMainWindow):
 
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
-        notice = notify2.Notification(str(title), str(message), INSTALL_DIR+"resources/scudcloud.png")
+        notice = notify2.Notification(str(title).replace("New message from ", ""), str(message), INSTALL_DIR+"resources/scudcloud.png")
         notice.show()
 
     def urlChanged(self):
