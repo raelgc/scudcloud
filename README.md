@@ -1,10 +1,10 @@
-# ScudCloud - unofficial Ubuntu client for Slax
+# ScudCloud - Slax client for Ubuntu
 
 ![ScudCloud Logo](/scudcloud-0.9/resources/scudcloud.png?raw=true "Optional Title") 
 
-ScudCloud is a **non official** open-source Ubuntu desktop client for [Slack](http://slack.com).
+ScudCloud is a **non official** open-source Ubuntu desktop client for [Slack&copy;](http://slack.com).
 
-[Slack](http://slack.com) is a platform for team communication.
+[Slack&copy;](http://slack.com) is a platform for team communication.
 
 ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.webkit.org/) to render the web version of Slack, but using the [QWebkit-Native bridge](http://qt-project.org/doc/qt-4.8/qtwebkit-bridge.html) to improve desktop integration with:
 
