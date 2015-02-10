@@ -1,0 +1,5 @@
+*.build
+*.tar.gz
+*.tar.xz
+*.dsc
+*.changes
