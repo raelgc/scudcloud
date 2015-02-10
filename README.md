@@ -21,3 +21,7 @@ sudo apt-add-repository -y ppa:rael-gc/scudcloud
 sudo apt-get update
 sudo apt-get install scudcloud
 ```
+
+# License
+
+ScudCloud is is released under the [MIT License](http://opensource.org/licenses/mit-license.php).
