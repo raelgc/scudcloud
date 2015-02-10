@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 INSTALL_DIR = "/opt/scudcloud/"
-import sys, os
+import sys, subprocess, os
 sys.path.append(INSTALL_DIR+'lib')
 import notify2
 from cookiejar import PersistentCookieJar
@@ -43,6 +43,8 @@ class ScudCloud(QtGui.QMainWindow):
         self.webView = QtWebKit.QWebView()
         self.webView.urlChanged.connect(self.urlChanged)
         self.webView.titleChanged.connect(self.titleChanged)
+        self.webView.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.webView.linkClicked.connect(self.linkClicked)
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         self.gridLayout.addWidget(self.webView)
         self.mainLayout.addWidget(self.frame)
@@ -75,6 +77,9 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             self.webView.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
             self.webView.page().currentFrame().evaluateJavaScript(self.js)
+
+    def linkClicked(self, url):
+        subprocess.call(('xdg-open', url.toString()))
 
     @QtCore.pyqtSlot(int) 
     def count(self, value):
