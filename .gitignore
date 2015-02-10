@@ -3,3 +3,4 @@
 *.tar.xz
 *.dsc
 *.changes
+*.upload
