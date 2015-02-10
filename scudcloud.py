@@ -68,7 +68,6 @@ class ScudCloud(QtGui.QMainWindow):
     def sendMessage(self, title, message):
         notice = notify2.Notification(str(title), str(message), INSTALL_DIR+"resources/scudcloud.png")
         notice.show()
-        return
 
     def urlChanged(self):
         if self.domain() == self.webView.url().toString():
