@@ -1,4 +1,4 @@
-# ScudCloud - non official Ubuntu client for Slax
+# ScudCloud - unofficial Ubuntu client for Slax
 
 ![ScudCloud Logo](/scudcloud-0.9/resources/scudcloud.png?raw=true "Optional Title") 
 
