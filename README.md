@@ -1,6 +1,6 @@
 # ScudCloud - Ubuntu Client for Slax
 
-![ScudCloud Logo](/scudcloud-0.9/resources/scudcloud.png?raw=true "Optional Title") 
+![ScudCloud Logo](/scudcloud-0.9/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
 
 ScudCloud is a **non official** open-source Ubuntu/Linux desktop client for [Slack&copy;](http://slack.com).
 
@@ -24,4 +24,4 @@ sudo apt-get install scudcloud
 
 # License
 
-ScudCloud is is released under the [MIT License](http://opensource.org/licenses/mit-license.php).
+ScudCloud is is released under the [MIT License](/LICENSE).
