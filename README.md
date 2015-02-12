@@ -13,8 +13,6 @@ ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.web
 * launcher icon wobbling on new messages,
 * and channels quicklist at launcher icon.
 
-See some [screenshots](/screenshots/).
-
 # Install
 
 To install it, open a Terminal (Ctrl+Alt+T) and run:
@@ -24,6 +22,13 @@ sudo apt-add-repository -y ppa:rael-gc/scudcloud
 sudo apt-get update
 sudo apt-get install scudcloud
 ```
+
+# Screenshots
+
+![Some screenshots](/screenshots/screenshot.png?raw=true)
+
+See some all [here](/screenshots/).
+
 
 # License
 
