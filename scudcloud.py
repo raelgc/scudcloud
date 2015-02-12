@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 INSTALL_DIR = "/opt/scudcloud/"
-import sys, subprocess, os
+import sys, os, json, subprocess
 sys.path.append(INSTALL_DIR+'lib')
 import notify2
 from cookiejar import PersistentCookieJar
-from gi.repository import Unity, GObject
+from gi.repository import Unity, GObject, Dbusmenu
 from os.path import expanduser
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 from PyQt4.QtCore import QUrl, QSettings
@@ -77,7 +77,26 @@ class ScudCloud(QtGui.QMainWindow):
             self.webView.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
         else:
             self.webView.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-            self.webView.page().currentFrame().evaluateJavaScript(self.js)
+            self.quicklist(self.webView.page().currentFrame().evaluateJavaScript(self.js))
+
+    def quicklist(self, channels):
+        if channels is None:
+            self.launcher.set_property("quicklist", None)
+        else:
+            ql = Dbusmenu.Menuitem.new ()
+            for c in channels:
+                if c['is_member']:
+                    item = Dbusmenu.Menuitem.new ()
+                    item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, c['name'])
+                    item.property_set_bool (Dbusmenu.MENUITEM_PROP_VISIBLE, True)
+                    item.connect(Dbusmenu.MENUITEM_SIGNAL_ITEM_ACTIVATED, self.openChannel)
+                    ql.child_append (item)
+            self.launcher.set_property("quicklist", ql)
+
+    def openChannel(self, menuitem, timestamp):
+        self.webView.page().currentFrame().evaluateJavaScript("TS.channels.join('"+menuitem.property_get(Dbusmenu.MENUITEM_PROP_LABEL)+"');")
+        self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
+        self.activateWindow()
 
     def linkClicked(self, url):
         subprocess.call(('xdg-open', url.toString()))
