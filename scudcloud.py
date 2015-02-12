@@ -87,14 +87,15 @@ class ScudCloud(QtGui.QMainWindow):
             for c in channels:
                 if c['is_member']:
                     item = Dbusmenu.Menuitem.new ()
-                    item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, c['name'])
+                    item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, "#"+c['name'])
+                    item.property_set ("id", c['name'])
                     item.property_set_bool (Dbusmenu.MENUITEM_PROP_VISIBLE, True)
                     item.connect(Dbusmenu.MENUITEM_SIGNAL_ITEM_ACTIVATED, self.openChannel)
                     ql.child_append (item)
             self.launcher.set_property("quicklist", ql)
 
     def openChannel(self, menuitem, timestamp):
-        self.webView.page().currentFrame().evaluateJavaScript("TS.channels.join('"+menuitem.property_get(Dbusmenu.MENUITEM_PROP_LABEL)+"');")
+        self.webView.page().currentFrame().evaluateJavaScript("TS.channels.join('"+menuitem.property_get("id")+"');")
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
         self.activateWindow()
 
