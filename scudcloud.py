@@ -95,7 +95,7 @@ class ScudCloud(QtGui.QMainWindow):
             self.launcher.set_property("quicklist", ql)
 
     def openChannel(self, menuitem, timestamp):
-        self.webView.page().currentFrame().evaluateJavaScript("TS.channels.join('"+menuitem.property_get("id")+"');")
+        self.webView.page().currentFrame().evaluateJavaScript("join('"+menuitem.property_get("id")+"');")
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
         self.activateWindow()
 
