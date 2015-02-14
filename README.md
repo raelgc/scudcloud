@@ -23,6 +23,16 @@ sudo apt-get update
 sudo apt-get install scudcloud
 ```
 
+# First Run
+
+In the first run, you'll see a dialog asking for your Identifier.
+
+Identifier is your Slack subdomain without the `.slack.com` part.
+
+By example: my test domain is `raelcunha.slack.com`. So, my identifier is `raelcunha`.
+
+Enter this value in the Identifier input dialog.
+
 # Screenshots
 
 ![Some screenshots](/screenshot.png?raw=true)
