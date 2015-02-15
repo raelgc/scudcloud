@@ -13,6 +13,7 @@ from PyQt4.QtWebKit import QWebSettings
 class ScudCloud(QtGui.QMainWindow):
 
     APP_NAME = "ScudCloud Client"
+    SIGNIN_URL = "https://slack.com/signin"
 
     def __init__(self, parent=None):
         super(ScudCloud, self).__init__(parent)
@@ -21,15 +22,8 @@ class ScudCloud(QtGui.QMainWindow):
         self.newMessages = 0
         self.settings = QSettings(expanduser("~")+"/.scudcloud", QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
-        input = (None, False)
-        while self.identifier is None:
-            input = QtGui.QInputDialog.getText(self, "ScudCloud", "Enter your Company Identifier:")
-            self.identifier = str(input[0]).strip().lower()
-            if input[1] is False:
-                sys.exit(0)
         with open (INSTALL_DIR+"resources/notifications.js", "r") as f:
              self.js=f.read()
-        self.settings.setValue("Domain", self.identifier)
         self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
         self.resize(800, 600)
         self.centralwidget = QtGui.QWidget(self)
@@ -62,7 +56,13 @@ class ScudCloud(QtGui.QMainWindow):
         self.setWindowTitle(self.webView.title())
 
     def domain(self):
-        return "https://"+self.identifier+".slack.com/"
+        if self.identifier is None:
+            return self.SIGNIN_URL
+        else:
+            if self.identifier.endswith(".slack.com"):
+                return self.identifier
+            else:
+                return "https://"+self.identifier+".slack.com"
 
     def closeEvent(self, event):
         self.cookiesjar.save()
@@ -73,6 +73,8 @@ class ScudCloud(QtGui.QMainWindow):
         notice.show()
 
     def urlChanged(self):
+        if self.SIGNIN_URL != self.webView.url().toString():
+            self.settings.setValue("Domain", 'https://'+self.webView.url().host())
         if self.domain() == self.webView.url().toString():
             self.webView.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
         else:
