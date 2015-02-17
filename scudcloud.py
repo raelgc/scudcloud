@@ -7,7 +7,9 @@ from cookiejar import PersistentCookieJar
 from gi.repository import Unity, GObject, Dbusmenu
 from os.path import expanduser
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
-from PyQt4.QtCore import QUrl, QSettings
+from PyQt4.QtGui import QPixmap
+from PyQt4.Qt import QApplication, QKeySequence
+from PyQt4.QtCore import QUrl, QSettings, QBuffer, QByteArray
 from PyQt4.QtWebKit import QWebSettings
 
 class ScudCloud(QtGui.QMainWindow):
@@ -41,6 +43,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.webView.linkClicked.connect(self.linkClicked)
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         self.gridLayout.addWidget(self.webView)
         self.mainLayout.addWidget(self.frame)
         self.setCentralWidget(self.centralwidget)
@@ -48,6 +51,20 @@ class ScudCloud(QtGui.QMainWindow):
         self.webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
         self.webView.load(QtCore.QUrl(self.domain()))
         self.webView.show()
+        copyAction = self.webView.pageAction(QtWebKit.QWebPage.Paste)
+        copyAction.setShortcuts(QKeySequence.Paste)
+        copyAction.triggered.connect(self.pasted)
+
+    @QtCore.pyqtSlot(bool) 
+    def pasted(self, checked):
+        clipboard = QApplication.clipboard()
+        mime = clipboard.mimeData()
+        if mime.hasImage():
+            pixmap = clipboard.pixmap()
+            byteArray = QByteArray()
+            buffer = QBuffer(byteArray)
+            pixmap.save(buffer, "PNG")
+            self.webView.page().currentFrame().evaluateJavaScript("insert(\""+str(byteArray.toBase64())+"\");")
 
     def focusInEvent(self, event):
         self.launcher.set_property("urgent", False)
@@ -80,7 +97,7 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             self.webView.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
             self.quicklist(self.webView.page().currentFrame().evaluateJavaScript(self.js))
-
+    
     def quicklist(self, channels):
         if channels is None:
             self.launcher.set_property("quicklist", None)
