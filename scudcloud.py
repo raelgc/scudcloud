@@ -24,7 +24,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.newMessages = 0
         self.settings = QSettings(expanduser("~")+"/.scudcloud", QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
-        with open (INSTALL_DIR+"resources/notifications.js", "r") as f:
+        with open (INSTALL_DIR+"resources/scudcloud.js", "r") as f:
              self.js=f.read()
         self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
         self.resize(800, 600)
@@ -43,7 +43,6 @@ class ScudCloud(QtGui.QMainWindow):
         self.webView.linkClicked.connect(self.linkClicked)
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         self.gridLayout.addWidget(self.webView)
         self.mainLayout.addWidget(self.frame)
         self.setCentralWidget(self.centralwidget)
