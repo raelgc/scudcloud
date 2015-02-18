@@ -1,3 +1,9 @@
+scudcloud (0.9-14) trusty; urgency=low
+
+  * Removing "New message in " from channel notification
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 18 Feb 2015 19:32:50 -0200
+
 scudcloud (0.9-13) trusty; urgency=low
 
   * Fixing channels quicklist (#5)
