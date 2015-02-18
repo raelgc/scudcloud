@@ -16,6 +16,7 @@ class ScudCloud(QtGui.QMainWindow):
 
     APP_NAME = "ScudCloud Client"
     SIGNIN_URL = "https://slack.com/signin"
+    debug = False
 
     def __init__(self, parent=None):
         super(ScudCloud, self).__init__(parent)
@@ -43,6 +44,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.webView.linkClicked.connect(self.linkClicked)
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.debug)
         self.gridLayout.addWidget(self.webView)
         self.mainLayout.addWidget(self.frame)
         self.setCentralWidget(self.centralwidget)
