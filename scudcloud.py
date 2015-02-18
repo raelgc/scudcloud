@@ -94,10 +94,9 @@ class ScudCloud(QtGui.QMainWindow):
         subprocess.call(('xdg-open', url.toString()))
 
     def quicklist(self, channels):
-        if channels is None:
-            self.launcher.set_property("quicklist", None)
-        else:
-            ql = Dbusmenu.Menuitem.new ()
+        ql = Dbusmenu.Menuitem.new()
+        self.launcher.set_property("quicklist", ql)
+        if channels is not None:
             for c in channels:
                 if c['is_member']:
                     item = Dbusmenu.Menuitem.new ()
