@@ -125,7 +125,7 @@ class ScudCloud(QtGui.QMainWindow):
 
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
-        notice = notify2.Notification(str(title).replace("New message from ", ""), str(message), INSTALL_DIR+"resources/scudcloud.png")
+        notice = notify2.Notification(str(title).replace("New message from ", "").replace("New message in ", ""), str(message), INSTALL_DIR+"resources/scudcloud.png")
         notice.show()
 
     @QtCore.pyqtSlot(int) 
