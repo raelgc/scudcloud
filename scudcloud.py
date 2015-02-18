@@ -56,23 +56,6 @@ class ScudCloud(QtGui.QMainWindow):
         copyAction.setShortcuts(QKeySequence.Paste)
         copyAction.triggered.connect(self.pasted)
 
-    @QtCore.pyqtSlot(bool) 
-    def pasted(self, checked):
-        clipboard = QApplication.clipboard()
-        mime = clipboard.mimeData()
-        if mime.hasImage():
-            pixmap = clipboard.pixmap()
-            byteArray = QByteArray()
-            buffer = QBuffer(byteArray)
-            pixmap.save(buffer, "PNG")
-            self.webView.page().currentFrame().evaluateJavaScript("insert(\""+str(byteArray.toBase64())+"\");")
-
-    def focusInEvent(self, event):
-        self.launcher.set_property("urgent", False)
-
-    def titleChanged(self):
-        self.setWindowTitle(self.webView.title())
-
     def domain(self):
         if self.identifier is None:
             return self.SIGNIN_URL
@@ -82,13 +65,21 @@ class ScudCloud(QtGui.QMainWindow):
             else:
                 return "https://"+self.identifier+".slack.com"
 
+    def call(self, function, arg=None):
+        if isinstance(arg, str):
+            arg = "'"+arg+"'"
+        if arg is None:
+            arg = ""
+        self.webView.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
+
+    def focusInEvent(self, event):
+        self.launcher.set_property("urgent", False)
+
+    def titleChanged(self):
+        self.setWindowTitle(self.webView.title())
+
     def closeEvent(self, event):
         self.cookiesjar.save()
-
-    @QtCore.pyqtSlot(str, str) 
-    def sendMessage(self, title, message):
-        notice = notify2.Notification(str(title).replace("New message from ", ""), str(message), INSTALL_DIR+"resources/scudcloud.png")
-        notice.show()
 
     def urlChanged(self):
         if self.SIGNIN_URL != self.webView.url().toString():
@@ -99,6 +90,9 @@ class ScudCloud(QtGui.QMainWindow):
             self.webView.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
             self.quicklist(self.webView.page().currentFrame().evaluateJavaScript(self.js))
     
+    def linkClicked(self, url):
+        subprocess.call(('xdg-open', url.toString()))
+
     def quicklist(self, channels):
         if channels is None:
             self.launcher.set_property("quicklist", None)
@@ -115,12 +109,25 @@ class ScudCloud(QtGui.QMainWindow):
             self.launcher.set_property("quicklist", ql)
 
     def openChannel(self, menuitem, timestamp):
-        self.webView.page().currentFrame().evaluateJavaScript("join('"+menuitem.property_get("id")+"');")
+        self.call("join", menuitem.property_get("id"))
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
         self.activateWindow()
 
-    def linkClicked(self, url):
-        subprocess.call(('xdg-open', url.toString()))
+    @QtCore.pyqtSlot(bool) 
+    def pasted(self, checked):
+        clipboard = QApplication.clipboard()
+        mime = clipboard.mimeData()
+        if mime.hasImage():
+            pixmap = clipboard.pixmap()
+            byteArray = QByteArray()
+            buffer = QBuffer(byteArray)
+            pixmap.save(buffer, "PNG")
+            self.call("setClipboard", str(byteArray.toBase64(), sys.stdout.encoding))
+
+    @QtCore.pyqtSlot(str, str) 
+    def sendMessage(self, title, message):
+        notice = notify2.Notification(str(title).replace("New message from ", ""), str(message), INSTALL_DIR+"resources/scudcloud.png")
+        notice.show()
 
     @QtCore.pyqtSlot(int) 
     def count(self, value):
