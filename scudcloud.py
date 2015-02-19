@@ -82,16 +82,19 @@ class ScudCloud(QtGui.QMainWindow):
         self.cookiesjar.save()
 
     def urlChanged(self):
-        if self.SIGNIN_URL != self.webView.url().toString():
+        self.webView.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
+        self.webView.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+        self.quicklist(self.webView.page().currentFrame().evaluateJavaScript(self.js))
+        url = self.webView.url().toString()
+        if self.SIGNIN_URL != url:
             self.settings.setValue("Domain", 'https://'+self.webView.url().host())
-        if self.domain() == self.webView.url().toString():
-            self.webView.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
-        else:
-            self.webView.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-            self.quicklist(self.webView.page().currentFrame().evaluateJavaScript(self.js))
     
-    def linkClicked(self, url):
-        subprocess.call(('xdg-open', url.toString()))
+    def linkClicked(self, qUrl):
+        url = qUrl.toString()
+        if self.SIGNIN_URL == url or url.endswith(".slack.com/messages?") or url.endswith(".slack.com/"):
+            self.webView.load(qUrl)
+        else:
+            subprocess.call(('xdg-open', url))
 
     def quicklist(self, channels):
         ql = Dbusmenu.Menuitem.new()
@@ -104,7 +107,7 @@ class ScudCloud(QtGui.QMainWindow):
                     item.property_set ("id", c['name'])
                     item.property_set_bool (Dbusmenu.MENUITEM_PROP_VISIBLE, True)
                     item.connect(Dbusmenu.MENUITEM_SIGNAL_ITEM_ACTIVATED, self.openChannel)
-                    ql.child_append (item)
+                    ql.child_append(item)
             self.launcher.set_property("quicklist", ql)
 
     def openChannel(self, menuitem, timestamp):
