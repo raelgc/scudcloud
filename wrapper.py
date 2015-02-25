@@ -17,8 +17,6 @@ class Wrapper(QWebView):
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.window.debug)
-        if not self.window.debug:
-            self.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
@@ -30,8 +28,6 @@ class Wrapper(QWebView):
         self.pageAction(QtWebKit.QWebPage.Cut).setShortcuts(QKeySequence.Cut)
         self.pageAction(QtWebKit.QWebPage.Copy).setShortcuts(QKeySequence.Copy)
         self.pageAction(QtWebKit.QWebPage.Paste).setShortcuts(QKeySequence.Paste)
-        self.pageAction(QtWebKit.QWebPage.Back).setShortcuts(QKeySequence.Back)
-        self.pageAction(QtWebKit.QWebPage.Forward).setShortcuts(QKeySequence.Forward)
         self.pageAction(QtWebKit.QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
 
     def call(self, function, arg=None):
@@ -42,13 +38,14 @@ class Wrapper(QWebView):
         self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def urlChanged(self, qUrl):
+        self.window.enableMenus(False)
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         self.window.quicklist(self.page().currentFrame().evaluateJavaScript(self.js))
         url = qUrl.toString()
         if self.window.SIGNIN_URL != url:
             self.window.settings.setValue("Domain", 'https://'+qUrl.host())
-    
+
     def linkClicked(self, qUrl):
         url = qUrl.toString()
         if self.window.SIGNIN_URL == url or url.endswith(".slack.com/messages?") or url.endswith(".slack.com/"):
@@ -74,10 +71,17 @@ class Wrapper(QWebView):
     def about(self):
         subprocess.call(('xdg-open', "https://github.com/raelgc/scudcloud"))
 
+    def isConnected(self):
+        return self.call("isConnected")
+
     def openChannel(self, menuitem, timestamp):
         self.call("join", menuitem.property_get("id"))
         self.window.setWindowState(self.window.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
         self.window.activateWindow()
+
+    @QtCore.pyqtSlot(bool) 
+    def enableMenus(self, enabled):
+        self.window.enableMenus(enabled)
 
     @QtCore.pyqtSlot(bool) 
     def pasted(self, checked):

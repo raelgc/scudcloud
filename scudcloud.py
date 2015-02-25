@@ -28,7 +28,10 @@ class ScudCloud(QtGui.QMainWindow):
         self.cookiesjar = PersistentCookieJar(self)
         self.webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
         self.ui()
-        self.webView.load(QtCore.QUrl(self.domain()))
+        if self.identifier is None:
+            self.webView.load(QtCore.QUrl(self.SIGNIN_URL))
+        else:
+            self.webView.load(QtCore.QUrl(self.domain()))
         self.webView.show()
 
     def ui(self):
@@ -47,30 +50,56 @@ class ScudCloud(QtGui.QMainWindow):
         self.addMenu()
 
     def addMenu(self):
+        self.menus = {
+            "file": {
+                "preferences": self.createAction("Preferences", self.webView.preferences),
+                "addTeam":     self.createAction("Sign in to Another Team", self.webView.addTeam),
+                "signout":     self.createAction("Signout", self.webView.logout),
+                "exit":        self.createAction("Exit", self.close, QKeySequence.Close)
+            },
+            "edit": {
+                "undo":        self.webView.pageAction(QtWebKit.QWebPage.Undo),
+                "redo":        self.webView.pageAction(QtWebKit.QWebPage.Redo),
+                "cut":         self.webView.pageAction(QtWebKit.QWebPage.Cut),
+                "copy":        self.webView.pageAction(QtWebKit.QWebPage.Copy),
+                "paste":       self.webView.pageAction(QtWebKit.QWebPage.Paste),
+                "reload":      self.webView.pageAction(QtWebKit.QWebPage.Reload)
+            },
+            "help": {
+                "help":       self.createAction("Help and Feedback", self.webView.help, QKeySequence.HelpContents),
+                "center":     self.createAction("Slack Help Center", self.webView.helpCenter),
+                "about":      self.createAction("About", self.webView.about)
+             }
+        }
         menu = self.menuBar()
         fileMenu = menu.addMenu("&File")
-        fileMenu.addAction(self.createAction("Preferences", self.webView.preferences))
+        fileMenu.addAction(self.menus["file"]["preferences"])
         fileMenu.addSeparator()
-        fileMenu.addAction(self.createAction("Sign in to Another Team", self.webView.addTeam))
-        fileMenu.addAction(self.createAction("Signout", self.webView.logout))
+        fileMenu.addAction(self.menus["file"]["addTeam"])
+        fileMenu.addAction(self.menus["file"]["signout"])
         fileMenu.addSeparator()
-        fileMenu.addAction(self.createAction("Exit", self.close, QKeySequence.Close))
+        fileMenu.addAction(self.menus["file"]["exit"])
         editMenu = menu.addMenu("&Edit")
-        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Undo))
-        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Redo))
+        editMenu.addAction(self.menus["edit"]["undo"])
+        editMenu.addAction(self.menus["edit"]["redo"])
         editMenu.addSeparator()
-        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Cut))
-        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Copy))
-        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Paste))
-        navMenu = menu.addMenu("&Navigation")
-        navMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Back))
-        navMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Forward))
-        navMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Reload))
+        editMenu.addAction(self.menus["edit"]["cut"])
+        editMenu.addAction(self.menus["edit"]["copy"])
+        editMenu.addAction(self.menus["edit"]["paste"])
+        editMenu.addSeparator()
+        editMenu.addAction(self.menus["edit"]["reload"])
         helpMenu = menu.addMenu("&Help")
-        helpMenu.addAction(self.createAction("Help and Feedback", self.webView.help, QKeySequence.HelpContents))
-        helpMenu.addAction(self.createAction("Slack Help Center", self.webView.helpCenter))
+        helpMenu.addAction(self.menus["help"]["help"])
+        helpMenu.addAction(self.menus["help"]["center"])
         helpMenu.addSeparator()
-        helpMenu.addAction(self.createAction("About", self.webView.about))
+        helpMenu.addAction(self.menus["help"]["about"])
+        self.enableMenus(False)
+
+    def enableMenus(self, enabled):
+        self.menus["file"]["preferences"].setEnabled(enabled)
+        self.menus["file"]["addTeam"].setEnabled(enabled)
+        self.menus["file"]["signout"].setEnabled(enabled)
+        self.menus["help"]["help"].setEnabled(enabled)
 
     def createAction(self, text, slot, shortcut=None):
         action = QtGui.QAction(text, self)        
@@ -80,13 +109,10 @@ class ScudCloud(QtGui.QMainWindow):
         return action
 
     def domain(self):
-        if self.identifier is None:
-            return self.SIGNIN_URL
+        if self.identifier.endswith(".slack.com"):
+            return self.identifier
         else:
-            if self.identifier.endswith(".slack.com"):
-                return self.identifier
-            else:
-                return "https://"+self.identifier+".slack.com"
+            return "https://"+self.identifier+".slack.com"
 
     def focusInEvent(self, event):
         self.launcher.set_property("urgent", False)
