@@ -1,3 +1,9 @@
+scudcloud (0.9-17) trusty; urgency=low
+
+  * Menus were not enabled after change channel
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 25 Feb 2015 14:22:03 -0300
+
 scudcloud (0.9-16) trusty; urgency=low
 
   * Adding window menus (#7)

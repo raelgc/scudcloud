@@ -35,13 +35,13 @@ class Wrapper(QWebView):
             arg = "'"+arg+"'"
         if arg is None:
             arg = ""
-        self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
+        return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def urlChanged(self, qUrl):
-        self.window.enableMenus(False)
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         self.window.quicklist(self.page().currentFrame().evaluateJavaScript(self.js))
+        self.window.enableMenus(self.isConnected())
         url = qUrl.toString()
         if self.window.SIGNIN_URL != url:
             self.window.settings.setValue("Domain", 'https://'+qUrl.host())
