@@ -1,3 +1,15 @@
+scudcloud (0.9-16) trusty; urgency=low
+
+  * Adding window menus (#7)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 25 Feb 2015 09:25:49 -0300
+
+scudcloud (0.9-15) trusty; urgency=low
+
+  * Simple team switcher (#6)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 18 Feb 2015 22:56:05 -0200
+
 scudcloud (0.9-14) trusty; urgency=low
 
   * Removing "New message in " from channel notification
@@ -81,3 +93,4 @@ scudcloud (0.9-1) trusty; urgency=low
   * Initial release
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 09 Feb 2015 19:12:26 -0200
+
