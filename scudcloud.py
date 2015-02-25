@@ -8,7 +8,7 @@ from wrapper import Wrapper
 from gi.repository import Unity, GObject, Dbusmenu
 from os.path import expanduser
 from PyQt4 import QtCore, QtGui, QtWebKit
-from PyQt4.Qt import QApplication
+from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QUrl, QSettings
 
 class ScudCloud(QtGui.QMainWindow):
@@ -44,6 +44,40 @@ class ScudCloud(QtGui.QMainWindow):
         self.gridLayout.addWidget(self.webView)
         self.mainLayout.addWidget(self.frame)
         self.setCentralWidget(self.centralwidget)
+        self.addMenu()
+
+    def addMenu(self):
+        menu = self.menuBar()
+        fileMenu = menu.addMenu("&File")
+        fileMenu.addAction(self.createAction("Preferences", self.webView.preferences))
+        fileMenu.addSeparator()
+        fileMenu.addAction(self.createAction("Sign in to Another Team", self.webView.addTeam))
+        fileMenu.addAction(self.createAction("Signout", self.webView.logout))
+        fileMenu.addSeparator()
+        fileMenu.addAction(self.createAction("Exit", self.close, QKeySequence.Close))
+        editMenu = menu.addMenu("&Edit")
+        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Undo))
+        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Redo))
+        editMenu.addSeparator()
+        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Cut))
+        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Copy))
+        editMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Paste))
+        navMenu = menu.addMenu("&Navigation")
+        navMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Back))
+        navMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Forward))
+        navMenu.addAction(self.webView.pageAction(QtWebKit.QWebPage.Reload))
+        helpMenu = menu.addMenu("&Help")
+        helpMenu.addAction(self.createAction("Help and Feedback", self.webView.help, QKeySequence.HelpContents))
+        helpMenu.addAction(self.createAction("Slack Help Center", self.webView.helpCenter))
+        helpMenu.addSeparator()
+        helpMenu.addAction(self.createAction("About", self.webView.about))
+
+    def createAction(self, text, slot, shortcut=None):
+        action = QtGui.QAction(text, self)        
+        if shortcut is not None:
+            action.setShortcut(shortcut)
+        action.triggered.connect(slot)
+        return action
 
     def domain(self):
         if self.identifier is None:

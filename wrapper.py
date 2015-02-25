@@ -17,11 +17,22 @@ class Wrapper(QWebView):
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.window.debug)
+        if not self.window.debug:
+            self.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
-        copyAction = self.pageAction(QtWebKit.QWebPage.Paste)
-        copyAction.setShortcuts(QKeySequence.Paste)
+        self.addActions()
+
+    def addActions(self):
+        self.pageAction(QtWebKit.QWebPage.Undo).setShortcuts(QKeySequence.Undo)
+        self.pageAction(QtWebKit.QWebPage.Redo).setShortcuts(QKeySequence.Redo)
+        self.pageAction(QtWebKit.QWebPage.Cut).setShortcuts(QKeySequence.Cut)
+        self.pageAction(QtWebKit.QWebPage.Copy).setShortcuts(QKeySequence.Copy)
+        self.pageAction(QtWebKit.QWebPage.Paste).setShortcuts(QKeySequence.Paste)
+        self.pageAction(QtWebKit.QWebPage.Back).setShortcuts(QKeySequence.Back)
+        self.pageAction(QtWebKit.QWebPage.Forward).setShortcuts(QKeySequence.Forward)
+        self.pageAction(QtWebKit.QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
 
     def call(self, function, arg=None):
         if isinstance(arg, str):
@@ -44,6 +55,24 @@ class Wrapper(QWebView):
             self.load(qUrl)
         else:
             subprocess.call(('xdg-open', url))
+
+    def preferences(self):
+        self.call("preferences")
+
+    def addTeam(self):
+        self.call("addTeam")
+
+    def logout(self):
+        self.call("logout")
+
+    def help(self):
+        self.call("help")
+
+    def helpCenter(self):
+        subprocess.call(('xdg-open', "https://slack.zendesk.com/hc/en-us"))
+
+    def about(self):
+        subprocess.call(('xdg-open', "https://github.com/raelgc/scudcloud"))
 
     def openChannel(self, menuitem, timestamp):
         self.call("join", menuitem.property_get("id"))
