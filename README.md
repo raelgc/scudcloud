@@ -23,6 +23,10 @@ sudo apt-get update
 sudo apt-get install scudcloud
 ```
 
+If you want **spell checking** add `hunspell` dictionary for your language. For `en-us`:
+
+    sudo apt-get install hunspell-en-us
+
 # Screenshots
 
 ![Some screenshots](/screenshot.png?raw=true)
