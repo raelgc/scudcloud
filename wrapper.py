@@ -1,9 +1,9 @@
 INSTALL_DIR = "/opt/scudcloud/"
 import sys, subprocess
-from PyQt4 import QtWebKit, QtCore
+from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
-from PyQt4.QtWebKit import QWebView, QWebSettings
+from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 
 class Wrapper(QWebView):
 
@@ -43,12 +43,14 @@ class Wrapper(QWebView):
         self.window.quicklist(self.page().currentFrame().evaluateJavaScript(self.js))
         self.window.enableMenus(self.isConnected())
         url = qUrl.toString()
-        if self.window.SIGNIN_URL != url:
+        if self.window.SIGNIN_URL != url and url.endswith(".slack.com/"):
             self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def linkClicked(self, qUrl):
         url = qUrl.toString()
         if self.window.SIGNIN_URL == url or url.endswith(".slack.com/messages?") or url.endswith(".slack.com/"):
+            self.load(qUrl)
+        elif url.startswith("https://accounts.google.com/o/oauth"):
             self.load(qUrl)
         else:
             subprocess.call(('xdg-open', url))
