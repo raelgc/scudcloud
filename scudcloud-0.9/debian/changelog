@@ -1,3 +1,9 @@
+scudcloud (0.9-19) trusty; urgency=low
+
+  * Adding spell checker (#9)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 27 Feb 2015 10:54:20 -0300
+
 scudcloud (0.9-18) trusty; urgency=low
 
   * Fixing support for Google Authentication (#10)

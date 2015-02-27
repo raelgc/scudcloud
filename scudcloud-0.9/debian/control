@@ -8,7 +8,7 @@ Homepage: https://github.com/raelgc/scudcloud
 
 Package: scudcloud
 Architecture: all
-Depends: ${misc:Depends}, python3, python3-pyqt4, python3-gi, libunity9
+Depends: ${misc:Depends}, python3, python3-pyqt4, python3-gi, libunity9, libqtwebkit-qupzillaplugins
 Description: ScudCloud is a non official desktop client for Slack
  ScudCloud is a non official desktop client for Slack.
  Slack (http://slack.com) is a platform for team communication.
