@@ -9,8 +9,10 @@ resources/scudcloud.png opt/scudcloud/resources
 scudcloud opt/scudcloud
 scudcloud.pyc opt/scudcloud
 scudcloud.desktop usr/share/applications
-systray/mono-dark/scudcloud.svg usr/share/icons/ubuntu-mono-dark/apps/22
-systray/mono-dark/scudcloud-attention.svg usr/share/icons/ubuntu-mono-dark/apps/22 
-systray/mono-light/scudcloud.svg usr/share/icons/ubuntu-mono-light/apps/22
-systray/mono-light/scudcloud-attention.svg usr/share/icons/ubuntu-mono-light/apps/22
+systray/mono-dark/scudcloud.svg usr/share/icons/ubuntu-mono-dark/scalable/apps
+systray/mono-dark/scudcloud-attention.svg usr/share/icons/ubuntu-dark-light/scalable/apps 
+systray/mono-light/scudcloud.svg usr/share/icons/ubuntu-mono-light/scalable/apps
+systray/mono-light/scudcloud-attention.svg usr/share/icons/ubuntu-mono-light/scalable/apps
+systray/hicolor/scudcloud.svg usr/share/icons/hicolor/scalable/apps
+systray/hicolor/scudcloud-attention.svg usr/share/icons/hicolor/scalable/apps
 
