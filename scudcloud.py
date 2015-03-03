@@ -4,6 +4,7 @@ import sys, os
 sys.path.append(INSTALL_DIR+'lib')
 import notify2
 from cookiejar import PersistentCookieJar
+from systray import Systray
 from wrapper import Wrapper
 from gi.repository import Unity, GObject, Dbusmenu
 from os.path import expanduser
@@ -27,32 +28,31 @@ class ScudCloud(QtGui.QMainWindow):
         self.webView = Wrapper(self)
         self.cookiesjar = PersistentCookieJar(self)
         self.webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
-        self.ui()
+        self.setCentralWidget(self.webView)
+        self.addMenu()
+        self.tray = Systray(self)
+        self.systray()
         if self.identifier is None:
             self.webView.load(QtCore.QUrl(self.SIGNIN_URL))
         else:
             self.webView.load(QtCore.QUrl(self.domain()))
         self.webView.show()
 
-    def ui(self):
-        self.resize(800, 600)
-        self.centralwidget = QtGui.QWidget(self)
-        self.mainLayout = QtGui.QHBoxLayout(self.centralwidget)
-        self.mainLayout.setSpacing(0)
-        self.mainLayout.setMargin(0)
-        self.frame = QtGui.QFrame(self.centralwidget)
-        self.gridLayout = QtGui.QVBoxLayout(self.frame)
-        self.gridLayout.setMargin(0)
-        self.gridLayout.setSpacing(0)
-        self.gridLayout.addWidget(self.webView)
-        self.mainLayout.addWidget(self.frame)
-        self.setCentralWidget(self.centralwidget)
-        self.addMenu()
+    def systray(self, show=None):
+        if show is None: 
+            show = self.settings.value("Systray") == "True"
+        if show:
+            self.tray.show()
+            self.settings.setValue("Systray", "True")
+        else:
+            self.tray.setVisible(False)
+            self.settings.setValue("Systray", "False")
 
     def addMenu(self):
         self.menus = {
             "file": {
                 "preferences": self.createAction("Preferences", self.webView.preferences),
+                "systray":     self.createAction("Systray Icon", self.systray, None, True),
                 "addTeam":     self.createAction("Sign in to Another Team", self.webView.addTeam),
                 "signout":     self.createAction("Signout", self.webView.logout),
                 "exit":        self.createAction("Exit", self.close, QKeySequence.Close)
@@ -74,6 +74,7 @@ class ScudCloud(QtGui.QMainWindow):
         menu = self.menuBar()
         fileMenu = menu.addMenu("&File")
         fileMenu.addAction(self.menus["file"]["preferences"])
+        fileMenu.addAction(self.menus["file"]["systray"])
         fileMenu.addSeparator()
         fileMenu.addAction(self.menus["file"]["addTeam"])
         fileMenu.addAction(self.menus["file"]["signout"])
@@ -94,6 +95,7 @@ class ScudCloud(QtGui.QMainWindow):
         helpMenu.addSeparator()
         helpMenu.addAction(self.menus["help"]["about"])
         self.enableMenus(False)
+        self.menus["file"]["systray"].setChecked(self.settings.value("Systray") == "True")
 
     def enableMenus(self, enabled):
         self.menus["file"]["preferences"].setEnabled(enabled)
@@ -101,11 +103,13 @@ class ScudCloud(QtGui.QMainWindow):
         self.menus["file"]["signout"].setEnabled(enabled)
         self.menus["help"]["help"].setEnabled(enabled)
 
-    def createAction(self, text, slot, shortcut=None):
+    def createAction(self, text, slot, shortcut=None, checkable=False):
         action = QtGui.QAction(text, self)        
         if shortcut is not None:
             action.setShortcut(shortcut)
         action.triggered.connect(slot)
+        if checkable:
+            action.setCheckable(True)
         return action
 
     def domain(self):
@@ -116,6 +120,7 @@ class ScudCloud(QtGui.QMainWindow):
 
     def focusInEvent(self, event):
         self.launcher.set_property("urgent", False)
+        self.tray.stopAlert()
 
     def titleChanged(self):
         self.setWindowTitle(self.webView.title())
@@ -145,9 +150,11 @@ class ScudCloud(QtGui.QMainWindow):
         if value > self.webView.messages:
             if not self.isActiveWindow():
                 self.launcher.set_property("urgent", True)
+                self.tray.alert()
         elif 0 == value:
             self.launcher.set_property("urgent", False)
             self.launcher.set_property("count_visible", False)
+            self.tray.stopAlert()
         else:
             self.launcher.set_property("count", value)
             self.launcher.set_property("count_visible", True)

@@ -1,3 +1,15 @@
+scudcloud (1.0-2) trusty; urgency=low
+
+  * Fixing tray icon paths
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 03 Mar 2015 18:31:44 -0300
+
+scudcloud (1.0-1) trusty; urgency=low
+
+  * Adding tray icon (#8)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 03 Mar 2015 13:19:01 -0300
+
 scudcloud (0.9-20) trusty; urgency=low
 
   * Adding lato font (#11)
