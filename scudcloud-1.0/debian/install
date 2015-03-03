@@ -1,5 +1,6 @@
 lib/cookiejar.pyc opt/scudcloud/lib
 lib/notify2.pyc opt/scudcloud/lib
+lib/systray.pyc opt/scudcloud/lib
 lib/wrapper.pyc opt/scudcloud/lib
 LICENSE opt/scudcloud
 resources/login.css opt/scudcloud/resources
@@ -8,3 +9,8 @@ resources/scudcloud.png opt/scudcloud/resources
 scudcloud opt/scudcloud
 scudcloud.pyc opt/scudcloud
 scudcloud.desktop usr/share/applications
+systray/mono-dark/scudcloud.svg usr/share/icons/ubuntu-mono-dark/apps/22
+systray/mono-dark/scudcloud-attention.svg usr/share/icons/ubuntu-mono-dark/apps/22 
+systray/mono-light/scudcloud.svg usr/share/icons/ubuntu-mono-light/apps/22
+systray/mono-light/scudcloud-attention.svg usr/share/icons/ubuntu-mono-light/apps/22
+
