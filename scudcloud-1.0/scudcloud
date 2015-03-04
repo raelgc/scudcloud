@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import sys, argparse
+INSTALL_DIR = "/opt/scudcloud/"
+sys.path.append(INSTALL_DIR+'lib')
 from PyQt4 import QtGui
 from scudcloud import ScudCloud
 if __name__ == "__main__":
