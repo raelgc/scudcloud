@@ -6,7 +6,10 @@ import notify2
 from cookiejar import PersistentCookieJar
 from systray import Systray
 from wrapper import Wrapper
-from gi.repository import Unity, GObject, Dbusmenu
+if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
+    from gi.repository import Unity, GObject, Dbusmenu
+else:
+    from launcher import Launcher
 from os.path import expanduser
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence
@@ -24,7 +27,10 @@ class ScudCloud(QtGui.QMainWindow):
         notify2.init(self.APP_NAME)
         self.settings = QSettings(expanduser("~")+"/.scudcloud", QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
-        self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
+        if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
+            self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
+        else:
+            self.launcher = Launcher(self)
         self.webView = Wrapper(self)
         self.cookiesjar = PersistentCookieJar(self)
         self.webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
@@ -129,18 +135,19 @@ class ScudCloud(QtGui.QMainWindow):
         self.cookiesjar.save()
 
     def quicklist(self, channels):
-        ql = Dbusmenu.Menuitem.new()
-        self.launcher.set_property("quicklist", ql)
-        if channels is not None:
-            for c in channels:
-                if c['is_member']:
-                    item = Dbusmenu.Menuitem.new ()
-                    item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, "#"+c['name'])
-                    item.property_set ("id", c['name'])
-                    item.property_set_bool (Dbusmenu.MENUITEM_PROP_VISIBLE, True)
-                    item.connect(Dbusmenu.MENUITEM_SIGNAL_ITEM_ACTIVATED, self.webView.openChannel)
-                    ql.child_append(item)
+        if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
+            ql = Dbusmenu.Menuitem.new()
             self.launcher.set_property("quicklist", ql)
+            if channels is not None:
+                for c in channels:
+                    if c['is_member']:
+                        item = Dbusmenu.Menuitem.new ()
+                        item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, "#"+c['name'])
+                        item.property_set ("id", c['name'])
+                        item.property_set_bool (Dbusmenu.MENUITEM_PROP_VISIBLE, True)
+                        item.connect(Dbusmenu.MENUITEM_SIGNAL_ITEM_ACTIVATED, self.webView.openChannel)
+                        ql.child_append(item)
+                self.launcher.set_property("quicklist", ql)
 
     def notify(self, title, message):
         notice = notify2.Notification(title, message, INSTALL_DIR+"resources/scudcloud.png")

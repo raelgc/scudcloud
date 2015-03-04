@@ -1,4 +1,5 @@
 lib/cookiejar.pyc opt/scudcloud/lib
+lib/launcher.pyc opt/scudcloud/lib
 lib/notify2.pyc opt/scudcloud/lib
 lib/systray.pyc opt/scudcloud/lib
 lib/wrapper.pyc opt/scudcloud/lib
