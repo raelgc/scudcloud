@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 INSTALL_DIR = "/opt/scudcloud/"
 import sys, os
-sys.path.append(INSTALL_DIR+'lib')
 import notify2
 from cookiejar import PersistentCookieJar
 from systray import Systray
