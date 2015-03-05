@@ -12,7 +12,7 @@ ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.web
 * count of unread notifications at launcher icon,
 * launcher wobbling on new messages,
 * channels quicklist,
-* optional systray icon.
+* optional "Close to Tray".
 
 # Install
 
