@@ -6,8 +6,12 @@ class Systray(QtGui.QSystemTrayIcon):
         self.window = window
         self.setToolTip(self.window.APP_NAME)
         self.menu = QtGui.QMenu(self.window)
-        self.menu.addAction('Show', self.activated)
-        self.menu.addAction('Exit', self.window.close)
+        self.menu.addAction('Show', self.restore)
+        self.menu.addSeparator()
+        self.menu.addAction(self.window.menus["file"]["preferences"])
+        self.menu.addAction(self.window.menus["help"]["about"])
+        self.menu.addSeparator()
+        self.menu.addAction(self.window.menus["file"]["exit"])
         self.setContextMenu(self.menu)
 
     def alert(self):
@@ -16,8 +20,10 @@ class Systray(QtGui.QSystemTrayIcon):
     def stopAlert(self):
         self.setIcon(QtGui.QIcon.fromTheme("scudcloud"))
 
-    def activated(self):
-        self.window.setWindowState(self.window.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
-        self.window.activateWindow()
+    def restore(self):
+        self.window.show()
         self.stopAlert()
 
+    def activated(self, reason):
+        if reason == QtGui.QSystemTrayIcon.DoubleClick:
+            self.restore()

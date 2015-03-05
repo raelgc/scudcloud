@@ -19,6 +19,7 @@ class ScudCloud(QtGui.QMainWindow):
     APP_NAME = "ScudCloud Client"
     SIGNIN_URL = "https://slack.com/signin"
     debug = False
+    forceClose = False
 
     def __init__(self, parent=None):
         super(ScudCloud, self).__init__(parent)
@@ -57,10 +58,10 @@ class ScudCloud(QtGui.QMainWindow):
         self.menus = {
             "file": {
                 "preferences": self.createAction("Preferences", self.webView.preferences),
-                "systray":     self.createAction("Systray Icon", self.systray, None, True),
+                "systray":     self.createAction("Close to Tray", self.systray, None, True),
                 "addTeam":     self.createAction("Sign in to Another Team", self.webView.addTeam),
                 "signout":     self.createAction("Signout", self.webView.logout),
-                "exit":        self.createAction("Exit", self.close, QKeySequence.Close)
+                "exit":        self.createAction("Quit", self.exit, QKeySequence.Close)
             },
             "edit": {
                 "undo":        self.webView.pageAction(QtWebKit.QWebPage.Undo),
@@ -131,7 +132,20 @@ class ScudCloud(QtGui.QMainWindow):
         self.setWindowTitle(self.webView.title())
 
     def closeEvent(self, event):
-        self.cookiesjar.save()
+        if not self.forceClose and self.settings.value("Systray") == "True":
+            self.hide()
+            event.ignore()
+        else:
+            self.cookiesjar.save()
+
+    def show(self):
+        self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
+        self.activateWindow()
+        self.setVisible(True)
+
+    def exit(self):
+        self.forceClose = True
+        self.close()
 
     def quicklist(self, channels):
         if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
