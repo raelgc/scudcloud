@@ -56,6 +56,7 @@ class Wrapper(QWebView):
             subprocess.call(('xdg-open', url))
 
     def preferences(self):
+        self.window.show()
         self.call("preferences")
 
     def addTeam(self):
@@ -78,8 +79,7 @@ class Wrapper(QWebView):
 
     def openChannel(self, menuitem, timestamp):
         self.call("join", menuitem.property_get("id"))
-        self.window.setWindowState(self.window.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
-        self.window.activateWindow()
+        self.window.show()
 
     @QtCore.pyqtSlot(bool) 
     def enableMenus(self, enabled):
