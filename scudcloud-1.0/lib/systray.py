@@ -3,6 +3,7 @@ from PyQt4 import QtCore, QtGui
 class Systray(QtGui.QSystemTrayIcon):
     def __init__(self, window):
         super(Systray, self).__init__(QtGui.QIcon.fromTheme("scudcloud"), window)
+        QtCore.QObject.connect(self, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.activatedEvent)
         self.window = window
         self.setToolTip(self.window.APP_NAME)
         self.menu = QtGui.QMenu(self.window)
@@ -24,6 +25,13 @@ class Systray(QtGui.QSystemTrayIcon):
         self.window.show()
         self.stopAlert()
 
-    def activated(self, reason):
-        if reason == QtGui.QSystemTrayIcon.DoubleClick:
-            self.restore()
+    def activatedEvent(self, reason):
+        if reason in [QtGui.QSystemTrayIcon.MiddleClick, QtGui.QSystemTrayIcon.Trigger]:
+            if self.window.isHidden():
+                self.restore()
+            else:
+                if self.window.isMinimized():
+                    self.restore()
+                else:
+                    self.window.hide()
+
