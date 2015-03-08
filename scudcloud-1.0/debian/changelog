@@ -1,3 +1,69 @@
+scudcloud (1.0-6) trusty; urgency=low
+
+  * Support for leff-clicks to restore/hide the tray icon (#17)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 06 Mar 2015 12:51:49 -0300
+
+scudcloud (1.0-5) trusty; urgency=low
+
+  * Close to Tray (#14)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 04 Mar 2015 22:32:09 -0300
+
+scudcloud (1.0-4) trusty; urgency=low
+
+  * Removing compiled files from package source (#13)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 04 Mar 2015 10:55:30 -0300
+
+scudcloud (1.0-3) trusty; urgency=low
+
+  * Adding support to other DEs (#12)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 04 Mar 2015 09:32:56 -0300
+
+scudcloud (1.0-2) trusty; urgency=low
+
+  * Fixing tray icon paths
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 03 Mar 2015 18:31:44 -0300
+
+scudcloud (1.0-1) trusty; urgency=low
+
+  * Adding tray icon (#8)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 03 Mar 2015 13:19:01 -0300
+
+scudcloud (0.9-20) trusty; urgency=low
+
+  * Adding lato font (#11)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 28 Feb 2015 10:22:36 -0300
+
+scudcloud (0.9-19) trusty; urgency=low
+
+  * Adding spell checker (#9)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 27 Feb 2015 10:54:20 -0300
+
+scudcloud (0.9-18) trusty; urgency=low
+
+  * Fixing support for Google Authentication (#10)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 26 Feb 2015 21:24:38 -0300
+
+scudcloud (0.9-17) trusty; urgency=low
+
+  * Menus were not enabled after change channel
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 25 Feb 2015 14:22:03 -0300
+
+scudcloud (0.9-16) trusty; urgency=low
+
+  * Adding window menus (#7)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 25 Feb 2015 09:25:49 -0300
+
 scudcloud (0.9-15) trusty; urgency=low
 
   * Simple team switcher (#6)
@@ -87,3 +153,4 @@ scudcloud (0.9-1) trusty; urgency=low
   * Initial release
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 09 Feb 2015 19:12:26 -0200
+

@@ -1,9 +1,0 @@
-lib/cookiejar.pyc opt/scudcloud/lib
-lib/notify2.pyc opt/scudcloud/lib
-LICENSE opt/scudcloud
-resources/login.css opt/scudcloud/resources
-resources/scudcloud.js opt/scudcloud/resources
-resources/scudcloud.png opt/scudcloud/resources
-scudcloud opt/scudcloud
-scudcloud.pyc opt/scudcloud
-scudcloud.desktop usr/share/applications
