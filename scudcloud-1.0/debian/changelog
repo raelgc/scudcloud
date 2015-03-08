@@ -1,3 +1,9 @@
+scudcloud (1.0-6) trusty; urgency=low
+
+  * Support for leff-clicks to restore/hide the tray icon (#17)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 06 Mar 2015 12:51:49 -0300
+
 scudcloud (1.0-5) trusty; urgency=low
 
   * Close to Tray (#14)
