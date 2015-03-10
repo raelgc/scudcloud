@@ -1,3 +1,9 @@
+scudcloud (1.0-9) trusty; urgency=low
+
+  * Improving Systray clicking (#17)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 10 Mar 2015 10:41:34 -0300
+
 scudcloud (1.0-8) trusty; urgency=low
 
   * Adding missing file (qsingleapplication.py)
