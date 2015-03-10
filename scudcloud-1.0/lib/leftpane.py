@@ -25,8 +25,12 @@ class LeftPane(QWebView):
         self.setFixedWidth(0)
         self.setVisible(False)
 
-    def addTeam(self, id, name, url):
-        self.page().currentFrame().evaluateJavaScript("LeftPane.addTeam('"+id+"','"+name+"','"+url+"');")
+    def addTeam(self, id, name, url, active=False):
+        if active is True:
+            checked = "true"
+        else:
+            checked = "false"
+        self.page().currentFrame().evaluateJavaScript("LeftPane.addTeam('"+id+"','"+name+"','"+url+"', "+checked+");")
         
     @QtCore.pyqtSlot(str) 
     def switchTo(self, url):

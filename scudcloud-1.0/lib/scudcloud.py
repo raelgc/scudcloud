@@ -144,7 +144,7 @@ class ScudCloud(QtGui.QMainWindow):
         if teams is not None and len(teams) > 1:
             self.leftPane.show()
             for t in teams:
-                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'])
+                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t == teams[0])
 
     def switchTo(self, url):
         index = -1
