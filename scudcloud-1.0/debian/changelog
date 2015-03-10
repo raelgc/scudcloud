@@ -1,3 +1,15 @@
+scudcloud (1.0-8) trusty; urgency=low
+
+  * Adding missing file (qsingleapplication.py)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 10 Mar 2015 09:28:51 -0300
+
+scudcloud (1.0-7) trusty; urgency=low
+
+  * Multiple teams (#6); Improving support to Precise (#20)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 10 Mar 2015 08:53:58 -0300
+
 scudcloud (1.0-6) trusty; urgency=low
 
   * Support for leff-clicks to restore/hide the tray icon (#17)
