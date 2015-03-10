@@ -3,6 +3,7 @@ INSTALL_DIR = "/opt/scudcloud/"
 import sys, os
 import notify2
 from cookiejar import PersistentCookieJar
+from leftpane import LeftPane
 from systray import Systray
 from wrapper import Wrapper
 if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
@@ -20,6 +21,8 @@ class ScudCloud(QtGui.QMainWindow):
     SIGNIN_URL = "https://slack.com/signin"
     debug = False
     forceClose = False
+    urgent = False
+    messages = 0
 
     def __init__(self, parent=None):
         super(ScudCloud, self).__init__(parent)
@@ -31,18 +34,28 @@ class ScudCloud(QtGui.QMainWindow):
             self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
         else:
             self.launcher = Launcher(self)
-        self.webView = Wrapper(self)
+        self.leftPane = LeftPane(self)
         self.cookiesjar = PersistentCookieJar(self)
-        self.webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
-        self.setCentralWidget(self.webView)
+        webView = Wrapper(self)
+        webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
+        self.stackedWidget = QtGui.QStackedWidget()
+        self.stackedWidget.addWidget(webView)
+        centralWidget = QtGui.QWidget(self)
+        layout = QtGui.QHBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        layout.addWidget(self.leftPane)
+        layout.addWidget(self.stackedWidget)
+        centralWidget.setLayout(layout)
+        self.setCentralWidget(centralWidget)
         self.addMenu()
         self.tray = Systray(self)
         self.systray()
         if self.identifier is None:
-            self.webView.load(QtCore.QUrl(self.SIGNIN_URL))
+            webView.load(QtCore.QUrl(self.SIGNIN_URL))
         else:
-            self.webView.load(QtCore.QUrl(self.domain()))
-        self.webView.show()
+            webView.load(QtCore.QUrl(self.domain()))
+        webView.show()
 
     def systray(self, show=None):
         if show is None: 
@@ -57,24 +70,24 @@ class ScudCloud(QtGui.QMainWindow):
     def addMenu(self):
         self.menus = {
             "file": {
-                "preferences": self.createAction("Preferences", self.webView.preferences),
+                "preferences": self.createAction("Preferences", self.current().preferences),
                 "systray":     self.createAction("Close to Tray", self.systray, None, True),
-                "addTeam":     self.createAction("Sign in to Another Team", self.webView.addTeam),
-                "signout":     self.createAction("Signout", self.webView.logout),
+                "addTeam":     self.createAction("Sign in to Another Team", self.current().addTeam),
+                "signout":     self.createAction("Signout", self.current().logout),
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Close)
             },
             "edit": {
-                "undo":        self.webView.pageAction(QtWebKit.QWebPage.Undo),
-                "redo":        self.webView.pageAction(QtWebKit.QWebPage.Redo),
-                "cut":         self.webView.pageAction(QtWebKit.QWebPage.Cut),
-                "copy":        self.webView.pageAction(QtWebKit.QWebPage.Copy),
-                "paste":       self.webView.pageAction(QtWebKit.QWebPage.Paste),
-                "reload":      self.webView.pageAction(QtWebKit.QWebPage.Reload)
+                "undo":        self.current().pageAction(QtWebKit.QWebPage.Undo),
+                "redo":        self.current().pageAction(QtWebKit.QWebPage.Redo),
+                "cut":         self.current().pageAction(QtWebKit.QWebPage.Cut),
+                "copy":        self.current().pageAction(QtWebKit.QWebPage.Copy),
+                "paste":       self.current().pageAction(QtWebKit.QWebPage.Paste),
+                "reload":      self.current().pageAction(QtWebKit.QWebPage.Reload)
             },
             "help": {
-                "help":       self.createAction("Help and Feedback", self.webView.help, QKeySequence.HelpContents),
-                "center":     self.createAction("Slack Help Center", self.webView.helpCenter),
-                "about":      self.createAction("About", self.webView.about)
+                "help":       self.createAction("Help and Feedback", self.current().help, QKeySequence.HelpContents),
+                "center":     self.createAction("Slack Help Center", self.current().helpCenter),
+                "about":      self.createAction("About", self.current().about)
              }
         }
         menu = self.menuBar()
@@ -124,12 +137,38 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             return "https://"+self.identifier+".slack.com"
 
+    def current(self):
+        return self.stackedWidget.currentWidget()
+
+    def teams(self, teams):
+        if teams is not None and len(teams) > 1:
+            self.leftPane.show()
+            for t in teams:
+                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t == teams[0])
+
+    def switchTo(self, url):
+        index = -1
+        for i in range(0, self.stackedWidget.count()):
+            if self.stackedWidget.widget(i).url().toString().startswith(url):
+                index = i
+                break
+        if index != -1:
+            self.stackedWidget.setCurrentIndex(index)
+        else:
+            webView = Wrapper(self)
+            webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
+            webView.load(QtCore.QUrl(url))
+            webView.show()
+            self.stackedWidget.addWidget(webView)
+            self.stackedWidget.setCurrentWidget(webView)
+        self.quicklist(self.current().listChannels())
+
     def focusInEvent(self, event):
         self.launcher.set_property("urgent", False)
         self.tray.stopAlert()
 
     def titleChanged(self):
-        self.setWindowTitle(self.webView.title())
+        self.setWindowTitle(self.current().title())
 
     def closeEvent(self, event):
         if not self.forceClose and self.settings.value("Systray") == "True":
@@ -158,7 +197,7 @@ class ScudCloud(QtGui.QMainWindow):
                         item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, "#"+c['name'])
                         item.property_set ("id", c['name'])
                         item.property_set_bool (Dbusmenu.MENUITEM_PROP_VISIBLE, True)
-                        item.connect(Dbusmenu.MENUITEM_SIGNAL_ITEM_ACTIVATED, self.webView.openChannel)
+                        item.connect(Dbusmenu.MENUITEM_SIGNAL_ITEM_ACTIVATED, self.current().openChannel)
                         ql.child_append(item)
                 self.launcher.set_property("quicklist", ql)
 
@@ -166,16 +205,21 @@ class ScudCloud(QtGui.QMainWindow):
         notice = notify2.Notification(title, message, INSTALL_DIR+"resources/scudcloud.png")
         notice.show()
 
-    def count(self, value):
-        if value > self.webView.messages:
-            if not self.isActiveWindow():
+    def count(self):
+        total = 0
+        for i in range(0, self.stackedWidget.count()):
+            total+=self.stackedWidget.widget(i).messages
+        if total > self.messages:
+            if not self.isActiveWindow() and not self.urgent:
                 self.launcher.set_property("urgent", True)
                 self.tray.alert()
-        elif 0 == value:
+                self.urgent = True
+        elif 0 == total:
             self.launcher.set_property("urgent", False)
             self.launcher.set_property("count_visible", False)
             self.tray.stopAlert()
+            self.urgent = False
         else:
-            self.launcher.set_property("count", value)
+            self.launcher.set_property("count", total)
             self.launcher.set_property("count_visible", True)
-        self.webView.messages = value
+        self.messages = total

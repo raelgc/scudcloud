@@ -4,8 +4,9 @@ INSTALL_DIR = "/opt/scudcloud/"
 sys.path.append(INSTALL_DIR+'lib')
 from PyQt4 import QtGui
 from scudcloud import ScudCloud
+from qsingleapplication import QSingleApplication
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
+    app = QSingleApplication(sys.argv)
     app.setApplicationName(ScudCloud.APP_NAME)
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -13,5 +14,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     ScudCloud.debug=args.debug
     main = ScudCloud()
+    app.singleStart(main)
     main.showMaximized()
     sys.exit(app.exec_())
