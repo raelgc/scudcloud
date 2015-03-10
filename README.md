@@ -8,6 +8,7 @@ ScudCloud is a **non official** open-source Linux (Ubuntu, Kubuntu, Mint) deskto
 
 ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.webkit.org/) to render the web version of Slack, but using the [QWebkit-Native bridge](http://qt-project.org/doc/qt-4.8/qtwebkit-bridge.html) to improve desktop integration with:
 
+* multiple teams support,
 * native system notifications,
 * count of unread notifications at launcher icon,
 * launcher wobbling on new messages,
