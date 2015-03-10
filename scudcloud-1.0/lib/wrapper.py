@@ -40,7 +40,9 @@ class Wrapper(QWebView):
     def urlChanged(self, qUrl):
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-        self.window.quicklist(self.page().currentFrame().evaluateJavaScript(self.js))
+        boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
+        self.window.quicklist(boot_data['channels'])
+        self.window.teams(boot_data['teams'])
         self.window.enableMenus(self.isConnected())
         url = qUrl.toString()
         if self.window.SIGNIN_URL != url and url.endswith(".slack.com/"):
@@ -77,6 +79,9 @@ class Wrapper(QWebView):
     def isConnected(self):
         return self.call("isConnected")
 
+    def listChannels(self):
+        return self.call("listChannels")
+
     def openChannel(self, menuitem, timestamp):
         self.call("join", menuitem.property_get("id"))
         self.window.show()
@@ -102,5 +107,6 @@ class Wrapper(QWebView):
 
     @QtCore.pyqtSlot(int) 
     def count(self, value):
-        self.window.count(value)
+        self.messages = value;
+        self.window.count()
 
