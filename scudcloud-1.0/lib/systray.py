@@ -27,11 +27,7 @@ class Systray(QtGui.QSystemTrayIcon):
 
     def activatedEvent(self, reason):
         if reason in [QtGui.QSystemTrayIcon.MiddleClick, QtGui.QSystemTrayIcon.Trigger]:
-            if self.window.isHidden():
+            if self.window.isHidden() or self.window.isMinimized() or not self.window.isActiveWindow():
                 self.restore()
             else:
-                if self.window.isMinimized():
-                    self.restore()
-                else:
-                    self.window.hide()
-
+                self.window.hide()
