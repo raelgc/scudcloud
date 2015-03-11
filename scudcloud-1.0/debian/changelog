@@ -1,3 +1,9 @@
+scudcloud (1.0-10) trusty; urgency=low
+
+  * Preventing steal focus (#22) and alert on new notifications (#23)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 11 Mar 2015 09:58:49 -0300
+
 scudcloud (1.0-9) trusty; urgency=low
 
   * Improving Systray clicking (#17)
