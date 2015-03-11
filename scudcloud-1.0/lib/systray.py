@@ -3,7 +3,7 @@ from PyQt4 import QtCore, QtGui
 class Systray(QtGui.QSystemTrayIcon):
     def __init__(self, window):
         super(Systray, self).__init__(QtGui.QIcon.fromTheme("scudcloud"), window)
-        QtCore.QObject.connect(self, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.activatedEvent)
+        self.connect(self, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.activatedEvent)
         self.window = window
         self.setToolTip(self.window.APP_NAME)
         self.menu = QtGui.QMenu(self.window)

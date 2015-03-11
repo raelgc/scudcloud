@@ -51,6 +51,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.addMenu()
         self.tray = Systray(self)
         self.systray()
+        self.installEventFilter(self)
         if self.identifier is None:
             webView.load(QtCore.QUrl(self.SIGNIN_URL))
         else:
@@ -163,9 +164,16 @@ class ScudCloud(QtGui.QMainWindow):
             self.stackedWidget.setCurrentWidget(webView)
         self.quicklist(self.current().listChannels())
 
+    def eventFilter(self, obj, event):
+        if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
+            self.focusInEvent(event)
+        return True
+
     def focusInEvent(self, event):
+        print("Focus in!")
         self.launcher.set_property("urgent", False)
         self.tray.stopAlert()
+        self.urgent = False
 
     def titleChanged(self):
         self.setWindowTitle(self.current().title())
@@ -207,7 +215,9 @@ class ScudCloud(QtGui.QMainWindow):
         self.alert()
 
     def alert(self):
+        print("Trying to alert...")
         if not self.isActiveWindow() and not self.urgent:
+            print("Alerting!")
             self.launcher.set_property("urgent", True)
             self.tray.alert()
             self.urgent = True
@@ -219,10 +229,7 @@ class ScudCloud(QtGui.QMainWindow):
         if total > self.messages:
             self.alert()
         elif 0 == total:
-            self.launcher.set_property("urgent", False)
             self.launcher.set_property("count_visible", False)
-            self.tray.stopAlert()
-            self.urgent = False
         else:
             self.launcher.set_property("count", total)
             self.launcher.set_property("count_visible", True)
