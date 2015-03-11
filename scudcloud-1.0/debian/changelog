@@ -1,3 +1,9 @@
+scudcloud (1.0-11) trusty; urgency=low
+
+  * Fixing alert
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 11 Mar 2015 11:20:25 -0300
+
 scudcloud (1.0-10) trusty; urgency=low
 
   * Preventing steal focus (#22) and alert on new notifications (#23)
