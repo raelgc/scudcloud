@@ -1,5 +1,4 @@
 function Notification(title, options){ 
-	this.permission = 'granted'; 
     desktop.sendMessage(title, options.body);
 }
 Notification.permission = 'granted'; 
@@ -9,13 +8,18 @@ Notification.requestPermission = function(callback){
 var ScudCloud = {
 	init: function(){
 		document.onpaste = function(e){desktop.pasted(false);}
+		ScudCloud.overrideNotifications();
+		TS.ms.connected_sig.add(function(){desktop.enableMenus(true);});
+		TS.ms.disconnected_sig.add(function(){desktop.enableMenus(false);});
+		ScudCloud.onDOMReady = TS.onDOMReady;
+		TS.onDOMReady = function(){ScudCloud.onDOMReady(); ScudCloud.overrideNotifications()};
+		ScudCloud.watch();
+	},
+	overrideNotifications: function(){
 		TS.ui.growls.getPermissionLevel = function() { return 'granted'}
 		TS.ui.growls.show = function(j,k,g,o,l,b,c,m){
 			new Notification(j,{body:g,icon:TS.boot_data.img.app_icon,tag:"tag_"+(c?c.id||c.ts||new Date().getTime():new Date().getTime())})
 		}
-		TS.ms.connected_sig.add(function(){desktop.enableMenus(true);});
-		TS.ms.disconnected_sig.add(function(){desktop.enableMenus(false);});
-		ScudCloud.watch();
 	},
     count: function(){
 		var total=0; 
