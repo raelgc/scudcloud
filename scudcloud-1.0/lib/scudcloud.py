@@ -204,16 +204,20 @@ class ScudCloud(QtGui.QMainWindow):
     def notify(self, title, message):
         notice = notify2.Notification(title, message, INSTALL_DIR+"resources/scudcloud.png")
         notice.show()
+        self.alert()
+
+    def alert(self):
+        if not self.isActiveWindow() and not self.urgent:
+            self.launcher.set_property("urgent", True)
+            self.tray.alert()
+            self.urgent = True
 
     def count(self):
         total = 0
         for i in range(0, self.stackedWidget.count()):
             total+=self.stackedWidget.widget(i).messages
         if total > self.messages:
-            if not self.isActiveWindow() and not self.urgent:
-                self.launcher.set_property("urgent", True)
-                self.tray.alert()
-                self.urgent = True
+            self.alert()
         elif 0 == total:
             self.launcher.set_property("urgent", False)
             self.launcher.set_property("count_visible", False)
