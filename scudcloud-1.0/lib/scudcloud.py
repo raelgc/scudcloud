@@ -167,10 +167,9 @@ class ScudCloud(QtGui.QMainWindow):
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
             self.focusInEvent(event)
-        return True
+        return QtGui.QMainWindow.eventFilter(self, obj, event);
 
     def focusInEvent(self, event):
-        print("Focus in!")
         self.launcher.set_property("urgent", False)
         self.tray.stopAlert()
         self.urgent = False
@@ -215,9 +214,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.alert()
 
     def alert(self):
-        print("Trying to alert...")
         if not self.isActiveWindow() and not self.urgent:
-            print("Alerting!")
             self.launcher.set_property("urgent", True)
             self.tray.alert()
             self.urgent = True
