@@ -1,3 +1,9 @@
+scudcloud (1.0-13) trusty; urgency=low
+
+  * Adding gir1.2-unity-5.0 as dependency (#24)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 11 Mar 2015 18:34:41 -0300
+
 scudcloud (1.0-12) trusty; urgency=low
 
   * Fixing eventFilter
