@@ -21,7 +21,6 @@ class ScudCloud(QtGui.QMainWindow):
     SIGNIN_URL = "https://slack.com/signin"
     debug = False
     forceClose = False
-    urgent = False
     messages = 0
 
     def __init__(self, parent=None):
@@ -172,7 +171,6 @@ class ScudCloud(QtGui.QMainWindow):
     def focusInEvent(self, event):
         self.launcher.set_property("urgent", False)
         self.tray.stopAlert()
-        self.urgent = False
 
     def titleChanged(self):
         self.setWindowTitle(self.current().title())
@@ -214,10 +212,9 @@ class ScudCloud(QtGui.QMainWindow):
         self.alert()
 
     def alert(self):
-        if not self.isActiveWindow() and not self.urgent:
+        if not self.isActiveWindow():
             self.launcher.set_property("urgent", True)
             self.tray.alert()
-            self.urgent = True
 
     def count(self):
         total = 0
@@ -225,9 +222,11 @@ class ScudCloud(QtGui.QMainWindow):
             total+=self.stackedWidget.widget(i).messages
         if total > self.messages:
             self.alert()
-        elif 0 == total:
+        if 0 == total:
             self.launcher.set_property("count_visible", False)
+            self.tray.setCounter(0)
         else:
+            self.tray.setCounter(total)
             self.launcher.set_property("count", total)
             self.launcher.set_property("count_visible", True)
         self.messages = total
