@@ -10,8 +10,8 @@ ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.web
 
 * multiple teams support,
 * native system notifications,
-* count of unread notifications at launcher icon (Unity only),
-* launcher wobbling on new messages,
+* count of unread direct mentions at launcher/sytray icon,
+* alert/wobbling on new messages,
 * channels quicklist (Unity only),
 * optional "Close to Tray".
 
