@@ -6,14 +6,18 @@ from cookiejar import PersistentCookieJar
 from leftpane import LeftPane
 from systray import Systray
 from wrapper import Wrapper
-if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
-    from gi.repository import Unity, GObject, Dbusmenu
-else:
-    from launcher import Launcher
 from os.path import expanduser
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QUrl, QSettings
+
+# Auto-detection of Unity and Dbusmenu in gi repository
+try:
+    from gi.repository import Unity, Dbusmenu
+except ImportError:
+    Unity = None
+    Dbusmenu = None
+    from launcher import DummyLauncher
 
 class ScudCloud(QtGui.QMainWindow):
 
@@ -29,10 +33,10 @@ class ScudCloud(QtGui.QMainWindow):
         notify2.init(self.APP_NAME)
         self.settings = QSettings(expanduser("~")+"/.scudcloud", QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
-        if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
+        if Unity is not None:
             self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
         else:
-            self.launcher = Launcher(self)
+            self.launcher = DummyLauncher(self)
         self.leftPane = LeftPane(self)
         self.cookiesjar = PersistentCookieJar(self)
         webView = Wrapper(self)
@@ -192,7 +196,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.close()
 
     def quicklist(self, channels):
-        if "ubuntu"==os.environ.get('DESKTOP_SESSION'):
+        if Dbusmenu is not None:
             ql = Dbusmenu.Menuitem.new()
             self.launcher.set_property("quicklist", ql)
             if channels is not None:
