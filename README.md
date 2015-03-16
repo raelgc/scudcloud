@@ -31,7 +31,7 @@ If you want **spell checking**, add the `hunspell` dictionary for your language.
 
 ## Ubuntu 12.04
 
-For Ubuntu 12.04 (Precise Pangolin), you'll need to update `qtwebkit`: if not, ScudCloud will hang in the `Loading` screen. Please add the following PPAs (for updated `gstreamer` and `qtwebkit`):
+For Ubuntu 12.04 (Precise Pangolin), you'll need to update `qtwebkit`: Slack is not compatible with `libqtwebkit4` package shipped with 12.04 hanging in the `Loading` screen.  Please add the following PPAs (for updated `gstreamer` and `qtwebkit`):
 
 ```term
 sudo add-apt-repository -y ppa:gstreamer-developers/ppa
