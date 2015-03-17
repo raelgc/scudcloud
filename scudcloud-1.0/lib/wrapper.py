@@ -1,9 +1,11 @@
-INSTALL_DIR = "/opt/scudcloud/"
 import sys, subprocess
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
+
+from resources import get_resource_path
+
 
 class Wrapper(QWebView):
 
@@ -12,8 +14,8 @@ class Wrapper(QWebView):
     def __init__(self, window):
         QWebView.__init__(self)
         self.window = window
-        with open (INSTALL_DIR+"resources/scudcloud.js", "r") as f:
-             self.js=f.read()
+        with open(get_resource_path("scudcloud.js"), "r") as f:
+            self.js = f.read()
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.window.debug)
@@ -38,7 +40,8 @@ class Wrapper(QWebView):
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def urlChanged(self, qUrl):
-        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(INSTALL_DIR+"/resources/login.css"))
+        self.settings().setUserStyleSheetUrl(
+            QUrl.fromLocalFile(get_resource_path("login.css")))
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
         self.window.quicklist(boot_data['channels'])
