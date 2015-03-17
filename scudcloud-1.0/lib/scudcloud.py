@@ -20,7 +20,6 @@ except ImportError:
 
 from resources import get_resource_path
 
-
 class ScudCloud(QtGui.QMainWindow):
 
     APP_NAME = "ScudCloud Client"
@@ -57,6 +56,9 @@ class ScudCloud(QtGui.QMainWindow):
         self.tray = Systray(self)
         self.systray()
         self.installEventFilter(self)
+        self.zoomIn = QtGui.QShortcut(QKeySequence.ZoomIn, self, activated = lambda: self.current().setZoomFactor(self.current().zoomFactor()+0.2))
+        self.zoomOut = QtGui.QShortcut(QKeySequence.ZoomOut, self, activated = lambda: self.current().setZoomFactor(self.current().zoomFactor()-0.2))
+        self.zoomOne = QtGui.QShortcut(QtCore.Qt.CTRL + QtCore.Qt.Key_0, self, activated = lambda: self.current().setZoomFactor(1))
         if self.identifier is None:
             webView.load(QtCore.QUrl(self.SIGNIN_URL))
         else:
