@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-INSTALL_DIR = "/opt/scudcloud/"
 import sys, os
 import notify2
 from cookiejar import PersistentCookieJar
@@ -18,6 +17,9 @@ except ImportError:
     Unity = None
     Dbusmenu = None
     from launcher import DummyLauncher
+
+from resources import get_resource_path
+
 
 class ScudCloud(QtGui.QMainWindow):
 
@@ -211,7 +213,8 @@ class ScudCloud(QtGui.QMainWindow):
                 self.launcher.set_property("quicklist", ql)
 
     def notify(self, title, message):
-        notice = notify2.Notification(title, message, INSTALL_DIR+"resources/scudcloud.png")
+        notice = notify2.Notification(title, message,
+                                      get_resource_path('scudcloud.png'))
         notice.show()
         self.alert()
 
