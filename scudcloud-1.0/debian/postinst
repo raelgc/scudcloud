@@ -20,7 +20,6 @@ set -e
 
 case "$1" in
     configure)
-        xdg-icon-resource forceupdate
         python3 -m compileall /opt/scudcloud/lib/
     ;;
 
