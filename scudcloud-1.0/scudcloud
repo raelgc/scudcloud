@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, argparse
+import sys, argparse, os
 INSTALL_DIR = "/opt/scudcloud/"
 sys.path.append(INSTALL_DIR+'lib')
 from PyQt4 import QtGui
@@ -8,6 +8,8 @@ from qsingleapplication import QSingleApplication
 if __name__ == "__main__":
     app = QSingleApplication(sys.argv)
     app.setApplicationName(ScudCloud.APP_NAME)
+    app.setWindowIcon(
+        QtGui.QIcon(os.path.join(INSTALL_DIR, 'resources', 'scudcloud.png')))
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--debug', dest='debug', default=False, type=bool, help='enable webkit debug console (default: False)')
