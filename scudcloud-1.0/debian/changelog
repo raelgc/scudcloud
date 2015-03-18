@@ -1,3 +1,9 @@
+scudcloud (1.0-20) trusty; urgency=low
+
+  * Zoom(#30), better dependencies(#32), proper cleanup(#34), app icon(#35)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 18 Mar 2015 09:29:34 -0300
+
 scudcloud (1.0-19) trusty; urgency=low
 
   * Fixing Notification JS error (#33)
