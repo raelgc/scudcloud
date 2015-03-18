@@ -20,7 +20,6 @@ except ImportError:
 
 from resources import get_resource_path
 
-
 class ScudCloud(QtGui.QMainWindow):
 
     APP_NAME = "ScudCloud Client"
@@ -57,6 +56,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.tray = Systray(self)
         self.systray()
         self.installEventFilter(self)
+        self.zoom()
         if self.identifier is None:
             webView.load(QtCore.QUrl(self.SIGNIN_URL))
         else:
@@ -72,6 +72,26 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             self.tray.setVisible(False)
             self.settings.setValue("Systray", "False")
+
+    def zoom(self):
+        default = 1
+        if self.settings.value("Zoom") is not None:
+            default = float(self.settings.value("Zoom"))
+        self.current().setZoomFactor(default)
+
+    def setZoom(self, factor=1):
+        if factor > 0:
+            self.current().setZoomFactor(factor)
+            self.settings.setValue("Zoom", factor)
+
+    def zoomIn(self):
+        self.setZoom(self.current().zoomFactor() + 0.1)
+
+    def zoomOut(self):
+        self.setZoom(self.current().zoomFactor() - 0.1)
+
+    def zoomReset(self):
+        self.setZoom()
 
     def addMenu(self):
         self.menus = {
@@ -89,6 +109,11 @@ class ScudCloud(QtGui.QMainWindow):
                 "copy":        self.current().pageAction(QtWebKit.QWebPage.Copy),
                 "paste":       self.current().pageAction(QtWebKit.QWebPage.Paste),
                 "reload":      self.current().pageAction(QtWebKit.QWebPage.Reload)
+            },
+            "view": {
+                "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
+                "zoomout":     self.createAction("Zoom Out", self.zoomOut, QKeySequence.ZoomOut),
+                "reset":       self.createAction("Reset", self.zoomReset, QtCore.Qt.CTRL + QtCore.Qt.Key_0)
             },
             "help": {
                 "help":       self.createAction("Help and Feedback", self.current().help, QKeySequence.HelpContents),
@@ -114,6 +139,10 @@ class ScudCloud(QtGui.QMainWindow):
         editMenu.addAction(self.menus["edit"]["paste"])
         editMenu.addSeparator()
         editMenu.addAction(self.menus["edit"]["reload"])
+        viewMenu = menu.addMenu("&View")
+        viewMenu.addAction(self.menus["view"]["zoomin"])
+        viewMenu.addAction(self.menus["view"]["zoomout"])
+        viewMenu.addAction(self.menus["view"]["reset"])
         helpMenu = menu.addMenu("&Help")
         helpMenu.addAction(self.menus["help"]["help"])
         helpMenu.addAction(self.menus["help"]["center"])
@@ -213,8 +242,7 @@ class ScudCloud(QtGui.QMainWindow):
                 self.launcher.set_property("quicklist", ql)
 
     def notify(self, title, message):
-        notice = notify2.Notification(title, message,
-                                      get_resource_path('scudcloud.png'))
+        notice = notify2.Notification(title, message, get_resource_path('scudcloud.png'))
         notice.show()
         self.alert()
 
