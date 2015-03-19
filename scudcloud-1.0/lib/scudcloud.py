@@ -242,7 +242,10 @@ class ScudCloud(QtGui.QMainWindow):
                 self.launcher.set_property("quicklist", ql)
 
     def notify(self, title, message):
-        notice = notify2.Notification(title, message, get_resource_path('scudcloud.png'))
+        notice = notify2.Notification(title, message,
+                                      get_resource_path('scudcloud.png'))
+        # Allow appending new message to existing notification.
+        notice.set_hint_string('x-canonical-append', '')
         notice.show()
         self.alert()
 
