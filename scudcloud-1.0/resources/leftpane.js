@@ -12,6 +12,12 @@ var LeftPane = {
 			if(active) LeftPane.setActive(id);
 		}
 	},
+	alert: function(team){
+		document.getElementById(team).className = document.getElementById(team).className + ' alert';
+	},
+	stopAlert: function(team){
+		document.getElementById(team).className = document.getElementById(team).className.replace(/\balert\b/,'');
+	},
 	switchTo: function(id, url){
 		leftPane.switchTo(url)
 		LeftPane.setActive(id);
