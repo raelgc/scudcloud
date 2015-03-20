@@ -49,13 +49,20 @@ class QSingleApplication(QApplication):
             QMessageBox.warning(None, self.applicationName(), self.tr("The program is already running."))
             # Quit application in 250 ms
             QTimer.singleShot(250, self.quit)
+    def show(self):
+        self.m_server.newConnection.connect(self.getNewConnection)
+        self.mainWindow.show()
     def startApplication(self):
         self.m_server = QLocalServer()
         if self.m_server.listen(self.pid):
-            self.m_server.newConnection.connect(self.getNewConnection)
-            self.mainWindow.show()
+            self.show()
         else:
-            QMessageBox.critical(None, self.tr("Error"), self.tr("Error listening the socket."))
+            # Try one more time, now deleting the pid
+            QLocalServer.removeServer(self.pid)
+            if self.m_server.listen(self.pid):
+                self.show()
+            else:
+                QMessageBox.critical(None, self.tr("Error"), self.tr("Error listening the socket."))
     def getNewConnection(self):
         self.new_socket = self.m_server.nextPendingConnection()
         self.new_socket.readyRead.connect(self.readSocket)
