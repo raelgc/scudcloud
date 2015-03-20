@@ -34,10 +34,17 @@ class LeftPane(QWebView):
             checked = "false"
         self.page().currentFrame().evaluateJavaScript("LeftPane.addTeam('"+id+"','"+name+"','"+url+"', "+checked+");")
         
+    def alert(self, team):
+        self.page().currentFrame().evaluateJavaScript("LeftPane.alert('"+team+"');")
+
+    def stopAlert(self, team):
+        self.page().currentFrame().evaluateJavaScript("LeftPane.stopAlert('"+team+"');")
+
     @QtCore.pyqtSlot(str) 
     def switchTo(self, url):
         self.window.switchTo(url)
 
     def contextMenuEvent(self, event):
         pass
+
 

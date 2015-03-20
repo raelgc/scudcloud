@@ -254,7 +254,12 @@ class ScudCloud(QtGui.QMainWindow):
     def count(self):
         total = 0
         for i in range(0, self.stackedWidget.count()):
-            total+=self.stackedWidget.widget(i).messages
+            widget = self.stackedWidget.widget(i)
+            if widget.messages == 0:
+                self.leftPane.stopAlert(widget.team())
+            else:
+                self.leftPane.alert(widget.team())
+            total+=widget.messages
         if total > self.messages:
             self.alert()
         if 0 == total:

@@ -70,6 +70,9 @@ class Wrapper(QWebView):
     def addTeam(self):
         self.call("addTeam")
 
+    def team(self):
+        return self.call("getCurrentTeam")
+
     def logout(self):
         self.call("logout")
 
