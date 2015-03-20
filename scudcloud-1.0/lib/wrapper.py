@@ -25,12 +25,15 @@ class Wrapper(QWebView):
         self.addActions()
 
     def addActions(self):
-        self.pageAction(QtWebKit.QWebPage.Undo).setShortcuts(QKeySequence.Undo)
-        self.pageAction(QtWebKit.QWebPage.Redo).setShortcuts(QKeySequence.Redo)
-        self.pageAction(QtWebKit.QWebPage.Cut).setShortcuts(QKeySequence.Cut)
-        self.pageAction(QtWebKit.QWebPage.Copy).setShortcuts(QKeySequence.Copy)
-        self.pageAction(QtWebKit.QWebPage.Paste).setShortcuts(QKeySequence.Paste)
-        self.pageAction(QtWebKit.QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
+        self.pageAction(QWebPage.SetTextDirectionDefault).setVisible(False)
+        self.pageAction(QWebPage.SetTextDirectionLeftToRight).setVisible(False)
+        self.pageAction(QWebPage.SetTextDirectionRightToLeft).setVisible(False)
+        self.pageAction(QWebPage.Undo).setShortcuts(QKeySequence.Undo)
+        self.pageAction(QWebPage.Redo).setShortcuts(QKeySequence.Redo)
+        self.pageAction(QWebPage.Cut).setShortcuts(QKeySequence.Cut)
+        self.pageAction(QWebPage.Copy).setShortcuts(QKeySequence.Copy)
+        self.pageAction(QWebPage.Paste).setShortcuts(QKeySequence.Paste)
+        self.pageAction(QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
 
     def call(self, function, arg=None):
         if isinstance(arg, str):
