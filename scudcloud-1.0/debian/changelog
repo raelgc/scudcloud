@@ -1,3 +1,11 @@
+scudcloud (1.0-21) trusty; urgency=low
+
+  * Notification append(#38)
+  * Recommending fixed width font(#39)
+  * Mention notification on team switcher (#40)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 20 Mar 2015 20:44:25 -0300
+
 scudcloud (1.0-20) trusty; urgency=low
 
   * Zoom(#30), better dependencies(#32), proper cleanup(#34), app icon(#35)
