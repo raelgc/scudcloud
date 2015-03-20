@@ -33,13 +33,14 @@ from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 import sys
 
 class QSingleApplication(QApplication):
-    def singleStart(self, mainWindow):
+    def singleStart(self, mainWindow, pid):
         self.mainWindow = mainWindow
+        self.pid = pid
         # Socket
         self.m_socket = QLocalSocket()
         self.m_socket.connected.connect(self.connectToExistingApp)
         self.m_socket.error.connect(self.startApplication)
-        self.m_socket.connectToServer(self.applicationName(), QIODevice.WriteOnly)
+        self.m_socket.connectToServer(pid, QIODevice.WriteOnly)
     def connectToExistingApp(self):
         if len(sys.argv)>1 and sys.argv[1] is not None:
             self.m_socket.write(sys.argv[1])
@@ -50,7 +51,7 @@ class QSingleApplication(QApplication):
             QTimer.singleShot(250, self.quit)
     def startApplication(self):
         self.m_server = QLocalServer()
-        if self.m_server.listen(self.applicationName()):
+        if self.m_server.listen(self.pid):
             self.m_server.newConnection.connect(self.getNewConnection)
             self.mainWindow.show()
         else:

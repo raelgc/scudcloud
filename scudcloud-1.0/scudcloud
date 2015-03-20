@@ -16,6 +16,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     ScudCloud.debug=args.debug
     main = ScudCloud()
-    app.singleStart(main)
+    app.singleStart(main, "scudcloud.pid")
     main.showMaximized()
     sys.exit(app.exec_())
