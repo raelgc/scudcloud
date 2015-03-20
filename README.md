@@ -39,6 +39,31 @@ sudo add-apt-repository -y ppa:immerrr-k/qtwebkit4-backport
 sudo apt-get update
 ```
 
+## Manual Install
+
+The manual install is intended for other distros than Debian based (if you want to contribute with a package for your distro, you're welcome!).
+
+First, you'll need to install at least packages for `python3` and `python-qt4` (sometimes called `python3-qt4` or `python3-pyqt4`, i.e., `qt4` for `python3`).
+
+Then run the below script: it'll download the code and install it:
+
+```bash
+wget https://github.com/raelgc/scudcloud/archive/v1.0.21.tar.gz
+tar -xvf v1.0.21.tar.gz
+cd scudcloud-1.0.21
+SOURCE="scudcloud-1.0"
+INSTALL="/opt/scudcloud"
+sudo mkdir -p $INSTALL/lib
+sudo mkdir -p $INSTALL/resources
+sudo cp $SOURCE/lib/*.py $INSTALL/lib
+sudo cp $SOURCE/resources/* $INSTALL/resources
+sudo cp $SOURCE/scudcloud $INSTALL
+sudo cp $SOURCE/LICENSE $INSTALL
+sudo cp $SOURCE/scudcloud.desktop usr/share/applications
+sudo cp $SOURCE/systray/hicolor/* usr/share/icons/hicolor/scalable/apps
+sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
+```
+
 # Screenshots
 
 ![Some screenshots](/screenshot.png?raw=true)
