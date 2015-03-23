@@ -38,7 +38,8 @@ class LeftPane(QWebView):
         self.page().currentFrame().evaluateJavaScript("LeftPane.alert('"+team+"');")
 
     def stopAlert(self, team):
-        self.page().currentFrame().evaluateJavaScript("LeftPane.stopAlert('"+team+"');")
+        if team is not None:
+            self.page().currentFrame().evaluateJavaScript("LeftPane.stopAlert('"+team+"');")
 
     @QtCore.pyqtSlot(str) 
     def switchTo(self, url):
