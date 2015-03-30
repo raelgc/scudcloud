@@ -1,3 +1,15 @@
+scudcloud (1.0-24) trusty; urgency=low
+
+  * Enabling team switch at ctrl+<number> (#43)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 30 Mar 2015 08:53:19 -0300
+
+scudcloud (1.0-23) trusty; urgency=medium
+
+  * Applying same fix from #41 to LeftPane.alert
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 23 Mar 2015 14:11:56 -0300
+
 scudcloud (1.0-22) trusty; urgency=medium
 
   * Fixing LeftPane.stopAlert (#41)
