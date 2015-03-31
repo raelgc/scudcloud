@@ -1,3 +1,9 @@
+scudcloud (1.0-25) trusty; urgency=medium
+
+  * SAML auth support (#44)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 31 Mar 2015 20:35:12 -0300
+
 scudcloud (1.0-24) trusty; urgency=low
 
   * Enabling team switch at ctrl+<number> (#43)
