@@ -2,7 +2,7 @@
 
 ![ScudCloud Logo](/scudcloud-1.0/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
 
-ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint) desktop client for [Slack&copy;](http://slack.com).
+ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch) desktop client for [Slack&copy;](http://slack.com).
 
 [Slack&copy;](http://slack.com) is a platform for team communication.
 
@@ -54,7 +54,7 @@ makepkg -si
 
 ## Manual Install
 
-The manual install is intended for other distros than Debian based (if you want to contribute with a package for your distro, you're welcome!).
+The manual install is intended for not supported distros (if you want to contribute with a package for your distro, you're welcome!).
 
 First, you'll need to install at least packages for `python3` and `python-qt4` (sometimes called `python3-qt4` or `python3-pyqt4`, i.e., `qt4` for `python3`).
 
