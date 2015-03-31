@@ -58,7 +58,7 @@ class Wrapper(QWebView):
         url = qUrl.toString()
         if self.window.SIGNIN_URL == url or url.endswith(".slack.com/messages?") or url.endswith(".slack.com/"):
             self.load(qUrl)
-        elif url.startswith("https://accounts.google.com/o/oauth"):
+        elif url.startswith("https://accounts.google.com/o/oauth") or url.endswith(".slack.com/sso/saml/start"):
             self.load(qUrl)
         else:
             subprocess.call(('xdg-open', url))
