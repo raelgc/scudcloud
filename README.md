@@ -39,6 +39,19 @@ sudo add-apt-repository -y ppa:immerrr-k/qtwebkit4-backport
 sudo apt-get update
 ```
 
+## Arch Linux
+
+There is a [PKGBUILD available][pkgbuild] on the Arch User Repository. You can install it
+using whichever AUR method you use. For instance, if you use cower:
+
+```term
+cower -d scudcloud
+cd scudcloud
+makepkg -si
+```
+
+[pkgbuild]: https://aur.archlinux.org/packages/scudcloud/
+
 ## Manual Install
 
 The manual install is intended for other distros than Debian based (if you want to contribute with a package for your distro, you're welcome!).
