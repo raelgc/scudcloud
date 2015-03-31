@@ -34,8 +34,12 @@ class LeftPane(QWebView):
             checked = "false"
         self.page().currentFrame().evaluateJavaScript("LeftPane.addTeam('"+id+"','"+name+"','"+url+"', "+checked+");")
         
+    def click(self, i):
+        self.page().currentFrame().evaluateJavaScript("LeftPane.click("+str(i)+");")
+
     def alert(self, team):
-        self.page().currentFrame().evaluateJavaScript("LeftPane.alert('"+team+"');")
+        if team is not None:
+            self.page().currentFrame().evaluateJavaScript("LeftPane.alert('"+team+"');")
 
     def stopAlert(self, team):
         if team is not None:
@@ -45,7 +49,7 @@ class LeftPane(QWebView):
     def switchTo(self, url):
         self.window.switchTo(url)
 
-    def contextMenuEvent(self, event):
-        pass
+    #def contextMenuEvent(self, event):
+    #    pass
 
 

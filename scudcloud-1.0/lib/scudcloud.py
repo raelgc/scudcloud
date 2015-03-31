@@ -201,6 +201,16 @@ class ScudCloud(QtGui.QMainWindow):
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
             self.focusInEvent(event)
+        if event.type() == QtCore.QEvent.KeyPress and QtGui.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
+            if event.key() == QtCore.Qt.Key_1:   self.leftPane.click(0)
+            elif event.key() == QtCore.Qt.Key_2: self.leftPane.click(1)
+            elif event.key() == QtCore.Qt.Key_3: self.leftPane.click(2)
+            elif event.key() == QtCore.Qt.Key_4: self.leftPane.click(3)
+            elif event.key() == QtCore.Qt.Key_5: self.leftPane.click(4)
+            elif event.key() == QtCore.Qt.Key_6: self.leftPane.click(5)
+            elif event.key() == QtCore.Qt.Key_7: self.leftPane.click(6)
+            elif event.key() == QtCore.Qt.Key_8: self.leftPane.click(7)
+            elif event.key() == QtCore.Qt.Key_9: self.leftPane.click(8)
         return QtGui.QMainWindow.eventFilter(self, obj, event);
 
     def focusInEvent(self, event):
@@ -241,9 +251,8 @@ class ScudCloud(QtGui.QMainWindow):
                         ql.child_append(item)
                 self.launcher.set_property("quicklist", ql)
 
-    def notify(self, title, message):
-        notice = notify2.Notification(title, message,
-                                      get_resource_path('scudcloud.png'))
+    def notify(self, title, message, retry=True):
+        notice = notify2.Notification(title, message, get_resource_path('scudcloud.png'))
         # Allow appending new message to existing notification.
         notice.set_hint_string('x-canonical-append', '')
         notice.show()

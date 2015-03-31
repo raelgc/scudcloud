@@ -12,11 +12,20 @@ var LeftPane = {
 			if(active) LeftPane.setActive(id);
 		}
 	},
+	click: function(i){
+		var list = document.getElementsByTagName("li");
+		for(var j=0; j < list.length; j++){
+			if(i==j){
+				list[j].click();
+				break;
+			}
+		}
+	},
 	alert: function(team){
-		document.getElementById(team).className = document.getElementById(team).className + ' alert';
+		document.getElementById(team).classList.add('alert');
 	},
 	stopAlert: function(team){
-		document.getElementById(team).className = document.getElementById(team).className.replace(/\balert\b/,'');
+		document.getElementById(team).classList.remove('alert');
 	},
 	switchTo: function(id, url){
 		leftPane.switchTo(url)
