@@ -56,7 +56,7 @@ makepkg -si
 
 The manual install is intended for not supported distros (if you want to contribute with a package for your distro, you're welcome!).
 
-First, you'll need to install at least packages for `python3` and `python-qt4` (sometimes called `python3-qt4` or `python3-pyqt4`, i.e., `qt4` for `python3`).
+First, you'll need to install at least packages for `python3`, `python-qt4` (sometimes called `python3-qt4` or `python3-pyqt4`, i.e., `qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
 
 Then run the below script: it'll download the code and install it:
 
