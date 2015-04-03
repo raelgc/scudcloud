@@ -56,12 +56,12 @@ makepkg -si
 
 The manual install is intended for not supported distros (if you want to contribute with a package for your distro, you're welcome!).
 
-First, you'll need to install at least packages for `python3`, `python-qt4` (sometimes called `python3-qt4` or `python3-pyqt4`, i.e., `qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
+First, you'll need to install at least packages for `python3`, `python-qt4` (`qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
 
 Then run the below script: it'll download the code and install it:
 
 ```bash
-wget https://github.com/raelgc/scudcloud/archive/v1.0.21.tar.gz
+wget https://github.com/raelgc/scudcloud/archive/v1.0.25.tar.gz
 tar -xvf v1.0.21.tar.gz
 cd scudcloud-1.0.21
 SOURCE="scudcloud-1.0"
