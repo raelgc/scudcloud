@@ -17,5 +17,12 @@ if __name__ == "__main__":
     ScudCloud.debug=args.debug
     main = ScudCloud()
     app.singleStart(main, "scudcloud.pid")
-    main.showMaximized()
+    geometry = main.settings.value("geometry")
+    if geometry is not None:
+        main.restoreGeometry(geometry)
+    windowState = main.settings.value("windowState")
+    if windowState is not None:
+        main.restoreState(windowState)
+    else:
+        main.showMaximized()
     sys.exit(app.exec_())

@@ -49,7 +49,7 @@ class LeftPane(QWebView):
     def switchTo(self, url):
         self.window.switchTo(url)
 
-    #def contextMenuEvent(self, event):
-    #    pass
+    def contextMenuEvent(self, event):
+        pass
 
 

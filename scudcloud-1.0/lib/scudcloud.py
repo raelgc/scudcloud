@@ -226,6 +226,8 @@ class ScudCloud(QtGui.QMainWindow):
             event.ignore()
         else:
             self.cookiesjar.save()
+            self.settings.setValue("geometry", self.saveGeometry())
+            self.settings.setValue("windowState", self.saveState())
 
     def show(self):
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
