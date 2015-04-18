@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import sys, os
-import notify2
 from cookiejar import PersistentCookieJar
 from leftpane import LeftPane
+from notifier import Notifier
 from systray import Systray
 from wrapper import Wrapper
 from os.path import expanduser
@@ -31,7 +31,7 @@ class ScudCloud(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(ScudCloud, self).__init__(parent)
         self.setWindowTitle('ScudCloud')
-        notify2.init(self.APP_NAME)
+        self.notifier = Notifier(self.APP_NAME, get_resource_path('scudcloud.png'))
         self.settings = QSettings(expanduser("~")+"/.scudcloud", QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
         if Unity is not None:
@@ -64,7 +64,7 @@ class ScudCloud(QtGui.QMainWindow):
         webView.show()
 
     def systray(self, show=None):
-        if show is None: 
+        if show is None:
             show = self.settings.value("Systray") == "True"
         if show:
             self.tray.show()
@@ -158,7 +158,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.menus["help"]["help"].setEnabled(enabled)
 
     def createAction(self, text, slot, shortcut=None, checkable=False):
-        action = QtGui.QAction(text, self)        
+        action = QtGui.QAction(text, self)
         if shortcut is not None:
             action.setShortcut(shortcut)
         action.triggered.connect(slot)
@@ -253,11 +253,8 @@ class ScudCloud(QtGui.QMainWindow):
                         ql.child_append(item)
                 self.launcher.set_property("quicklist", ql)
 
-    def notify(self, title, message, retry=True):
-        notice = notify2.Notification(title, message, get_resource_path('scudcloud.png'))
-        # Allow appending new message to existing notification.
-        notice.set_hint_string('x-canonical-append', '')
-        notice.show()
+    def notify(self, title, message):
+        self.notifier.notify(title, message)
         self.alert()
 
     def alert(self):
