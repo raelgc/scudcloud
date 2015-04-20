@@ -4,3 +4,7 @@
 *.dsc
 *.changes
 *.upload
+
+# ignore compiled python code
+__pycache__
+*.pyc
