@@ -1,4 +1,4 @@
-import sys, subprocess
+import sys, subprocess, re
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
@@ -8,6 +8,12 @@ from resources import get_resource_path
 
 
 class Wrapper(QWebView):
+    MAINPAGE_URL_RE = re.compile(
+        r'^http[s]://[a-zA-Z0-9_]+.slack.com/?$')
+    MESSAGES_URL_RE = re.compile(
+        r'^http[s]://[a-zA-Z0-9_]+.slack.com/messages/.*')
+    SSO_URL_RE = re.compile(
+        r'^http[s]://[a-zA-Z0-9_]+.slack.com/sso/saml/start$')
 
     messages = 0
 
@@ -56,9 +62,13 @@ class Wrapper(QWebView):
 
     def linkClicked(self, qUrl):
         url = qUrl.toString()
-        if self.window.SIGNIN_URL == url or url.endswith(".slack.com/messages?") or url.endswith(".slack.com/"):
-            self.load(qUrl)
-        elif url.startswith("https://accounts.google.com/o/oauth") or url.endswith(".slack.com/sso/saml/start"):
+        should_open_link_in_scudcloud = (
+            self.window.SIGNIN_URL == url or
+            self.MAINPAGE_URL_RE.match(url) or
+            self.MESSAGES_URL_RE.match(url) or
+            self.SSO_URL_RE.match(url) or
+            url.startswith("https://accounts.google.com/o/oauth"))
+        if should_open_link_in_scudcloud:
             self.load(qUrl)
         else:
             subprocess.call(('xdg-open', url))
