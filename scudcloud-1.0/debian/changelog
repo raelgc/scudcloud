@@ -1,3 +1,9 @@
+scudcloud (1.0-26) trusty; urgency=low
+
+  * Saving last window settings (#49)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 04 Apr 2015 22:21:45 -0300
+
 scudcloud (1.0-25) trusty; urgency=medium
 
   * SAML auth support (#44)
