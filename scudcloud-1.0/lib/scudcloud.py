@@ -5,6 +5,7 @@ from leftpane import LeftPane
 from notifier import Notifier
 from systray import Systray
 from wrapper import Wrapper
+from os.path import expanduser
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QUrl, QSettings
@@ -27,17 +28,11 @@ class ScudCloud(QtGui.QMainWindow):
     forceClose = False
     messages = 0
 
-    def __init__(self, parent=None, settings_path=None):
+    def __init__(self, parent=None):
         super(ScudCloud, self).__init__(parent)
         self.setWindowTitle('ScudCloud')
         self.notifier = Notifier(self.APP_NAME, get_resource_path('scudcloud.png'))
-
-        if settings_path is None:
-            print("Unknown settings path!")
-            raise SystemExit()
-        else:
-            self.settings = QSettings(settings_path, QSettings.IniFormat)
-
+        self.settings = QSettings(expanduser("~")+"/.scudcloud", QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
         if Unity is not None:
             self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
