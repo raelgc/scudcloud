@@ -1,5 +1,5 @@
 var LeftPane = {
-	addTeam: function(id, name, url, active){
+	addTeam: function(id, name, url, icon, active){
 		var node = document.getElementById(id);
         if(node == null){
 			var ul = document.getElementById('teams');
@@ -8,6 +8,10 @@ var LeftPane = {
 			li.setAttribute("onclick", "LeftPane.switchTo('"+id+"','"+url+"')")
 			li.setAttribute("title", name)
 			li.innerHTML = name[0];
+			if( icon ){
+			  li.style.backgroundImage = "url('"+ icon +"')";
+			  li.innerHTML = ""
+			}
 			ul.appendChild(li);
 			if(active) LeftPane.setActive(id);
 		}
