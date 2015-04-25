@@ -1,3 +1,12 @@
+scudcloud (1.0-27) trusty; urgency=low
+
+  * Fixing Archives (#60)
+  * Optional notifications (#72)
+  * XDG config file (#73,#78)
+  * Team Icons (#80)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 25 Apr 2015 09:14:34 -0300
+
 scudcloud (1.0-26) trusty; urgency=low
 
   * Saving last window settings (#49)
