@@ -28,11 +28,17 @@ class ScudCloud(QtGui.QMainWindow):
     forceClose = False
     messages = 0
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, settings_path=None):
         super(ScudCloud, self).__init__(parent)
         self.setWindowTitle('ScudCloud')
         self.notifier = Notifier(self.APP_NAME, get_resource_path('scudcloud.png'))
-        self.settings = QSettings(expanduser("~")+"/.scudcloud", QSettings.IniFormat)
+
+        if settings_path is None:
+            print("ERROR: Settings path not set!")
+            raise SystemExit()
+        else:
+            self.settings = QSettings(settings_path, QSettings.IniFormat)
+
         self.identifier = self.settings.value("Domain")
         if Unity is not None:
             self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
