@@ -76,6 +76,8 @@ sudo cp $SOURCE/scudcloud $INSTALL
 sudo cp $SOURCE/LICENSE $INSTALL
 sudo cp $SOURCE/scudcloud.desktop /usr/share/applications
 sudo cp $SOURCE/systray/hicolor/* /usr/share/icons/hicolor/scalable/apps
+sudo cp $SOURCE/systray/mono-dark/* /usr/share/icons/mono-dark/scalable/apps
+sudo cp $SOURCE/systray/mono-light/* /usr/share/icons/mono-light/scalable/apps
 sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
 ```
 
