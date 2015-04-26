@@ -18,3 +18,4 @@ Contributions are welcomed and appreciated! To start contributing:
 6. Make your changes
     - `$ git commit -am "implement feature"`
 7. Submit a pull request on GitHub.com
+    - `$ git push origin named-feature-branch`
