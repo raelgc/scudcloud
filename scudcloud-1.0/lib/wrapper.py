@@ -8,12 +8,13 @@ from resources import get_resource_path
 
 
 class Wrapper(QWebView):
+
     MAINPAGE_URL_RE = re.compile(
-        r'^http[s]://[a-zA-Z0-9_]+.slack.com/?$')
+        r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/?$')
     MESSAGES_URL_RE = re.compile(
-        r'^http[s]://[a-zA-Z0-9_]+.slack.com/messages/.*')
+        r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/messages/.*')
     SSO_URL_RE = re.compile(
-        r'^http[s]://[a-zA-Z0-9_]+.slack.com/sso/saml/start$')
+        r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/sso/saml/start$')
 
     messages = 0
 
