@@ -106,7 +106,7 @@ class ScudCloud(QtGui.QMainWindow):
                 "systray":     self.createAction("Close to Tray", self.systray, None, True),
                 "addTeam":     self.createAction("Sign in to Another Team", self.current().addTeam),
                 "signout":     self.createAction("Signout", self.current().logout),
-                "exit":        self.createAction("Quit", self.exit, QKeySequence.Close)
+                "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
             "edit": {
                 "undo":        self.current().pageAction(QtWebKit.QWebPage.Undo),
@@ -127,6 +127,7 @@ class ScudCloud(QtGui.QMainWindow):
                 "about":      self.createAction("About", self.current().about)
              }
         }
+        self.createAction("Hide", self.close, QKeySequence.Close)
         menu = self.menuBar()
         fileMenu = menu.addMenu("&File")
         fileMenu.addAction(self.menus["file"]["preferences"])
