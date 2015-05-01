@@ -19,7 +19,7 @@ ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.web
 
 Please, first update your system with a `sudo apt-get update && sudo apt-get upgrade`. If not, ScudCloud will crash with some old components.
 
-Then, to install it under Ubuntu/Kubuntu 14.04, 14.10, Mint and Debian, open a Terminal (Ctrl+Alt+T) and run:
+Then, to install it under **Ubuntu/Kubuntu** 14.04, 14.10, **Mint** and **Debian**, open a Terminal (Ctrl+Alt+T) and run:
 
 ```term
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
@@ -30,6 +30,13 @@ sudo apt-get install scudcloud
 If you want **spell checking** (it'll only mark wrong words in red, but no suggestions), add the `hunspell` dictionary for your language. For `en-us`:
 
     sudo apt-get install hunspell-en-us
+
+If you want to use a Slack icon instead of ScudCloud (which is not impossible to include in this package due copyright), download [any 128px Slack icon](https://www.google.com.br/search?q=slack+icon&tbm=isch&source=lnt&tbs=isz:ex,iszw:128,iszh:128) to your home folder saving as `slack.png` and run:
+
+```term
+sudo dpkg-divert --add --rename --divert /opt/scudcloud/resources/scudcloud.png.real /opt/scudcloud/resources/scudcloud.png
+sudo cp ~/scudcloud.png /opt/scudcloud/resources/
+```
 
 ## Ubuntu 12.04
 
