@@ -32,4 +32,4 @@ Some JavaScript functions are injected in Slack, to enable integration with Scud
 
 To see the original source file, see this Gist: https://gist.github.com/raelgc/9be7b48f4793c65232c2
 
-If you change anything, minimize with http://jscompress.com/, but remember to restore the last line (the one with `boot_data`): this line is always removed by `jscompress`, and it's really important!
+If you change anything in the `scudcloud.js` source file and want to minimize again, minimize with http://jscompress.com/, but remember to restore the last line (the one with `boot_data`): this line is always removed by `jscompress`, and it's really important!
