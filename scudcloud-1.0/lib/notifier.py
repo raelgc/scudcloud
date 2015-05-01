@@ -1,6 +1,9 @@
 from dbus.exceptions import DBusException
-import notify2
-
+try:
+    from gi.repository import Notify
+except ImportError:
+    import notify2
+    Notify = None
 
 class Notifier(object):
 
@@ -21,7 +24,12 @@ class Notifier(object):
         self.icon = icon
 
         try:
-            notify2.init(app_name)
+            if Notify is not None:
+                Notify.init(app_name)
+                self.notifier = Notify
+            else:
+                notify2.init(app_name)
+                self.notifier = notify2
             self.enabled = True
         except DBusException:
             print("WARNING: No notification daemon found! "
@@ -43,6 +51,9 @@ class Notifier(object):
         if icon is None:
             icon = self.icon
 
-        notice = notify2.Notification(title, message, icon)
+        if Notify is not None:
+            notice = self.notifier.Notification.new(title, message, icon)
+        else:
+            notice = notify2.Notification(title, message, icon)
         notice.set_hint_string('x-canonical-append', '')
         notice.show()
