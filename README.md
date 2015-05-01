@@ -31,7 +31,7 @@ If you want **spell checking** (it'll only mark wrong words in red, but no sugge
 
     sudo apt-get install hunspell-en-us
 
-If you want to use a Slack icon instead of ScudCloud (which is not impossible to include in this package due copyright), download [any 128px Slack icon](https://www.google.com.br/search?q=slack+icon&tbm=isch&source=lnt&tbs=isz:ex,iszw:128,iszh:128) to your home folder saving as `slack.png` and run:
+If you want to use a Slack icon instead of ScudCloud (which is not impossible to include in this package due copyright), download [any 128px Slack icon](https://www.google.com.br/search?q=slack+icon&tbm=isch&source=lnt&tbs=isz:ex,iszw:128,iszh:128) to your home folder saving as `scudcloud.png` and run:
 
 ```term
 sudo dpkg-divert --add --rename --divert /opt/scudcloud/resources/scudcloud.png.real /opt/scudcloud/resources/scudcloud.png
