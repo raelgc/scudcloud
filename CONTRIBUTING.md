@@ -19,3 +19,17 @@ Contributions are welcomed and appreciated! To start contributing:
     - `$ git commit -am "implement feature"`
 7. Submit a pull request on GitHub.com
     - `$ git push origin named-feature-branch`
+
+In case you need to inspect HTML/CSS/Javascript, start ScudCloud enabling the web console:
+
+    scudcloud --debug=True
+    
+Then right in any element, and select `Inspect Element`. Then select `Console`.
+
+## ScudCloud.js
+
+Some JavaScript functions are injected in Slack, to enable integration with ScudCloud. Then file is minimized, to allow a better performance.
+
+To see the original source file, see this Gist: https://gist.github.com/raelgc/9be7b48f4793c65232c2
+
+If you change anything, minimize with http://jscompress.com/, but remember to restore the last line (the one with `boot_data`): this line is always removed by `jscompress`, and it's really important!
