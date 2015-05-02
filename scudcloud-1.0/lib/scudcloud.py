@@ -74,9 +74,11 @@ class ScudCloud(QtGui.QMainWindow):
             show = self.settings.value("Systray") == "True"
         if show:
             self.tray.show()
+            self.menus["file"]["close"].setEnabled(True)
             self.settings.setValue("Systray", "True")
         else:
             self.tray.setVisible(False)
+            self.menus["file"]["close"].setEnabled(False)
             self.settings.setValue("Systray", "False")
 
     def zoom(self):
@@ -106,6 +108,7 @@ class ScudCloud(QtGui.QMainWindow):
                 "systray":     self.createAction("Close to Tray", self.systray, None, True),
                 "addTeam":     self.createAction("Sign in to Another Team", self.current().addTeam),
                 "signout":     self.createAction("Signout", self.current().logout),
+                "close":       self.createAction("Close", self.close, QKeySequence.Close),
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
             "edit": {
@@ -127,7 +130,6 @@ class ScudCloud(QtGui.QMainWindow):
                 "about":      self.createAction("About", self.current().about)
              }
         }
-        self.createAction("Hide", self.close, QKeySequence.Close)
         menu = self.menuBar()
         fileMenu = menu.addMenu("&File")
         fileMenu.addAction(self.menus["file"]["preferences"])
@@ -136,6 +138,7 @@ class ScudCloud(QtGui.QMainWindow):
         fileMenu.addAction(self.menus["file"]["addTeam"])
         fileMenu.addAction(self.menus["file"]["signout"])
         fileMenu.addSeparator()
+        fileMenu.addAction(self.menus["file"]["close"])
         fileMenu.addAction(self.menus["file"]["exit"])
         editMenu = menu.addMenu("&Edit")
         editMenu.addAction(self.menus["edit"]["undo"])
@@ -156,7 +159,9 @@ class ScudCloud(QtGui.QMainWindow):
         helpMenu.addSeparator()
         helpMenu.addAction(self.menus["help"]["about"])
         self.enableMenus(False)
-        self.menus["file"]["systray"].setChecked(self.settings.value("Systray") == "True")
+        showSystray = self.settings.value("Systray") == "True"
+        self.menus["file"]["systray"].setChecked(showSystray)
+        self.menus["file"]["close"].setEnabled(showSystray)
 
     def enableMenus(self, enabled):
         self.menus["file"]["preferences"].setEnabled(enabled)
