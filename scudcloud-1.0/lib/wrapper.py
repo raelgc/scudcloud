@@ -23,8 +23,15 @@ class Wrapper(QWebView):
         self.window = window
         with open(get_resource_path("scudcloud.js"), "r") as f:
             self.js = f.read()
+        # Required by Youtube videos (HTML5 video support only on Qt5)
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
+        # We don't want Java
+        QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False);
+        # We don't need History
+        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True);
+        # Required for copy and paste clipboard integration
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
+        # Enabling Inspeclet only when --debug=True (requires more CPU usage)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.window.debug)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
