@@ -22,7 +22,7 @@ from resources import get_resource_path
 
 class ScudCloud(QtGui.QMainWindow):
 
-    APP_NAME = "ScudCloud Client"
+    APP_NAME = "ScudCloud Slack_SSB"
     SIGNIN_URL = "https://slack.com/signin"
     debug = False
     forceClose = False
