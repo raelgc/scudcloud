@@ -40,10 +40,9 @@ sudo cp ~/scudcloud.png /opt/scudcloud/resources/
 
 ## Ubuntu 12.04
 
-For Ubuntu 12.04 (Precise Pangolin), **additionally** you'll need to update `qtwebkit`: Slack is not compatible with `libqtwebkit4` package shipped with 12.04, hanging in the `Loading` screen. Please add the following PPAs (for updated `gstreamer` and `qtwebkit`):
+For Ubuntu 12.04 (Precise Pangolin), **additionally** you'll need to update `qtwebkit`: Slack is not compatible with `libqtwebkit4` package shipped with 12.04, hanging in the `Loading` screen. Please add the following PPAs (for updated `qtwebkit`):
 
 ```term
-sudo add-apt-repository -y ppa:gstreamer-developers/ppa
 sudo add-apt-repository -y ppa:immerrr-k/qtwebkit4-backport
 sudo apt-get update
 ```
