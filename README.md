@@ -87,6 +87,16 @@ sudo cp $SOURCE/systray/mono-light/* /usr/share/icons/mono-light/scalable/apps
 sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
 ```
 
+# Troubleshooting
+
+## 1. Default domain
+
+You can change the default domain editing or just deleting `~/.config/scudcloud/scudcloud.cfg`.
+
+## 2. Where is the package for my distro?
+
+If not listed above, you're welcome [to contribute](/CONTRIBUTING.md).
+
 # Screenshots
 
 ![Some screenshots](/screenshot.png?raw=true)
