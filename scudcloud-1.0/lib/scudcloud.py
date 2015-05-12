@@ -46,6 +46,7 @@ class ScudCloud(QtGui.QMainWindow):
             self.launcher = DummyLauncher(self)
         self.leftPane = LeftPane(self)
         self.cookiesjar = PersistentCookieJar(self)
+        self.zoom = self.readZoom()
         webView = Wrapper(self)
         webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
         self.stackedWidget = QtGui.QStackedWidget()
@@ -62,7 +63,6 @@ class ScudCloud(QtGui.QMainWindow):
         self.tray = Systray(self)
         self.systray()
         self.installEventFilter(self)
-        self.zoom()
         if self.identifier is None:
             webView.load(QtCore.QUrl(self.SIGNIN_URL))
         else:
@@ -81,15 +81,17 @@ class ScudCloud(QtGui.QMainWindow):
             self.menus["file"]["close"].setEnabled(False)
             self.settings.setValue("Systray", "False")
 
-    def zoom(self):
+    def readZoom(self):
         default = 1
         if self.settings.value("Zoom") is not None:
             default = float(self.settings.value("Zoom"))
-        self.current().setZoomFactor(default)
+        return default
 
     def setZoom(self, factor=1):
         if factor > 0:
-            self.current().setZoomFactor(factor)
+            for i in range(0, self.stackedWidget.count()):
+                widget = self.stackedWidget.widget(i)
+                widget.setZoomFactor(factor)
             self.settings.setValue("Zoom", factor)
 
     def zoomIn(self):

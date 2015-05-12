@@ -33,6 +33,7 @@ class Wrapper(QWebView):
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.window.debug)
+        self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
