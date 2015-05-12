@@ -89,7 +89,9 @@ class ScudCloud(QtGui.QMainWindow):
 
     def setZoom(self, factor=1):
         if factor > 0:
-            self.current().setZoomFactor(factor)
+            for i in range(0, self.stackedWidget.count()):
+                widget = self.stackedWidget.widget(i)
+                widget.setZoomFactor(factor)
             self.settings.setValue("Zoom", factor)
 
     def zoomIn(self):
