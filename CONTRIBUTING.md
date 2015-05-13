@@ -32,6 +32,4 @@ Then right in any element, and select `Inspect`. Then at the top, select `Consol
 
 Some JavaScript functions are injected in Slack, to enable integration with ScudCloud. Then file is minimized, to allow a better performance.
 
-To see the original source file, see this Gist: https://gist.github.com/raelgc/9be7b48f4793c65232c2
-
-If you change anything in the `scudcloud.js` source file and want to minimize again, minimize with http://jscompress.com/, but remember to restore the last line (the one with `boot_data`): this line is always removed by `jscompress`, and it's really important!
+If you change anything in the JS source files and want to minimize again, minimize with http://jscompress.com/. In case of `scudcloud.js`, remember to restore the last line (the one with `boot_data`): this line is always removed by `jscompress`, and it's really important!
