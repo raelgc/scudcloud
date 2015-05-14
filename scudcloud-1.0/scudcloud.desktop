@@ -3,6 +3,7 @@
 Version=1.0
 Terminal=false
 Type=Application
+Categories=Network;Chat;
 Name=ScudCloud
 Comment=ScudCloud is an open-source client for Slack
 Keywords=slack;chat;instant-messaging;collaboration
