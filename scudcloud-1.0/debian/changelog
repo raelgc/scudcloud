@@ -1,3 +1,15 @@
+scudcloud (1.0-35) trusty; urgency=low
+
+  * Fixing tray icon in KDE5 (#106)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 14 May 2015 12:38:13 -0300
+
+scudcloud (1.0-34) trusty; urgency=low
+
+  * Fixing categories (#107)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 14 May 2015 08:56:15 -0300
+
 scudcloud (1.0-33) trusty; urgency=low
 
   * Fixing zoom for multiple teams (#103)
