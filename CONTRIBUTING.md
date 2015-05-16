@@ -26,7 +26,7 @@ In case you need to inspect HTML/CSS/Javascript, start ScudCloud enabling the we
 
     scudcloud --debug=True
     
-Then right in any element, and select `Inspect`. Then at the top, select `Console`.
+Then right click in any element, and select `Inspect`. Then at the top, select `Console`.
 
 ## ScudCloud.js
 
