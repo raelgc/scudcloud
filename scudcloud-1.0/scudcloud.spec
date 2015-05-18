@@ -1,7 +1,7 @@
 Summary: Slack
 Name: scudcloud
 Version: 1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: Applications/Internet
 Source: %{name}-%{version}.tar.bz2
 URL: https://github.com/raelgc/scudcloud/
@@ -19,7 +19,7 @@ BuildArch: noarch
 INSTALL="/opt/scudcloud"
 mkdir -p ${RPM_BUILD_ROOT}/$INSTALL/lib
 mkdir -p ${RPM_BUILD_ROOT}/$INSTALL/resources
-mkdir -p ${RPM_BUILD_ROOT}/usr/share/applications/kde4
+mkdir -p ${RPM_BUILD_ROOT}/usr/share/applications/
 mkdir -p ${RPM_BUILD_ROOT}/usr/share/icons/hicolor/scalable/apps
 mkdir -p ${RPM_BUILD_ROOT}/usr/share/icons/mono-dark/scalable/apps
 mkdir -p ${RPM_BUILD_ROOT}/usr/share/icons/mono-light/scalable/apps
@@ -29,14 +29,14 @@ cp lib/*.py ${RPM_BUILD_ROOT}/$INSTALL/lib
 cp resources/* ${RPM_BUILD_ROOT}/$INSTALL/resources
 cp scudcloud ${RPM_BUILD_ROOT}/$INSTALL
 cp LICENSE ${RPM_BUILD_ROOT}/$INSTALL
-cp scudcloud.desktop ${RPM_BUILD_ROOT}/usr/share/applications/kde4
+cp scudcloud.desktop ${RPM_BUILD_ROOT}/usr/share/applications/
 cp systray/hicolor/* ${RPM_BUILD_ROOT}/usr/share/icons/hicolor/scalable/apps
 cp systray/mono-dark/* ${RPM_BUILD_ROOT}/usr/share/icons/mono-dark/scalable/apps
 cp systray/mono-light/* ${RPM_BUILD_ROOT}/usr/share/icons/mono-light/scalable/apps
 ln -sf $INSTALL/scudcloud ${RPM_BUILD_ROOT}/usr/bin/scudcloud
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/kde4/scudcloud.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/scudcloud.desktop
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -50,7 +50,7 @@ xdg-desktop-menu forceupdate 2> /dev/null || :
 %files
 %defattr(-,root,root)
 /opt/scudcloud
-%{_datadir}/applications/kde4/scudcloud.desktop
+%{_datadir}/applications/scudcloud.desktop
 %{_datadir}/icons/hicolor/scalable/apps/*
 %{_datadir}/icons/mono-dark/scalable/apps/*
 %{_datadir}/icons/mono-light/scalable/apps/*
