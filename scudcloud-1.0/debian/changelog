@@ -1,3 +1,9 @@
+scudcloud (1.0-36) trusty; urgency=low
+
+  * Fixing desktop file keywords
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 21 May 2015 09:10:30 -0300
+
 scudcloud (1.0-35) trusty; urgency=low
 
   * Fixing tray icon in KDE5 (#106)
