@@ -36,6 +36,7 @@ If you want to use a Slack icon instead of ScudCloud (which is not possible to i
 ```term
 sudo dpkg-divert --add --rename --divert /opt/scudcloud/resources/scudcloud.png.real /opt/scudcloud/resources/scudcloud.png
 sudo cp ~/scudcloud.png /opt/scudcloud/resources/
+sudo chmod +r /opt/scudcloud/resources/scudcloud.png # ensure it's globally readable
 ```
 
 ## Ubuntu 12.04
