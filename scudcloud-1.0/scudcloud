@@ -20,6 +20,7 @@ def main():
 
     args = parse_arguments()
     ScudCloud.debug = args.debug
+    ScudCloud.minimized = True if args.minimized is True else None
 
     settings_path = load_settings(args.confdir)
 
@@ -72,6 +73,8 @@ def parse_arguments():
                         help="change the configuration directory")
     parser.add_argument('--debug', dest='debug', type=bool, default=False,
                         help="enable webkit debug console (default: False)")
+    parser.add_argument('--minimized', dest='minimized', type=bool, default=False,
+                        help="start minimized to tray (default: False)")
 
     args = parser.parse_args()
     args.confdir = expanduser(args.confdir)

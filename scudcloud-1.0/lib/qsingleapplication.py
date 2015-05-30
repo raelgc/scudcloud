@@ -51,7 +51,8 @@ class QSingleApplication(QApplication):
             QTimer.singleShot(250, self.quit)
     def show(self):
         self.m_server.newConnection.connect(self.getNewConnection)
-        self.mainWindow.show()
+        if self.mainWindow.minimized is None:
+            self.mainWindow.show()
     def startApplication(self):
         self.m_server = QLocalServer()
         if self.m_server.listen(self.pid):
