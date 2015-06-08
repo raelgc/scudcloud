@@ -2,7 +2,7 @@
 
 ![ScudCloud Logo](/scudcloud-1.0/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
 
-ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch) desktop client for [Slack&copy;](http://slack.com).
+ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client for [Slack&copy;](http://slack.com).
 
 [Slack&copy;](http://slack.com) is a platform for team communication.
 
@@ -60,6 +60,12 @@ makepkg -si
 ```
 
 [pkgbuild]: https://aur.archlinux.org/packages/scudcloud/
+
+## Fedora 21
+
+There is a yum repository available for Fedora 21. All you need to do is follow [these instructions][build_suse].
+
+[build_suse]: http://software.opensuse.org/download.html?project=home%3Amoonwolf%3Ascudcloud&package=scudcloud
 
 ## Manual Install
 
