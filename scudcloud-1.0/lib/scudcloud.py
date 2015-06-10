@@ -28,17 +28,12 @@ class ScudCloud(QtGui.QMainWindow):
     forceClose = False
     messages = 0
 
-    def __init__(self, parent=None, settings_path=None):
+    def __init__(self, parent = None, settings_path = "~/.config/scudcloud"):
         super(ScudCloud, self).__init__(parent)
         self.setWindowTitle('ScudCloud')
+        self.settings_path = settings_path
         self.notifier = Notifier(self.APP_NAME, get_resource_path('scudcloud.png'))
-
-        if settings_path is None:
-            print("ERROR: Settings path not set!")
-            raise SystemExit()
-        else:
-            self.settings = QSettings(settings_path, QSettings.IniFormat)
-
+        self.settings = QSettings(self.settings_path + '/scudcloud.cfg', QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
         if Unity is not None:
             self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
@@ -166,10 +161,10 @@ class ScudCloud(QtGui.QMainWindow):
         self.menus["file"]["close"].setEnabled(showSystray)
 
     def enableMenus(self, enabled):
-        self.menus["file"]["preferences"].setEnabled(enabled)
-        self.menus["file"]["addTeam"].setEnabled(enabled)
-        self.menus["file"]["signout"].setEnabled(enabled)
-        self.menus["help"]["help"].setEnabled(enabled)
+        self.menus["file"]["preferences"].setEnabled(enabled == True)
+        self.menus["file"]["addTeam"].setEnabled(enabled == True)
+        self.menus["file"]["signout"].setEnabled(enabled == True)
+        self.menus["help"]["help"].setEnabled(enabled == True)
 
     def createAction(self, text, slot, shortcut=None, checkable=False):
         action = QtGui.QAction(text, self)
