@@ -56,7 +56,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.setCentralWidget(centralWidget)
         self.addMenu()
         self.tray = Systray(self)
-        self.systray()
+        self.systray(ScudCloud.minimized)
         self.installEventFilter(self)
         if self.identifier is None:
             webView.load(QtCore.QUrl(self.SIGNIN_URL))
