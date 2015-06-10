@@ -53,8 +53,7 @@ def ensure_config_dir_exists(confdir):
 
 def load_settings(confdir):
     ensure_config_dir_exists(confdir)
-
-    return confdir + '/scudcloud.cfg'
+    return confdir
 
 
 def parse_arguments():

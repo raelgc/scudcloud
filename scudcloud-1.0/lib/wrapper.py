@@ -26,11 +26,14 @@ class Wrapper(QWebView):
         # Required by Youtube videos (HTML5 video support only on Qt5)
         QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
         # We don't want Java
-        QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False);
+        QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
         # We don't need History
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True);
+        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True)
         # Required for copy and paste clipboard integration
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
+        # Local Storage
+        QWebSettings.globalSettings().setAttribute(QWebSettings.LocalStorageEnabled, True)
+        QWebSettings.globalSettings().enablePersistentStorage(self.window.settings_path)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.window.debug)
         self.setZoomFactor(self.window.zoom)
