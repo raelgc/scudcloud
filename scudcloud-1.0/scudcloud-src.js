@@ -1,4 +1,5 @@
 var ScudCloud = {
+	connected: false,
 	overrideNotifications: function(){
 		TS.ui.growls.no_notifications = false;
 		TS.ui.growls.checkPermission = function() { return true; }
@@ -8,6 +9,10 @@ var ScudCloud = {
 		}
 		TS.ui.banner.close();
 	},
+	connect: function(b){
+		ScudCloud.connected = b;
+		desktop.enableMenus(b);
+	},
     count: function(){
 		var total=0; 
 		$('span.unread_highlight').not('.hidden').each(function(i){ 
@@ -15,6 +20,9 @@ var ScudCloud = {
 		);
 		desktop.count(total.toString());
     },
+	isConnected: function(){
+		return ScudCloud.connected;
+	},
     listChannels: function(){
 		return TS.channels.getUnarchivedChannelsForUser();
 	},
@@ -57,8 +65,8 @@ var boot_data = {};
 if("undefined" != typeof TS){
 	document.onpaste = function(e){desktop.pasted(false);}
 	ScudCloud.overrideNotifications();
-	TS.ms.connected_sig.add(function(){desktop.enableMenus(true);});
-	TS.ms.disconnected_sig.add(function(){desktop.enableMenus(false);});
+	TS.ms.connected_sig.add(function(){ScudCloud.connect(true);});
+	TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
 	ScudCloud.onDOMReady = TS.onDOMReady;
 	TS.onDOMReady = function(){ScudCloud.overrideNotifications();ScudCloud.onDOMReady();};
 	setInterval(function(){

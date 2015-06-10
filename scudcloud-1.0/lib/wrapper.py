@@ -86,6 +86,9 @@ class Wrapper(QWebView):
         self.window.show()
         self.call("preferences")
 
+    def isConnected(self):
+        return self.call("isConnected")
+
     def addTeam(self):
         self.call("addTeam")
 
