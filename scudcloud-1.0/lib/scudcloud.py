@@ -166,10 +166,10 @@ class ScudCloud(QtGui.QMainWindow):
         self.menus["file"]["close"].setEnabled(showSystray)
 
     def enableMenus(self, enabled):
-        self.menus["file"]["preferences"].setEnabled(enabled)
-        self.menus["file"]["addTeam"].setEnabled(enabled)
-        self.menus["file"]["signout"].setEnabled(enabled)
-        self.menus["help"]["help"].setEnabled(enabled)
+        self.menus["file"]["preferences"].setEnabled(enabled == True)
+        self.menus["file"]["addTeam"].setEnabled(enabled == True)
+        self.menus["file"]["signout"].setEnabled(enabled == True)
+        self.menus["help"]["help"].setEnabled(enabled == True)
 
     def createAction(self, text, slot, shortcut=None, checkable=False):
         action = QtGui.QAction(text, self)
