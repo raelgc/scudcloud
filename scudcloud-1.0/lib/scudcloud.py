@@ -198,8 +198,6 @@ class ScudCloud(QtGui.QMainWindow):
                 except:
                     self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], '', t == teams[0])
 
-
-
     def switchTo(self, url):
         index = -1
         for i in range(0, self.stackedWidget.count()):
@@ -216,6 +214,7 @@ class ScudCloud(QtGui.QMainWindow):
             self.stackedWidget.addWidget(webView)
             self.stackedWidget.setCurrentWidget(webView)
         self.quicklist(self.current().listChannels())
+        self.enableMenus(self.current().isConnected())
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
