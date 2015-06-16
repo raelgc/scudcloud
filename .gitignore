@@ -8,3 +8,7 @@
 # ignore compiled python code
 __pycache__
 *.pyc
+
+#IntelliJ
+.idea
+*.iml
