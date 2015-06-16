@@ -192,6 +192,7 @@ class ScudCloud(QtGui.QMainWindow):
                     self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
                 except:
                     self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], '', t == teams[0])
+                self.switchTo(t['team_url'])
 
     def switchTo(self, url):
         index = -1
