@@ -107,6 +107,9 @@ class Wrapper(QWebView):
     def addTeam(self):
         self.call("addTeam")
 
+    def createSnippet(self):
+        self.call("createSnippet")
+
     def team(self):
         return self.call("getCurrentTeam")
 
