@@ -20,6 +20,9 @@ var ScudCloud = {
 		);
 		desktop.count(total.toString());
     },
+	createSnippet: function(){
+		return TS.ui.snippet_dialog.start();		
+	},
 	isConnected: function(){
 		return ScudCloud.connected;
 	},

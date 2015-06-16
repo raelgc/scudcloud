@@ -215,16 +215,21 @@ class ScudCloud(QtGui.QMainWindow):
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
             self.focusInEvent(event)
-        if event.type() == QtCore.QEvent.KeyPress and QtGui.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
-            if event.key() == QtCore.Qt.Key_1:   self.leftPane.click(0)
-            elif event.key() == QtCore.Qt.Key_2: self.leftPane.click(1)
-            elif event.key() == QtCore.Qt.Key_3: self.leftPane.click(2)
-            elif event.key() == QtCore.Qt.Key_4: self.leftPane.click(3)
-            elif event.key() == QtCore.Qt.Key_5: self.leftPane.click(4)
-            elif event.key() == QtCore.Qt.Key_6: self.leftPane.click(5)
-            elif event.key() == QtCore.Qt.Key_7: self.leftPane.click(6)
-            elif event.key() == QtCore.Qt.Key_8: self.leftPane.click(7)
-            elif event.key() == QtCore.Qt.Key_9: self.leftPane.click(8)
+        if event.type() == QtCore.QEvent.KeyPress:
+            # Ctrl + <n>
+            if QtGui.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
+                if event.key() == QtCore.Qt.Key_1:   self.leftPane.click(0)
+                elif event.key() == QtCore.Qt.Key_2: self.leftPane.click(1)
+                elif event.key() == QtCore.Qt.Key_3: self.leftPane.click(2)
+                elif event.key() == QtCore.Qt.Key_4: self.leftPane.click(3)
+                elif event.key() == QtCore.Qt.Key_5: self.leftPane.click(4)
+                elif event.key() == QtCore.Qt.Key_6: self.leftPane.click(5)
+                elif event.key() == QtCore.Qt.Key_7: self.leftPane.click(6)
+                elif event.key() == QtCore.Qt.Key_8: self.leftPane.click(7)
+                elif event.key() == QtCore.Qt.Key_9: self.leftPane.click(8)
+            # Ctrl + Shift + <key>
+            if (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier) and (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier):
+                if event.key() == QtCore.Qt.Key_V: self.current().createSnippet()
         return QtGui.QMainWindow.eventFilter(self, obj, event);
 
     def focusInEvent(self, event):
