@@ -27,7 +27,10 @@ var ScudCloud = {
 		return TS.channels.getUnarchivedChannelsForUser();
 	},
     listTeams: function(){
-		return TS.getAllTeams();
+		var list = TS.getAllTeams();
+		// Fix for current team displaying no icon
+		list[0].team_icon = {"image_88":TS.model.team.icon.image_88};
+		return list;
 	},
     quicklist: function(){
 		desktop.quicklist(ScudCloud.listChannels());
