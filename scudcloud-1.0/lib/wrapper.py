@@ -1,11 +1,12 @@
-import sys, subprocess, re
+import sys, subprocess, re, os
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
+from PyQt4.QtNetwork import QNetworkProxy
 
+from urllib.parse import urlparse
 from resources import get_resource_path
-
 
 class Wrapper(QWebView):
 
@@ -19,6 +20,7 @@ class Wrapper(QWebView):
     messages = 0
 
     def __init__(self, window):
+        self.configure_proxy()
         QWebView.__init__(self)
         self.window = window
         with open(get_resource_path("scudcloud.js"), "r") as f:
@@ -41,6 +43,16 @@ class Wrapper(QWebView):
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
         self.addActions()
+
+    def configure_proxy(self):
+        proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
+        if proxy.hostname is not None and proxy.port is not None:
+            q_network_proxy = QNetworkProxy(QNetworkProxy.HttpProxy, proxy.hostname, proxy.port)
+            if proxy.username is not None:
+                q_network_proxy.setUser(proxy.username)
+            if proxy.password is not None:
+                q_network_proxy.setPassword(proxy.password)
+            QNetworkProxy.setApplicationProxy(q_network_proxy)
 
     def addActions(self):
         self.pageAction(QWebPage.SetTextDirectionDefault).setVisible(False)
