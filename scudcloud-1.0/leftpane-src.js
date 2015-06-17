@@ -14,6 +14,7 @@ var LeftPane = {
 			}
 			ul.appendChild(li);
 			if(active) LeftPane.setActive(id);
+			LeftPane.switchTo(id, url);
 		}
 	},
 	click: function(i){
