@@ -63,6 +63,8 @@ class Wrapper(QWebView):
         self.pageAction(QWebPage.Cut).setShortcuts(QKeySequence.Cut)
         self.pageAction(QWebPage.Copy).setShortcuts(QKeySequence.Copy)
         self.pageAction(QWebPage.Paste).setShortcuts(QKeySequence.Paste)
+        self.pageAction(QWebPage.Back).setShortcuts(QKeySequence.Back)
+        self.pageAction(QWebPage.Forward).setShortcuts(QKeySequence.Forward)
         self.pageAction(QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
 
     def call(self, function, arg=None):
@@ -81,7 +83,8 @@ class Wrapper(QWebView):
         self.window.teams(boot_data['teams'])
         self.window.enableMenus(self.isConnected())
         url = qUrl.toString()
-        if self.window.SIGNIN_URL != url and url.endswith(".slack.com/"):
+        # Never save the signin or status URLs
+        if self.window.SIGNIN_URL != url and self.window.STATUS_URL != url and url.endswith(".slack.com/"):
             self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def linkClicked(self, qUrl):
