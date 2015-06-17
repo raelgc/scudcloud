@@ -24,6 +24,7 @@ class ScudCloud(QtGui.QMainWindow):
 
     APP_NAME = "ScudCloud Slack_SSB"
     SIGNIN_URL = "https://slack.com/signin"
+    STATUS_URL = "https://status.slack.com/"
     debug = False
     forceClose = False
     messages = 0
@@ -114,6 +115,8 @@ class ScudCloud(QtGui.QMainWindow):
                 "cut":         self.current().pageAction(QtWebKit.QWebPage.Cut),
                 "copy":        self.current().pageAction(QtWebKit.QWebPage.Copy),
                 "paste":       self.current().pageAction(QtWebKit.QWebPage.Paste),
+                "back":        self.current().pageAction(QtWebKit.QWebPage.Back),
+                "forward":     self.current().pageAction(QtWebKit.QWebPage.Forward),
                 "reload":      self.current().pageAction(QtWebKit.QWebPage.Reload)
             },
             "view": {
@@ -145,6 +148,8 @@ class ScudCloud(QtGui.QMainWindow):
         editMenu.addAction(self.menus["edit"]["copy"])
         editMenu.addAction(self.menus["edit"]["paste"])
         editMenu.addSeparator()
+        editMenu.addAction(self.menus["edit"]["back"])
+        editMenu.addAction(self.menus["edit"]["forward"])
         editMenu.addAction(self.menus["edit"]["reload"])
         viewMenu = menu.addMenu("&View")
         viewMenu.addAction(self.menus["view"]["zoomin"])
