@@ -1,3 +1,10 @@
+scudcloud (1.0-40) trusty; urgency=medium
+
+  * Fixing first team icon
+  * Snippet support (#124)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 16 Jun 2015 15:08:05 -0300
+
 scudcloud (1.0-39) trusty; urgency=medium
 
   * Proxy support (#102, #115)
