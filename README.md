@@ -104,6 +104,10 @@ You can change the default domain editing or just deleting `~/.config/scudcloud/
 
 If not listed above, you're welcome [to contribute](/CONTRIBUTING.md).
 
+## 3. `Keep me signed in` is not working
+
+For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder: `~/.config/scudcloud/`
+
 # Screenshots
 
 ![Some screenshots](/screenshot.png?raw=true)
