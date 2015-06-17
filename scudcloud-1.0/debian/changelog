@@ -1,3 +1,10 @@
+scudcloud (1.0-41) trusty; urgency=medium
+
+  * Adding FullScreen support (#129)
+  * Fixing stuck on Status (#147)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 17 Jun 2015 11:22:45 -0300
+
 scudcloud (1.0-40) trusty; urgency=medium
 
   * Fixing first team icon
