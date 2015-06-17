@@ -65,6 +65,22 @@ class ScudCloud(QtGui.QMainWindow):
             webView.load(QtCore.QUrl(self.domain()))
         webView.show()
 
+    def toogleFullScreen(self):
+        if self.isFullScreen():
+            self.restore()
+        else:
+            self.showFullScreen()
+
+    def restore(self):
+        geometry = self.settings.value("geometry")
+        if geometry is not None:
+            self.restoreGeometry(geometry)
+        windowState = self.settings.value("windowState")
+        if windowState is not None:
+            self.restoreState(windowState)
+        else:
+            self.showMaximized()
+
     def systray(self, show=None):
         if show is None:
             show = self.settings.value("Systray") == "True"
@@ -122,7 +138,8 @@ class ScudCloud(QtGui.QMainWindow):
             "view": {
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
                 "zoomout":     self.createAction("Zoom Out", self.zoomOut, QKeySequence.ZoomOut),
-                "reset":       self.createAction("Reset", self.zoomReset, QtCore.Qt.CTRL + QtCore.Qt.Key_0)
+                "reset":       self.createAction("Reset", self.zoomReset, QtCore.Qt.CTRL + QtCore.Qt.Key_0),
+                "fullscreen":  self.createAction("Toogle Full Screen", self.toogleFullScreen, QtCore.Qt.Key_F11)        
             },
             "help": {
                 "help":       self.createAction("Help and Feedback", self.current().help, QKeySequence.HelpContents),
@@ -155,6 +172,8 @@ class ScudCloud(QtGui.QMainWindow):
         viewMenu.addAction(self.menus["view"]["zoomin"])
         viewMenu.addAction(self.menus["view"]["zoomout"])
         viewMenu.addAction(self.menus["view"]["reset"])
+        viewMenu.addSeparator()
+        viewMenu.addAction(self.menus["view"]["fullscreen"])
         helpMenu = menu.addMenu("&Help")
         helpMenu.addAction(self.menus["help"]["help"])
         helpMenu.addAction(self.menus["help"]["center"])
