@@ -17,9 +17,11 @@ ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.web
 
 # Install
 
+## Ubuntu/Kubuntu, Mint and Debian
+
 Please, first update your system with a `sudo apt-get update && sudo apt-get upgrade`. If not, ScudCloud will crash with some old components.
 
-Then, to install it under **Ubuntu/Kubuntu** 14.04, 14.10, **Mint** and **Debian**, open a Terminal (Ctrl+Alt+T) and run:
+Then, to install it under **Ubuntu/Kubuntu** (14.04, 14.10, 15.04), **Mint** and **Debian**, open a Terminal (Ctrl+Alt+T) and run:
 
 ```term
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
