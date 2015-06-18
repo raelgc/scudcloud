@@ -76,7 +76,7 @@ class ScudCloud(QtGui.QMainWindow):
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.debug)
 
-    def toogleFullScreen(self):
+    def toggleFullScreen(self):
         if self.isFullScreen():
             self.showMaximized()
         else:
@@ -150,7 +150,7 @@ class ScudCloud(QtGui.QMainWindow):
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
                 "zoomout":     self.createAction("Zoom Out", self.zoomOut, QKeySequence.ZoomOut),
                 "reset":       self.createAction("Reset", self.zoomReset, QtCore.Qt.CTRL + QtCore.Qt.Key_0),
-                "fullscreen":  self.createAction("Toggle Full Screen", self.toogleFullScreen, QtCore.Qt.Key_F11)        
+                "fullscreen":  self.createAction("Toggle Full Screen", self.toggleFullScreen, QtCore.Qt.Key_F11)        
             },
             "help": {
                 "help":       self.createAction("Help and Feedback", self.current().help, QKeySequence.HelpContents),
