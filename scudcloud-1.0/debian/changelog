@@ -1,3 +1,10 @@
+scudcloud (1.0-42) trusty; urgency=medium
+
+  * Auto login for multiple teams (#81)
+  * Some code improvements
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 18 Jun 2015 09:13:11 -0300
+
 scudcloud (1.0-41) trusty; urgency=medium
 
   * Adding FullScreen support (#129)
