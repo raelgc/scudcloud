@@ -3,12 +3,14 @@ import sys, os
 from cookiejar import PersistentCookieJar
 from leftpane import LeftPane
 from notifier import Notifier
+from resources import Resources
 from systray import Systray
 from wrapper import Wrapper
 from os.path import expanduser
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QUrl, QSettings
+from PyQt4.QtWebKit import QWebSettings
 
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
@@ -18,31 +20,25 @@ except ImportError:
     Dbusmenu = None
     from launcher import DummyLauncher
 
-from resources import get_resource_path
-
 class ScudCloud(QtGui.QMainWindow):
 
-    APP_NAME = "ScudCloud Slack_SSB"
-    SIGNIN_URL = "https://slack.com/signin"
-    STATUS_URL = "https://status.slack.com/"
     debug = False
     forceClose = False
     messages = 0
 
-    def __init__(self, parent = None, settings_path = "~/.config/scudcloud"):
+    def __init__(self, parent = None, settings_path = ""):
         super(ScudCloud, self).__init__(parent)
         self.setWindowTitle('ScudCloud')
         self.settings_path = settings_path
-        self.notifier = Notifier(self.APP_NAME, get_resource_path('scudcloud.png'))
+        self.notifier = Notifier(Resources.APP_NAME, Resources.get_path('scudcloud.png'))
         self.settings = QSettings(self.settings_path + '/scudcloud.cfg', QSettings.IniFormat)
         self.identifier = self.settings.value("Domain")
         if Unity is not None:
             self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
         else:
             self.launcher = DummyLauncher(self)
+        self.webSettings()
         self.leftPane = LeftPane(self)
-        self.cookiesjar = PersistentCookieJar(self)
-        self.zoom = self.readZoom()
         webView = Wrapper(self)
         webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
         self.stackedWidget = QtGui.QStackedWidget()
@@ -60,10 +56,25 @@ class ScudCloud(QtGui.QMainWindow):
         self.systray(ScudCloud.minimized)
         self.installEventFilter(self)
         if self.identifier is None:
-            webView.load(QtCore.QUrl(self.SIGNIN_URL))
+            webView.load(QtCore.QUrl(Resources.SIGNIN_URL))
         else:
             webView.load(QtCore.QUrl(self.domain()))
         webView.show()
+
+    def webSettings(self):
+        self.cookiesjar = PersistentCookieJar(self)
+        self.zoom = self.readZoom()
+        # We don't want Java
+        QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
+        # We don't need History
+        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True)
+        # Required for copy and paste clipboard integration
+        QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
+        # Enabling Local Storage
+        QWebSettings.globalSettings().setAttribute(QWebSettings.LocalStorageEnabled, True)
+        QWebSettings.globalSettings().enablePersistentStorage(self.settings_path)
+        # Enabling Inspeclet only when --debug=True (requires more CPU usage)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.debug)
 
     def toogleFullScreen(self):
         if self.isFullScreen():
@@ -218,6 +229,7 @@ class ScudCloud(QtGui.QMainWindow):
                     self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], '', t == teams[0])
 
     def switchTo(self, url):
+        qUrl = QtCore.QUrl(url)
         index = -1
         for i in range(0, self.stackedWidget.count()):
             if self.stackedWidget.widget(i).url().toString().startswith(url):
@@ -228,12 +240,14 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             webView = Wrapper(self)
             webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
-            webView.load(QtCore.QUrl(url))
+            webView.load(qUrl)
             webView.show()
             self.stackedWidget.addWidget(webView)
             self.stackedWidget.setCurrentWidget(webView)
         self.quicklist(self.current().listChannels())
         self.enableMenus(self.current().isConnected())
+        # Save the last used team as default
+        self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():

@@ -4,73 +4,52 @@ import sys
 INSTALL_DIR = "/opt/scudcloud/"
 sys.path.append(INSTALL_DIR+'lib')
 from PyQt4 import QtGui
+from resources import Resources
 from scudcloud import ScudCloud
 from qsingleapplication import QSingleApplication
-from resources import get_resource_path
 
 # If the environment variable XDG_CONFIG_HOME is non-empty, CONFDIR is ignored
 # and the configuration directory will be $XDG_CONFIG_HOME/scudcloud instead.
 CONFDIR = '~/.config/scudcloud'
 
-
 def main():
+    Resources.INSTALL_DIR = INSTALL_DIR
     app = QSingleApplication(sys.argv)
-    app.setApplicationName(ScudCloud.APP_NAME)
-    app.setWindowIcon(QtGui.QIcon(get_resource_path('scudcloud.png')))
-
+    app.setApplicationName(Resources.APP_NAME)
+    app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
     args = parse_arguments()
     ScudCloud.debug = args.debug
     ScudCloud.minimized = True if args.minimized is True else None
-
-    settings_path = load_settings(args.confdir)
-
+    try:
+        settings_path = load_settings(args.confdir)
+    except:
+        print("Configuration directory "+args.confdir+" could not be created! Exiting...")
+        raise SystemExit()
     main = ScudCloud(settings_path=settings_path)
     app.singleStart(main, "scudcloud.pid")
     main.restore()
     sys.exit(app.exec_())
 
-
-def ensure_config_dir_exists(confdir):
-    from errno import EEXIST
-
-    try:
+def load_settings(confdir):
+    if not os.path.isdir(confdir):
         os.makedirs(confdir)
-    except OSError as error:
-        if error.errno != EEXIST:
-            print("This configuration directory could not be created:")
-            print(confdir)
-            raise SystemExit()
-
     if confdir not in sys.path:
         sys.path[0:0] = [confdir]
-
-
-def load_settings(confdir):
-    ensure_config_dir_exists(confdir)
     return confdir
-
 
 def parse_arguments():
     from argparse import ArgumentParser
     from os.path import expanduser
-
     if 'XDG_CONFIG_HOME' in os.environ and os.environ['XDG_CONFIG_HOME']:
         default_confdir = os.environ['XDG_CONFIG_HOME'] + '/scudcloud'
     else:
         default_confdir = CONFDIR
-
     parser = ArgumentParser()
-    parser.add_argument('--confdir', dest='confdir',
-                        metavar='dir', default=default_confdir,
-                        help="change the configuration directory")
-    parser.add_argument('--debug', dest='debug', type=bool, default=False,
-                        help="enable webkit debug console (default: False)")
-    parser.add_argument('--minimized', dest='minimized', type=bool, default=False,
-                        help="start minimized to tray (default: False)")
-
+    parser.add_argument('--confdir', dest='confdir', metavar='dir', default=default_confdir, help="change the configuration directory")
+    parser.add_argument('--debug', dest='debug', type=bool, default=False, help="enable webkit debug console (default: False)")
+    parser.add_argument('--minimized', dest='minimized', type=bool, default=False, help="start minimized to tray (default: False)")
     args = parser.parse_args()
     args.confdir = expanduser(args.confdir)
-
     return args
 
 if __name__ == '__main__':

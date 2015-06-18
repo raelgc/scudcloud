@@ -1,4 +1,5 @@
 from PyQt4 import QtCore, QtGui
+from resources import Resources
 
 class Systray(QtGui.QSystemTrayIcon):
 
@@ -8,7 +9,7 @@ class Systray(QtGui.QSystemTrayIcon):
         super(Systray, self).__init__(QtGui.QIcon.fromTheme("scudcloud"), window)
         self.connect(self, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.activatedEvent)
         self.window = window
-        self.setToolTip(self.window.APP_NAME)
+        self.setToolTip(Resources.APP_NAME)
         self.menu = QtGui.QMenu(self.window)
         self.menu.addAction('Show', self.restore)
         self.menu.addSeparator()

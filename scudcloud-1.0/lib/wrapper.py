@@ -1,4 +1,4 @@
-import sys, subprocess, re, os
+import sys, subprocess, os
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
@@ -6,16 +6,9 @@ from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 from PyQt4.QtNetwork import QNetworkProxy
 
 from urllib.parse import urlparse
-from resources import get_resource_path
+from resources import Resources
 
 class Wrapper(QWebView):
-
-    MAINPAGE_URL_RE = re.compile(
-        r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/?$')
-    MESSAGES_URL_RE = re.compile(
-        r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/messages/.*')
-    SSO_URL_RE = re.compile(
-        r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/sso/saml/start$')
 
     messages = 0
 
@@ -23,21 +16,10 @@ class Wrapper(QWebView):
         self.configure_proxy()
         QWebView.__init__(self)
         self.window = window
-        with open(get_resource_path("scudcloud.js"), "r") as f:
+        with open(Resources.get_path("scudcloud.js"), "r") as f:
             self.js = f.read()
         # Required by Youtube videos (HTML5 video support only on Qt5)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
-        # We don't want Java
-        QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
-        # We don't need History
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True)
-        # Required for copy and paste clipboard integration
-        QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
-        # Local Storage
-        QWebSettings.globalSettings().setAttribute(QWebSettings.LocalStorageEnabled, True)
-        QWebSettings.globalSettings().enablePersistentStorage(self.window.settings_path)
-        # Enabling Inspeclet only when --debug=True (requires more CPU usage)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.window.debug)
+        self.settings().setAttribute(QWebSettings.PluginsEnabled, True)
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
@@ -75,27 +57,29 @@ class Wrapper(QWebView):
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def urlChanged(self, qUrl):
-        self.settings().setUserStyleSheetUrl(
-            QUrl.fromLocalFile(get_resource_path("login.css")))
-        self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-        boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
-        self.window.quicklist(boot_data['channels'])
-        self.window.teams(boot_data['teams'])
-        self.window.enableMenus(self.isConnected())
         url = qUrl.toString()
-        # Never save the signin or status URLs
-        if self.window.SIGNIN_URL != url and self.window.STATUS_URL != url and url.endswith(".slack.com/"):
-            self.window.settings.setValue("Domain", 'https://'+qUrl.host())
+        # URLs ending with /messages/general/ indicates a new team was loaded
+        if url.endswith("/messages/general/"):
+            self.settings().setUserStyleSheetUrl(
+                QUrl.fromLocalFile(Resources.get_path("login.css")))
+            self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+            boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
+            self.window.quicklist(boot_data['channels'])
+            self.window.teams(boot_data['teams'])
+            self.window.enableMenus(self.isConnected())
+        # Save the loading team as default
+        if url.endswith("/messages"):
+                self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def linkClicked(self, qUrl):
         url = qUrl.toString()
-        should_open_link_in_scudcloud = (
-            self.window.SIGNIN_URL == url or
-            self.MAINPAGE_URL_RE.match(url) or
-            self.MESSAGES_URL_RE.match(url) or
-            self.SSO_URL_RE.match(url) or
+        handle_link = (
+            Resources.SIGNIN_URL == url or
+            Resources.MAINPAGE_URL_RE.match(url) or
+            Resources.MESSAGES_URL_RE.match(url) or
+            Resources.SSO_URL_RE.match(url) or
             url.startswith("https://accounts.google.com/o/oauth"))
-        if should_open_link_in_scudcloud:
+        if handle_link:
             self.load(qUrl)
         else:
             subprocess.call(('xdg-open', url))
