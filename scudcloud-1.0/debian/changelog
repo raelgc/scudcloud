@@ -1,3 +1,9 @@
+scudcloud (1.0-43) trusty; urgency=medium
+
+  * Restoring JS inception in all pages
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 18 Jun 2015 10:02:39 -0300
+
 scudcloud (1.0-42) trusty; urgency=medium
 
   * Auto login for multiple teams (#81)
