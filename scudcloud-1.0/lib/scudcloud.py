@@ -247,7 +247,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.quicklist(self.current().listChannels())
         self.enableMenus(self.current().isConnected())
         # Save the last used team as default
-        self.window.settings.setValue("Domain", 'https://'+qUrl.host())
+        self.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
