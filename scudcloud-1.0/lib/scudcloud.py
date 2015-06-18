@@ -78,7 +78,7 @@ class ScudCloud(QtGui.QMainWindow):
 
     def toogleFullScreen(self):
         if self.isFullScreen():
-            self.restore()
+            self.showMaximized()
         else:
             self.showFullScreen()
 
