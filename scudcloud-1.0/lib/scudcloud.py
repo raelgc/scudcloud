@@ -150,7 +150,7 @@ class ScudCloud(QtGui.QMainWindow):
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
                 "zoomout":     self.createAction("Zoom Out", self.zoomOut, QKeySequence.ZoomOut),
                 "reset":       self.createAction("Reset", self.zoomReset, QtCore.Qt.CTRL + QtCore.Qt.Key_0),
-                "fullscreen":  self.createAction("Toogle Full Screen", self.toogleFullScreen, QtCore.Qt.Key_F11)        
+                "fullscreen":  self.createAction("Toggle Full Screen", self.toogleFullScreen, QtCore.Qt.Key_F11)        
             },
             "help": {
                 "help":       self.createAction("Help and Feedback", self.current().help, QKeySequence.HelpContents),
