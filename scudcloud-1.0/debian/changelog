@@ -1,3 +1,9 @@
+scudcloud (1.0-44) trusty; urgency=medium
+
+  * Fixing fullscreen
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 18 Jun 2015 10:16:09 -0300
+
 scudcloud (1.0-43) trusty; urgency=medium
 
   * Restoring JS inception in all pages
