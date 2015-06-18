@@ -58,18 +58,15 @@ class Wrapper(QWebView):
 
     def urlChanged(self, qUrl):
         url = qUrl.toString()
-        # URLs ending with /messages/general/ indicates a new team was loaded
-        if url.endswith("/messages/general/"):
-            self.settings().setUserStyleSheetUrl(
-                QUrl.fromLocalFile(Resources.get_path("login.css")))
-            self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-            boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
-            self.window.quicklist(boot_data['channels'])
-            self.window.teams(boot_data['teams'])
-            self.window.enableMenus(self.isConnected())
+        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
+        self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+        boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
+        self.window.quicklist(boot_data['channels'])
+        self.window.teams(boot_data['teams'])
+        self.window.enableMenus(self.isConnected())
         # Save the loading team as default
         if url.endswith("/messages"):
-                self.window.settings.setValue("Domain", 'https://'+qUrl.host())
+            self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def linkClicked(self, qUrl):
         url = qUrl.toString()
