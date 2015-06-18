@@ -1,3 +1,9 @@
+scudcloud (1.0-45) trusty; urgency=medium
+
+  * Fixing small issues while loading all teams
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 18 Jun 2015 11:38:29 -0300
+
 scudcloud (1.0-44) trusty; urgency=medium
 
   * Fixing fullscreen
