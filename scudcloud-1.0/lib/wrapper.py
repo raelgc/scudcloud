@@ -58,15 +58,23 @@ class Wrapper(QWebView):
 
     def urlChanged(self, qUrl):
         url = qUrl.toString()
-        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
-        self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-        boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
-        self.window.quicklist(boot_data['channels'])
-        self.window.teams(boot_data['teams'])
-        self.window.enableMenus(self.isConnected())
-        # Save the loading team as default
-        if url.endswith("/messages"):
-            self.window.settings.setValue("Domain", 'https://'+qUrl.host())
+        # Some integrations/auth will get back to /services with no way to get back to chat
+        if Resources.SERVICES_URL_RE.match(url):
+            self.systemOpen(url)
+            self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
+        else:
+            self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
+            self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+            boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
+            self.window.quicklist(boot_data['channels'])
+            self.window.teams(boot_data['teams'])
+            self.window.enableMenus(self.isConnected())
+            # Save the loading team as default
+            if url.endswith("/messages"):
+                self.window.settings.setValue("Domain", 'https://'+qUrl.host())
+
+    def systemOpen(self, url):
+        subprocess.call(('xdg-open', url))
 
     def linkClicked(self, qUrl):
         url = qUrl.toString()
@@ -79,7 +87,7 @@ class Wrapper(QWebView):
         if handle_link:
             self.load(qUrl)
         else:
-            subprocess.call(('xdg-open', url))
+            self.systemOpen(url)
 
     def preferences(self):
         self.window.show()
