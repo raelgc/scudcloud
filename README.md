@@ -110,6 +110,18 @@ If not listed above, you're welcome [to contribute](/CONTRIBUTING.md).
 
 For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder: `~/.config/scudcloud/`
 
+## 4. How to disable Flash?
+
+Flash is required to display embedded videos, but if you don't care, disable it starting with:
+
+    scudcloud --no_plugins=True
+    
+## 5. How to start ScudCloud minimized?
+
+You can start ScudCloud minized to tray with:
+
+    scudcloud --minimized=True
+
 # Screenshots
 
 ![Some screenshots](/screenshot.png?raw=true)
