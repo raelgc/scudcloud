@@ -22,6 +22,7 @@ except ImportError:
 
 class ScudCloud(QtGui.QMainWindow):
 
+    plugins = True
     debug = False
     forceClose = False
     messages = 0
@@ -64,6 +65,8 @@ class ScudCloud(QtGui.QMainWindow):
     def webSettings(self):
         self.cookiesjar = PersistentCookieJar(self)
         self.zoom = self.readZoom()
+        # Required by Youtube videos (HTML5 video support only on Qt5)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, self.plugins)
         # We don't want Java
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
         # We don't need History
