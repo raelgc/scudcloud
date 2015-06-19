@@ -1,3 +1,11 @@
+scudcloud (1.0-46) trusty; urgency=medium
+
+  * Making current team icon bigger
+  * Fixing integrations issues (#143)
+  * Adding option to disable plugins (#155)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 19 Jun 2015 11:33:22 -0300
+
 scudcloud (1.0-45) trusty; urgency=medium
 
   * Fixing small issues while loading all teams
