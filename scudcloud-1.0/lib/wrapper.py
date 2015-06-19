@@ -18,8 +18,6 @@ class Wrapper(QWebView):
         self.window = window
         with open(Resources.get_path("scudcloud.js"), "r") as f:
             self.js = f.read()
-        # Required by Youtube videos (HTML5 video support only on Qt5)
-        self.settings().setAttribute(QWebSettings.PluginsEnabled, True)
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)

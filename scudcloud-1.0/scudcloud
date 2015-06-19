@@ -20,6 +20,7 @@ def main():
     args = parse_arguments()
     ScudCloud.debug = args.debug
     ScudCloud.minimized = True if args.minimized is True else None
+    ScudCloud.plugins = False if args.no_plugins is True else True
     try:
         settings_path = load_settings(args.confdir)
     except:
@@ -45,9 +46,10 @@ def parse_arguments():
     else:
         default_confdir = CONFDIR
     parser = ArgumentParser()
-    parser.add_argument('--confdir', dest='confdir', metavar='dir', default=default_confdir, help="change the configuration directory")
-    parser.add_argument('--debug', dest='debug', type=bool, default=False, help="enable webkit debug console (default: False)")
-    parser.add_argument('--minimized', dest='minimized', type=bool, default=False, help="start minimized to tray (default: False)")
+    parser.add_argument('--confdir',    dest='confdir',      metavar='dir', default=default_confdir, help="change the configuration directory")
+    parser.add_argument('--debug',      dest='debug',        type=bool,     default=False,           help="enable webkit debug console (default: False)")
+    parser.add_argument('--minimized',  dest='minimized',    type=bool,     default=False,           help="start minimized to tray (default: False)")
+    parser.add_argument('--no_plugins', dest='no_plugins',   type=bool,     default=False,           help="disable web plugins (default: False)")
     args = parser.parse_args()
     args.confdir = expanduser(args.confdir)
     return args
