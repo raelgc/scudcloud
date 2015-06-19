@@ -100,7 +100,9 @@ sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
 
 ## 1. Default domain
 
-You can change the default domain editing or just deleting `~/.config/scudcloud/scudcloud.cfg`.
+You can change the default domain editing or just deleting the config file:
+
+    ~/.config/scudcloud/scudcloud.cfg
 
 ## 2. Where is the package for my distro?
 
@@ -108,7 +110,9 @@ If not listed above, you're welcome [to contribute](/CONTRIBUTING.md).
 
 ## 3. `Keep me signed in` is not working
 
-For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder: `~/.config/scudcloud/`
+For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder:
+
+    ~/.config/scudcloud/
 
 ## 4. How to disable Flash?
 
