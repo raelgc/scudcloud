@@ -12,6 +12,8 @@ var ScudCloud = {
 	connect: function(b){
 		ScudCloud.connected = b;
 		desktop.enableMenus(b);
+		ScudCloud.count();
+		ScudCloud.overrideNotifications();
 	},
     count: function(){
 		desktop.count(TS.model.all_unread_highlights_cnt.toString());
