@@ -14,11 +14,7 @@ var ScudCloud = {
 		desktop.enableMenus(b);
 	},
     count: function(){
-		var total=0; 
-		$('span.unread_highlight').not('.hidden').each(function(i){ 
-			total+= new Number($(this).text().replace('+','')); }
-		);
-		desktop.count(total.toString());
+		desktop.count(TS.model.all_unread_highlights_cnt.toString());
     },
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
@@ -75,12 +71,9 @@ if("undefined" != typeof TS){
 	TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
 	ScudCloud.onDOMReady = TS.onDOMReady;
 	TS.onDOMReady = function(){ScudCloud.overrideNotifications();ScudCloud.onDOMReady();};
-	setInterval(function(){
-		ScudCloud.count();
-	// Trying to make not all channels check this at the same time
-	}, Math.random() * (2000 - 1000) + 1000);
     boot_data.channels = ScudCloud.listChannels();
     boot_data.teams = ScudCloud.listTeams();
+	ScudCloud.count();
 } else {
     boot_data.channels = new Array();
     boot_data.teams = new Array();

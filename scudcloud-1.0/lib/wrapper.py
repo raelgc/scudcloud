@@ -143,6 +143,8 @@ class Wrapper(QWebView):
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
         self.window.notify(str(title).replace("New message from ", "").replace("New message in ", ""), str(message))
+        # Update the number of highlight unread messages
+        self.call("count")
 
     @QtCore.pyqtSlot(int) 
     def count(self, value):
