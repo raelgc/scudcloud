@@ -1,3 +1,9 @@
+scudcloud (1.0-47) trusty; urgency=medium
+
+  * Re-working notifications to not use a timer (reduces CPU usage)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 23 Jun 2015 13:51:29 -0300
+
 scudcloud (1.0-46) trusty; urgency=medium
 
   * Making current team icon bigger
