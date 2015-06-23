@@ -1,3 +1,9 @@
+scudcloud (1.0-48) trusty; urgency=medium
+
+  * Few changes to avoid loose desktop notifications
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 23 Jun 2015 18:25:15 -0300
+
 scudcloud (1.0-47) trusty; urgency=medium
 
   * Re-working notifications to not use a timer (reduces CPU usage)
