@@ -73,9 +73,6 @@ class ScudCloud(QtGui.QMainWindow):
         QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True)
         # Required for copy and paste clipboard integration
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
-        # Enabling Local Storage
-        QWebSettings.globalSettings().setAttribute(QWebSettings.LocalStorageEnabled, True)
-        QWebSettings.globalSettings().enablePersistentStorage(self.settings_path)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.debug)
 
