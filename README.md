@@ -4,8 +4,6 @@
 
 ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client for [Slack&copy;](http://slack.com).
 
-[Slack&copy;](http://slack.com) is a platform for team communication.
-
 ScudCloud uses the [QT](http://qt-project.org) library + [Webkit](http://www.webkit.org/) to render the web version of Slack, but using the [QWebkit-Native bridge](http://qt-project.org/doc/qt-4.8/qtwebkit-bridge.html) to improve desktop integration with:
 
 * multiple teams support,
@@ -125,6 +123,14 @@ Flash is required to display embedded videos, but if you don't care, disable it 
 You can start ScudCloud minized to tray with:
 
     scudcloud --minimized=True
+
+## 6. High DPI Support
+
+ScudCloud offers zoom support. The zoom level will be persisted between sessions.
+
+- Increase zoom pressing `Ctrl`+`+` (usually fired with `Ctrl`+`Shift`+`=`);
+- Decrease with `Ctrl`+`-`;
+- Reset it with `Ctrl`+`0`.
 
 # Screenshots
 
