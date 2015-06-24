@@ -9,6 +9,18 @@ var ScudCloud = {
 		}
 		TS.ui.banner.close();
 	},
+	overrideConnect: function(){
+		TS.ms.connected_sig.add(function(){ScudCloud.connect(true);});
+		TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
+	},
+	overrideCountAllUnreads: function(){
+		ScudCloud.countAllUnreads = TS.utility.msgs.countAllUnreads();
+		TS.utility.msgs.countAllUnreads = function(){ScudCloud.countAllUnreads;ScudCloud.count()};
+	},
+	overrideOnDOMReady: function(){
+		ScudCloud.onDOMReady = TS.onDOMReady;
+		TS.onDOMReady = function(){ScudCloud.overrideNotifications();ScudCloud.onDOMReady();};
+	},
 	connect: function(b){
 		ScudCloud.connected = b;
 		desktop.enableMenus(b);
@@ -69,10 +81,9 @@ var boot_data = {};
 if("undefined" != typeof TS){
 	document.onpaste = function(e){desktop.pasted(false);}
 	ScudCloud.overrideNotifications();
-	TS.ms.connected_sig.add(function(){ScudCloud.connect(true);});
-	TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
-	ScudCloud.onDOMReady = TS.onDOMReady;
-	TS.onDOMReady = function(){ScudCloud.overrideNotifications();ScudCloud.onDOMReady();};
+	ScudCloud.overrideConnect();
+	ScudCloud.overrideOnDOMReady();
+	ScudCloud.overrideCountAllUnreads();
     boot_data.channels = ScudCloud.listChannels();
     boot_data.teams = ScudCloud.listTeams();
 	ScudCloud.count();
