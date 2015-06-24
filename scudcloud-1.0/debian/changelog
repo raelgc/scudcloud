@@ -1,3 +1,9 @@
+scudcloud (1.0-49) trusty; urgency=medium
+
+  * Update read messages (#164)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 24 Jun 2015 10:56:18 -0300
+
 scudcloud (1.0-48) trusty; urgency=medium
 
   * Few changes to avoid loose desktop notifications
