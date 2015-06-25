@@ -14,7 +14,7 @@ var ScudCloud = {
 		TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
 	},
 	overrideCountAllUnreads: function(){
-		ScudCloud.countAllUnreads = TS.utility.msgs.countAllUnreads();
+		ScudCloud.countAllUnreads = TS.utility.msgs.countAllUnreads;
 		TS.utility.msgs.countAllUnreads = function(){ScudCloud.countAllUnreads;ScudCloud.count()};
 	},
 	overrideOnDOMReady: function(){
@@ -28,7 +28,11 @@ var ScudCloud = {
 		ScudCloud.overrideNotifications();
 	},
     count: function(){
-		desktop.count(TS.model.all_unread_highlights_cnt.toString());
+		var total=0; 
+		$('span.unread_highlight').not('.hidden').each(function(i){ 
+			total+= new Number($(this).text().replace('+','')); }
+		);
+		desktop.count(total.toString());
     },
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
