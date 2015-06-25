@@ -1,3 +1,9 @@
+scudcloud (1.0-50) trusty; urgency=medium
+
+  * Fixing quicklist and direct messages
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 25 Jun 2015 14:45:00 -0300
+
 scudcloud (1.0-49) trusty; urgency=medium
 
   * Update read messages (#164)
