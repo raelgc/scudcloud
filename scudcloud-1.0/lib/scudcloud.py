@@ -129,10 +129,10 @@ class ScudCloud(QtGui.QMainWindow):
     def addMenu(self):
         self.menus = {
             "file": {
-                "preferences": self.createAction("Preferences", self.current().preferences),
+                "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
                 "systray":     self.createAction("Close to Tray", self.systray, None, True),
-                "addTeam":     self.createAction("Sign in to Another Team", self.current().addTeam),
-                "signout":     self.createAction("Signout", self.current().logout),
+                "addTeam":     self.createAction("Sign in to Another Team", lambda : self.current().addTeam()),
+                "signout":     self.createAction("Signout", lambda : self.current().logout()),
                 "close":       self.createAction("Close", self.close, QKeySequence.Close),
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
@@ -155,7 +155,7 @@ class ScudCloud(QtGui.QMainWindow):
             "help": {
                 "help":       self.createAction("Help and Feedback", self.current().help, QKeySequence.HelpContents),
                 "center":     self.createAction("Slack Help Center", self.current().helpCenter),
-                "about":      self.createAction("About", self.current().about)
+                "about":      self.createAction("About", lambda : self.current().about())
              }
         }
         menu = self.menuBar()
