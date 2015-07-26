@@ -270,6 +270,7 @@ class ScudCloud(QtGui.QMainWindow):
         return QtGui.QMainWindow.eventFilter(self, obj, event);
 
     def focusInEvent(self, event):
+		self.count()
         self.launcher.set_property("urgent", False)
         self.tray.stopAlert()
 
