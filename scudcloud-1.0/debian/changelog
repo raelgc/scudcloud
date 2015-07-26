@@ -1,3 +1,10 @@
+scudcloud (1.0-51) trusty; urgency=medium
+
+  * Using lambdas for dereferenced callbacks (fixes #170 #177)
+  * Updating unread counter on window focus
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 25 Jul 2015 23:58:20 -0300
+
 scudcloud (1.0-50) trusty; urgency=medium
 
   * Fixing quicklist and direct messages
