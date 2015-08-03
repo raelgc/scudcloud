@@ -76,9 +76,9 @@ First, you'll need to install at least packages for `python3`, `python-qt4` (`qt
 Then run the below script: it'll download the code and install it:
 
 ```bash
-wget https://github.com/raelgc/scudcloud/archive/v1.0.52.tar.gz
-tar -xvf v1.0.52.tar.gz
-cd scudcloud-1.0.52
+wget https://github.com/raelgc/scudcloud/archive/v1.0.53.tar.gz
+tar -xvf v1.0.53.tar.gz
+cd scudcloud-1.0.53
 SOURCE="scudcloud-1.0"
 INSTALL="/opt/scudcloud"
 sudo mkdir -p $INSTALL/lib
