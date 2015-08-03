@@ -2,20 +2,16 @@ var ScudCloud = {
 	connected: false,
 	overrideNotifications: function(){
 		TS.ui.growls.no_notifications = false;
-		TS.ui.growls.checkPermission = function() { return true; }
-		TS.ui.growls.getPermissionLevel = function() { return 'granted'; }
+		TS.ui.growls.checkPermission = function() { return true; };
+		TS.ui.growls.getPermissionLevel = function() { return 'granted'; };
 		TS.ui.growls.show = function(j,k,g,o,l,b,c,m){
 			desktop.sendMessage(j,g);
-		}
+		};
 		TS.ui.banner.close();
 	},
 	overrideConnect: function(){
 		TS.ms.connected_sig.add(function(){ScudCloud.connect(true);});
 		TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
-	},
-	overrideCountAllUnreads: function(){
-		ScudCloud.countAllUnreads = TS.utility.msgs.countAllUnreads;
-		TS.utility.msgs.countAllUnreads = function(){ScudCloud.countAllUnreads;ScudCloud.count()};
 	},
 	overrideOnDOMReady: function(){
 		ScudCloud.onDOMReady = TS.onDOMReady;
@@ -24,7 +20,6 @@ var ScudCloud = {
 	connect: function(b){
 		ScudCloud.connected = b;
 		desktop.enableMenus(b);
-		ScudCloud.count();
 		ScudCloud.overrideNotifications();
 	},
     count: function(){
@@ -32,7 +27,7 @@ var ScudCloud = {
 		$('span.unread_highlight').not('.hidden').each(function(i){ 
 			total+= new Number($(this).text().replace('+','')); }
 		);
-		desktop.count(total.toString());
+		return total;
     },
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
@@ -67,7 +62,9 @@ var ScudCloud = {
 	getCurrentTeam: function(){
 		var list = TS.getAllTeams();
 		if(list!=null) for(var i=0;list.length;i++){
-			if(list[i].team_url==TS.boot_data.team_url) return list[i].id;
+			if(list[i].team_url==TS.boot_data.team_url){
+				return list[i].id;
+			}
 		}
 		return "";
 	},
@@ -80,17 +77,15 @@ var ScudCloud = {
     isConnected: function(){
         return "undefined" != typeof TS && "undefined" != typeof TS.model && TS.model.ms_connected;
     }
-}
+};
 var boot_data = {};
 if("undefined" != typeof TS){
-	document.onpaste = function(e){desktop.pasted(false);}
+	document.onpaste = function(e){desktop.pasted(false);};
 	ScudCloud.overrideNotifications();
 	ScudCloud.overrideConnect();
 	ScudCloud.overrideOnDOMReady();
-	ScudCloud.overrideCountAllUnreads();
     boot_data.channels = ScudCloud.listChannels();
     boot_data.teams = ScudCloud.listTeams();
-	ScudCloud.count();
 } else {
     boot_data.channels = new Array();
     boot_data.teams = new Array();

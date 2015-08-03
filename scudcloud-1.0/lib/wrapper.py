@@ -125,6 +125,12 @@ class Wrapper(QWebView):
         self.call("join", menuitem.property_get("id"))
         self.window.show()
 
+    def count(self):
+        try:
+            self.messages = self.call("count")
+        except:
+            self.messages = 0
+
     @QtCore.pyqtSlot(bool) 
     def enableMenus(self, enabled):
         self.window.enableMenus(enabled)
@@ -143,11 +149,5 @@ class Wrapper(QWebView):
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
         self.window.notify(str(title).replace("New message from ", "").replace("New message in ", ""), str(message))
-        # Update the number of highlight unread messages
-        self.call("count")
 
-    @QtCore.pyqtSlot(int) 
-    def count(self, value):
-        self.messages = value;
-        self.window.count()
 
