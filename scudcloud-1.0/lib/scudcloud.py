@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, os
+import sys, os, time
 from cookiejar import PersistentCookieJar
 from leftpane import LeftPane
 from notifier import Notifier
@@ -7,8 +7,9 @@ from resources import Resources
 from systray import Systray
 from wrapper import Wrapper
 from os.path import expanduser
+from threading import Thread
 from PyQt4 import QtCore, QtGui, QtWebKit
-from PyQt4.Qt import QApplication, QKeySequence
+from PyQt4.Qt import QApplication, QKeySequence, QTimer
 from PyQt4.QtCore import QUrl, QSettings
 from PyQt4.QtWebKit import QWebSettings
 
@@ -61,6 +62,14 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             webView.load(QtCore.QUrl(self.domain()))
         webView.show()
+        # Starting unread msgs counter
+        self.setupTimer()
+
+    def setupTimer(self):
+        timer = QTimer(self)
+        timer.timeout.connect(self.count)
+        timer.setInterval(2000)
+        timer.start()
 
     def webSettings(self):
         self.cookiesjar = PersistentCookieJar(self)
@@ -270,7 +279,6 @@ class ScudCloud(QtGui.QMainWindow):
         return QtGui.QMainWindow.eventFilter(self, obj, event);
 
     def focusInEvent(self, event):
-        self.count()
         self.launcher.set_property("urgent", False)
         self.tray.stopAlert()
 
@@ -323,11 +331,13 @@ class ScudCloud(QtGui.QMainWindow):
         total = 0
         for i in range(0, self.stackedWidget.count()):
             widget = self.stackedWidget.widget(i)
+            widget.count()
             if widget.messages == 0:
                 self.leftPane.stopAlert(widget.team())
             else:
                 self.leftPane.alert(widget.team())
-            total+=widget.messages
+            if widget.messages is not None:
+                total+=widget.messages
         if total > self.messages:
             self.alert()
         if 0 == total:
