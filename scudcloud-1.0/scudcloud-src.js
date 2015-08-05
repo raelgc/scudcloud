@@ -4,7 +4,7 @@ var ScudCloud = {
 		TS.ui.growls.checkPermission = function() { return true; };
 		TS.ui.growls.getPermissionLevel = function() { return 'granted'; };
 		TS.ui.growls.show = function(j,k,g,o,l,b,c,m){
-			desktop.sendMessage(j,g);
+			desktop.sendMessage(j,k);
 		};
 		TS.ui.banner.close();
 	},
