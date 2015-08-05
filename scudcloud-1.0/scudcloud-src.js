@@ -1,5 +1,4 @@
 var ScudCloud = {
-	connected: false,
 	overrideNotifications: function(){
 		TS.ui.growls.no_notifications = false;
 		TS.ui.growls.checkPermission = function() { return true; };
@@ -18,12 +17,11 @@ var ScudCloud = {
 		TS.onDOMReady = function(){ScudCloud.overrideNotifications();ScudCloud.onDOMReady();};
 	},
 	connect: function(b){
-		ScudCloud.connected = b;
 		desktop.enableMenus(b);
 		ScudCloud.overrideNotifications();
 	},
     count: function(){
-		var total=0; 
+		var total=0;
 		$('span.unread_highlight').not('.hidden').each(function(i){ 
 			total+= new Number($(this).text().replace('+','')); }
 		);
@@ -31,9 +29,6 @@ var ScudCloud = {
     },
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
-	},
-	isConnected: function(){
-		return ScudCloud.connected;
 	},
     listChannels: function(){
 		return TS.channels.getUnarchivedChannelsForUser();
