@@ -35,7 +35,7 @@ class Systray(QtGui.QSystemTrayIcon):
             else:
                 self.setIcon(QtGui.QIcon.fromTheme("scudcloud"))
         elif i > 0 and i < 10:
-            self.setIcon(QtGui.QIcon.fromTheme("scudcloud-attention-"+str(i)))
+            self.setIcon(QtGui.QIcon.fromTheme("scudcloud-attention-"+str(int(i))))
         elif i > 9:
             self.setIcon(QtGui.QIcon.fromTheme("scudcloud-attention-9-plus"))
 
