@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 import os
 import sys
-INSTALL_DIR = "/opt/scudcloud/"
-sys.path.append(INSTALL_DIR+'lib')
+
+def get_install_dir():
+    """
+    Rather than using an inflexible value of '/opt/scudcloud', we now assume
+    that the 'lib' and 'resources' dir will be in the same directory as the
+    'scudcloud' executable.  This method sets the install dir to always be
+    that directory.
+    """
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
+
+INSTALL_DIR = get_install_dir()
+print("INSTALL_DIR is \"%s\"" % INSTALL_DIR)
+sys.path.append(INSTALL_DIR + '/lib')
+
 from PyQt4 import QtGui
 from resources import Resources
 from scudcloud import ScudCloud
