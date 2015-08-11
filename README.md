@@ -61,9 +61,9 @@ makepkg -si
 
 [pkgbuild]: https://aur.archlinux.org/packages/scudcloud/
 
-## Fedora 21
+## Fedora and openSUSE
 
-There is a yum repository available for Fedora 21. All you need to do is follow [these instructions][build_suse].
+There are repositories available for these distributions. All you need to do is follow [these instructions][build_suse].
 
 [build_suse]: http://software.opensuse.org/download.html?project=home%3Amoonwolf%3Ascudcloud&package=scudcloud
 
