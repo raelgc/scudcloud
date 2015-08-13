@@ -1,3 +1,10 @@
+scudcloud (1.0-56) trusty; urgency=medium
+
+  * Allow relative path
+  * Re-enable desktop notifications on page reload (#163)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 13 Aug 2015 08:39:03 -0300
+
 scudcloud (1.0-55) trusty; urgency=medium
 
   * Fixing notifications systray count (#192)
