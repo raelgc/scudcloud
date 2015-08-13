@@ -11,6 +11,7 @@ from resources import Resources
 class Wrapper(QWebView):
 
     messages = 0
+    urlChanged = False
 
     def __init__(self, window):
         self.configure_proxy()
@@ -21,6 +22,7 @@ class Wrapper(QWebView):
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
+        self.connect(self, SIGNAL("loadFinished(bool)"), self.loadFinished)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
         self.addActions()
 
@@ -55,6 +57,7 @@ class Wrapper(QWebView):
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def urlChanged(self, qUrl):
+        self.urlChanged = True
         url = qUrl.toString()
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
@@ -62,14 +65,22 @@ class Wrapper(QWebView):
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
         else:
             self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
-            self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-            boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
-            self.window.quicklist(boot_data['channels'])
-            self.window.teams(boot_data['teams'])
-            self.window.enableMenus(self.isConnected())
+            self.inject()
             # Save the loading team as default
             if url.endswith("/messages"):
                 self.window.settings.setValue("Domain", 'https://'+qUrl.host())
+
+    def loadFinished(self, ok):
+        if not self.urlChanged:
+            self.inject()
+            self.urlChanged = False
+
+    def inject(self):
+        self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+        boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
+        self.window.quicklist(boot_data['channels'])
+        self.window.teams(boot_data['teams'])
+        self.window.enableMenus(self.isConnected())        
 
     def systemOpen(self, url):
         subprocess.call(('xdg-open', url))
