@@ -6,8 +6,8 @@ Contributions are welcomed and appreciated! To start contributing:
 2. Clone your fork
     - `$ git clone git@github.com:your-user-name/scudcloud.git`
     - `$ cd scudcloud`
-3. Create a feature branch
-    - `$ git checkout -b named-feature-branch`
+3. Create a feature branch using the issue number (if exists):
+    - `$ git checkout -b 123-named-feature-branch`
 4. Backup local scudcloud
     - `$ sudo mv /opt/scudcloud /opt/scudcloud.bak`
     - `$ sudo mv /usr/bin/scudcloud /usr/bin/scudcloud.bak`
