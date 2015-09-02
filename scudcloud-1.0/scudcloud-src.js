@@ -3,18 +3,12 @@ var ScudCloud = {
 		TS.ui.growls.no_notifications = false;
 		TS.ui.growls.checkPermission = function() { return true; };
 		TS.ui.growls.getPermissionLevel = function() { return 'granted'; };
-		TS.ui.growls.show = function(j,k,g,o,l,b,c,m){
-			desktop.sendMessage(j,k);
-		};
+		TS.ui.growls.show = function(j,f,o,p){ desktop.sendMessage(j,f); };
 		TS.ui.banner.close();
 	},
 	overrideConnect: function(){
 		TS.ms.connected_sig.add(function(){ScudCloud.connect(true);});
 		TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
-	},
-	overrideOnDOMReady: function(){
-		ScudCloud.onDOMReady = TS.onDOMReady;
-		TS.onDOMReady = function(){ScudCloud.overrideNotifications();ScudCloud.onDOMReady();};
 	},
 	connect: function(b){
 		desktop.enableMenus(b);
@@ -29,6 +23,9 @@ var ScudCloud = {
     },
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
+	},
+	checkNotifications: function(){
+		if(!TS.ui.growls.checkPermission()) ScudCloud.overrideNotifications();
 	},
     listChannels: function(){
 		return TS.channels.getUnarchivedChannelsForUser();
@@ -78,7 +75,6 @@ if("undefined" != typeof TS){
 	document.onpaste = function(e){desktop.pasted(false);};
 	ScudCloud.overrideNotifications();
 	ScudCloud.overrideConnect();
-	ScudCloud.overrideOnDOMReady();
     boot_data.channels = ScudCloud.listChannels();
     boot_data.teams = ScudCloud.listTeams();
 } else {

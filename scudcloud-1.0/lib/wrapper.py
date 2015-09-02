@@ -11,7 +11,6 @@ from resources import Resources
 class Wrapper(QWebView):
 
     messages = 0
-    urlChanged = False
 
     def __init__(self, window):
         self.configure_proxy()
@@ -57,7 +56,6 @@ class Wrapper(QWebView):
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def urlChanged(self, qUrl):
-        self.urlChanged = True
         url = qUrl.toString()
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
@@ -70,10 +68,9 @@ class Wrapper(QWebView):
             if url.endswith("/messages"):
                 self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
+    # Trying to catch the page reload
     def loadFinished(self, ok):
-        if not self.urlChanged:
-            self.inject()
-            self.urlChanged = False
+        self.call("checkNotifications")
 
     def inject(self):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
