@@ -1,3 +1,9 @@
+scudcloud (1.0-59) trusty; urgency=medium
+
+  * Handling system interrupt signal (#199)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 03 Sep 2015 13:56:25 -0300
+
 scudcloud (1.0-58) trusty; urgency=medium
 
   * Trying to re-enable notifications on page reload
