@@ -1,3 +1,16 @@
+scudcloud (1.0-62) trusty; urgency=medium
+
+  * Forgot to bump constant version before build package
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 07 Sep 2015 14:28:57 -0300
+
+scudcloud (1.0-61) trusty; urgency=medium
+
+  * Add option to print version in command line (#186)
+  * Fixing 'Help and Feedback' and 'Help Center' on multiple teams
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 07 Sep 2015 14:23:24 -0300
+
 scudcloud (1.0-60) trusty; urgency=medium
 
   * Updating login.css
