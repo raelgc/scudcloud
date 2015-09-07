@@ -1,1 +1,1 @@
-.header_nav > .header_links > a {display: none !important;}
+nav.top, footer {display: none !important;}
