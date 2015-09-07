@@ -36,7 +36,7 @@ If you want to use a Slack icon instead of ScudCloud (which is not possible to i
 ```term
 sudo dpkg-divert --add --rename --divert /opt/scudcloud/resources/scudcloud.png.real /opt/scudcloud/resources/scudcloud.png
 sudo cp ~/scudcloud.png /opt/scudcloud/resources/
-sudo chmod +r /opt/scudcloud/resources/scudcloud.png # ensure it's globally readable
+sudo chmod +r /opt/scudcloud/resources/scudcloud.png
 ```
 
 ## Ubuntu 12.04
@@ -104,7 +104,7 @@ You can change the default domain editing or just deleting the config file:
 
 ## 2. Where is the package for my distro?
 
-If not listed above, you're welcome [to contribute](/CONTRIBUTING.md).
+If not listed above, you're welcome [to contribute](/CONTRIBUTING.md). In this meanwhile, try the [Manual Install](#manual-install) instructions.
 
 ## 3. `Keep me signed in` is not working
 
@@ -128,9 +128,9 @@ You can start ScudCloud minized to tray with:
 
 ScudCloud offers zoom support. The zoom level will be persisted between sessions.
 
-- Increase zoom pressing `Ctrl`+`+` (usually fired with `Ctrl`+`Shift`+`=`);
-- Decrease with `Ctrl`+`-`;
-- Reset it with `Ctrl`+`0`.
+- Increase zoom pressing `Ctrl +` (usually fired with `Ctrl Shift =`);
+- Decrease with `Ctrl -`;
+- Reset it with `Ctrl 0`.
 
 # Screenshots
 
