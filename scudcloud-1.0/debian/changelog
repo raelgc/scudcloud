@@ -1,3 +1,10 @@
+scudcloud (1.0-60) trusty; urgency=medium
+
+  * Updating login.css
+  * Reducing JavaScript usage on channel switch
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 07 Sep 2015 09:20:53 -0300
+
 scudcloud (1.0-59) trusty; urgency=medium
 
   * Handling system interrupt signal (#199)
