@@ -14,6 +14,8 @@ from qsingleapplication import QSingleApplication
 # The ScudCloud QMainWindow
 win = None
 
+VERSION = '1.0.60'
+
 def main():
     global win;
     Resources.INSTALL_DIR = INSTALL_DIR
@@ -54,15 +56,13 @@ def parse_arguments():
     parser.add_argument('--debug',      dest='debug',        type=bool,     default=False,           help="enable webkit debug console (default: False)")
     parser.add_argument('--minimized',  dest='minimized',    type=bool,     default=False,           help="start minimized to tray (default: False)")
     parser.add_argument('--no_plugins', dest='no_plugins',   type=bool,     default=False,           help="disable web plugins (default: False)")
-    parser.add_argument('--version',    action='version',    version=version(),                      help="print version and exit")
+    parser.add_argument('--version',    action="store_true",                                         help="print version and exit")
     args = parser.parse_args()
+    if args.version:
+        print("ScudCloud "+VERSION)
+        sys.exit()
     args.confdir = expanduser(args.confdir)
     return args
-
-def version():
-    with open(INSTALL_DIR+'/version', "r") as f:
-        print("ScudCloud "+f.read())
-    sys.exit()
 
 def exit(*args):
     if win is not None:
