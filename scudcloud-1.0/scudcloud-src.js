@@ -12,7 +12,10 @@ var ScudCloud = {
 	},
 	connect: function(b){
 		desktop.enableMenus(b);
-		ScudCloud.overrideNotifications();
+		var data = {};
+		data.channels = ScudCloud.listChannels();
+		data.teams = ScudCloud.listTeams();
+		desktop.populate(JSON.stringify(data));
 	},
     count: function(){
 		var total=0;
@@ -70,15 +73,8 @@ var ScudCloud = {
         return "undefined" != typeof TS && "undefined" != typeof TS.model && TS.model.ms_connected;
     }
 };
-var boot_data = {};
 if("undefined" != typeof TS){
 	document.onpaste = function(e){desktop.pasted(false);};
 	ScudCloud.overrideNotifications();
 	ScudCloud.overrideConnect();
-    boot_data.channels = ScudCloud.listChannels();
-    boot_data.teams = ScudCloud.listTeams();
-} else {
-    boot_data.channels = new Array();
-    boot_data.teams = new Array();
 }
-boot_data

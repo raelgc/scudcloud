@@ -1,4 +1,4 @@
-import sys, subprocess, os
+import sys, subprocess, os, json
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
@@ -57,26 +57,19 @@ class Wrapper(QWebView):
 
     def urlChanged(self, qUrl):
         url = qUrl.toString()
+        # Let's hide login header and footer links for clean UX
+        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
-        else:
-            self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
-            self.inject()
-            # Save the loading team as default
-            if url.endswith("/messages"):
-                self.window.settings.setValue("Domain", 'https://'+qUrl.host())
+        # Save the loading team as default
+        elif url.endswith("/messages"):
+            self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
-    # Trying to catch the page reload
     def loadFinished(self, ok):
-        self.call("checkNotifications")
-
-    def inject(self):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
-        boot_data = self.page().currentFrame().evaluateJavaScript(self.js)
-        self.window.quicklist(boot_data['channels'])
-        self.window.teams(boot_data['teams'])
+        self.page().currentFrame().evaluateJavaScript(self.js)
         self.window.enableMenus(self.isConnected())        
 
     def systemOpen(self, url):
@@ -138,6 +131,12 @@ class Wrapper(QWebView):
             self.messages = self.call("count")
         except:
             self.messages = 0
+
+    @QtCore.pyqtSlot(str) 
+    def populate(self, serialized):
+        data = json.loads(serialized)
+        self.window.quicklist(data['channels'])
+        self.window.teams(data['teams'])
 
     @QtCore.pyqtSlot(bool) 
     def enableMenus(self, enabled):
