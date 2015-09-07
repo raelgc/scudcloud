@@ -12,10 +12,7 @@ var ScudCloud = {
 	},
 	connect: function(b){
 		desktop.enableMenus(b);
-		var data = {};
-		data.channels = ScudCloud.listChannels();
-		data.teams = ScudCloud.listTeams();
-		desktop.populate(JSON.stringify(data));
+		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams()}));
 	},
     count: function(){
 		var total=0;
@@ -26,9 +23,6 @@ var ScudCloud = {
     },
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
-	},
-	checkNotifications: function(){
-		if(!TS.ui.growls.checkPermission()) ScudCloud.overrideNotifications();
 	},
     listChannels: function(){
 		return TS.channels.getUnarchivedChannelsForUser();
