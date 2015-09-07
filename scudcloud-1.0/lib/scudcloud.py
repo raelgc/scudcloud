@@ -162,8 +162,8 @@ class ScudCloud(QtGui.QMainWindow):
                 "fullscreen":  self.createAction("Toggle Full Screen", self.toggleFullScreen, QtCore.Qt.Key_F11)        
             },
             "help": {
-                "help":       self.createAction("Help and Feedback", self.current().help, QKeySequence.HelpContents),
-                "center":     self.createAction("Slack Help Center", self.current().helpCenter),
+                "help":       self.createAction("Help and Feedback", lambda : self.current().help, QKeySequence.HelpContents),
+                "center":     self.createAction("Slack Help Center", lambda : self.current().helpCenter),
                 "about":      self.createAction("About", lambda : self.current().about())
              }
         }
