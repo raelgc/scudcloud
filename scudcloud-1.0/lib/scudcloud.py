@@ -273,10 +273,10 @@ class ScudCloud(QtGui.QMainWindow):
                 elif event.key() == QtCore.Qt.Key_7: self.leftPane.click(6)
                 elif event.key() == QtCore.Qt.Key_8: self.leftPane.click(7)
                 elif event.key() == QtCore.Qt.Key_9: self.leftPane.click(8)
-                # ctrl + tab
+                # Ctrl + Tab
                 elif event.key() == QtCore.Qt.Key_Tab: self.leftPane.clickNext(1)
   
-            # ctrl + backtab
+            # Ctrl + BackTab
             if (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ControlModifier) and (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier):
                 if event.key() == QtCore.Qt.Key_Backtab: self.leftPane.clickNext(-1)
                         
