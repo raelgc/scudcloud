@@ -10,8 +10,6 @@ from resources import Resources
 
 class Wrapper(QWebView):
 
-    messages = 0
-
     def __init__(self, window):
         self.configure_proxy()
         QWebView.__init__(self)
@@ -128,9 +126,9 @@ class Wrapper(QWebView):
 
     def count(self):
         try:
-            self.messages = self.call("count")
+            return self.call("count")
         except:
-            self.messages = 0
+            return 0
 
     @QtCore.pyqtSlot(str) 
     def populate(self, serialized):

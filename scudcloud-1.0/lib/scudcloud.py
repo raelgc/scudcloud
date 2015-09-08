@@ -338,13 +338,13 @@ class ScudCloud(QtGui.QMainWindow):
         total = 0
         for i in range(0, self.stackedWidget.count()):
             widget = self.stackedWidget.widget(i)
-            widget.count()
-            if widget.messages == 0:
+            messages = widget.count()
+            if messages == 0:
                 self.leftPane.stopAlert(widget.team())
             else:
                 self.leftPane.alert(widget.team())
-            if widget.messages is not None:
-                total+=widget.messages
+            if messages is not None:
+                total+=messages
         if total > self.messages:
             self.alert()
         if 0 == total:
