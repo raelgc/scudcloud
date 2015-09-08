@@ -1,3 +1,11 @@
+scudcloud (1.0-63) trusty; urgency=medium
+
+  * Improving JS ScudCloud
+  * Small improvement in message counting
+  * Adding initial loading message in status bar (#158)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 08 Sep 2015 10:50:20 -0300
+
 scudcloud (1.0-62) trusty; urgency=medium
 
   * Forgot to bump constant version before build package
