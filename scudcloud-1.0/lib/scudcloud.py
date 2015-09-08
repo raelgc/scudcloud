@@ -64,6 +64,7 @@ class ScudCloud(QtGui.QMainWindow):
         webView.show()
         # Starting unread msgs counter
         self.setupTimer()
+        self.statusBar().showMessage('Connecting to Slack...')
 
     def setupTimer(self):
         timer = QTimer(self)
