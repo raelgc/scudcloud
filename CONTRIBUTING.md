@@ -1,3 +1,15 @@
+# Bugs
+
+Before create a new bug, please, first search if the bug already exists to avoid duplication.
+
+Then, remember to add:
+- a short but clear title, 
+- a good description, including details and steps to reproduce (if applicable),
+- your distro name,
+- your distro version.
+
+This will speed up the mitigation process.
+
 # Contributing
 
 Contributions are welcomed and appreciated! To start contributing:
