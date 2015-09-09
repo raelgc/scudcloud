@@ -62,9 +62,9 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             webView.load(QtCore.QUrl(self.domain()))
         webView.show()
+        self.statusBar().showMessage('Loading Slack...')
         # Starting unread msgs counter
         self.setupTimer()
-        self.statusBar().showMessage('Loading Slack...')
 
     def setupTimer(self):
         timer = QTimer(self)
@@ -233,10 +233,7 @@ class ScudCloud(QtGui.QMainWindow):
         if teams is not None and len(teams) > 1:
             self.leftPane.show()
             for t in teams:
-                try:
-                    self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
-                except:
-                    self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], '', t == teams[0])
+                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
 
     def switchTo(self, url):
         qUrl = QtCore.QUrl(url)
