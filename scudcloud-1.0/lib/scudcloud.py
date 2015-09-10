@@ -233,7 +233,9 @@ class ScudCloud(QtGui.QMainWindow):
         if teams is not None and len(teams) > 1:
             self.leftPane.show()
             for t in teams:
-                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
+                # If team_icon is not present, it's because team is already connected
+                if 'team_icon' in t:
+                    self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
 
     def switchTo(self, url):
         qUrl = QtCore.QUrl(url)
