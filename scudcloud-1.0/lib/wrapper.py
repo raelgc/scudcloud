@@ -19,6 +19,7 @@ class Wrapper(QWebView):
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
+        self.connect(self, SIGNAL("loadStarted()"), self.loadStarted)
         self.connect(self, SIGNAL("loadFinished(bool)"), self.loadFinished)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
         self.addActions()
@@ -53,10 +54,12 @@ class Wrapper(QWebView):
             arg = ""
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
-    def urlChanged(self, qUrl):
-        url = qUrl.toString()
+    def loadStarted(self):
         # Let's hide login header and footer links for clean UX
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
+
+    def urlChanged(self, qUrl):
+        url = qUrl.toString()
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
