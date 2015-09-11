@@ -94,9 +94,6 @@ class Wrapper(QWebView):
     def isConnected(self):
         return self.call("isConnected")
 
-    def addTeam(self):
-        self.call("addTeam")
-
     def createSnippet(self):
         self.call("createSnippet")
 

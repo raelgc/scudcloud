@@ -141,7 +141,7 @@ class ScudCloud(QtGui.QMainWindow):
             "file": {
                 "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
                 "systray":     self.createAction("Close to Tray", self.systray, None, True),
-                "addTeam":     self.createAction("Sign in to Another Team", lambda : self.current().addTeam()),
+                "addTeam":     self.createAction("Sign in to Another Team", lambda : self.switchTo(Resources.SIGNIN_URL)),
                 "signout":     self.createAction("Signout", lambda : self.current().logout()),
                 "close":       self.createAction("Close", self.close, QKeySequence.Close),
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
