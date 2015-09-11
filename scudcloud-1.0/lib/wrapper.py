@@ -61,9 +61,6 @@ class Wrapper(QWebView):
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
-        # Save the loading team as default
-        elif url.endswith("/messages"):
-            self.window.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def loadFinished(self, ok):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)

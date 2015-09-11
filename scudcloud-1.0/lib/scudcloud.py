@@ -230,13 +230,12 @@ class ScudCloud(QtGui.QMainWindow):
         return self.stackedWidget.currentWidget()
 
     def teams(self, teams):
-        if teams is not None and len(teams) > 1:
-            if not self.leftPane.isVisible():
-                self.leftPane.show()
-            for t in teams:
-                # If team_icon is not present, it's because team is already connected
-                if 'team_icon' in t:
-                    self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
+        for t in teams:
+            # If team_icon is not present, it's because team is already connected
+            if 'team_icon' in t:
+                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
+        if len(teams) > 1:
+            self.leftPane.show()
 
     def switchTo(self, url):
         qUrl = QtCore.QUrl(url)
@@ -256,8 +255,6 @@ class ScudCloud(QtGui.QMainWindow):
             self.stackedWidget.setCurrentWidget(webView)
         self.quicklist(self.current().listChannels())
         self.enableMenus(self.current().isConnected())
-        # Save the last used team as default
-        self.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
@@ -301,6 +298,10 @@ class ScudCloud(QtGui.QMainWindow):
             self.cookiesjar.save()
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
+            # Let's save the first team registered as default
+            qUrl = self.stackedWidget.widget(0).url()
+            if self.identifier is None and Resources.MESSAGES_URL_RE.match(qUrl.toString()):
+                self.settings.setValue("Domain", 'https://'+qUrl.host())
 
     def show(self):
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
