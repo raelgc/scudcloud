@@ -41,10 +41,7 @@ class ScudCloud(QtGui.QMainWindow):
             self.launcher = DummyLauncher(self)
         self.webSettings()
         self.leftPane = LeftPane(self)
-        webView = Wrapper(self)
-        webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
         self.stackedWidget = QtGui.QStackedWidget()
-        self.stackedWidget.addWidget(webView)
         centralWidget = QtGui.QWidget(self)
         layout = QtGui.QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -53,18 +50,25 @@ class ScudCloud(QtGui.QMainWindow):
         layout.addWidget(self.stackedWidget)
         centralWidget.setLayout(layout)
         self.setCentralWidget(centralWidget)
+        startURL = Resources.SIGNIN_URL
+        if self.identifier is not None:
+            startURL = self.domain()
+        self.addWrapper(startURL)
         self.addMenu()
         self.tray = Systray(self)
         self.systray(ScudCloud.minimized)
         self.installEventFilter(self)
-        if self.identifier is None:
-            webView.load(QtCore.QUrl(Resources.SIGNIN_URL))
-        else:
-            webView.load(QtCore.QUrl(self.domain()))
-        webView.show()
         self.statusBar().showMessage('Loading Slack...')
         # Starting unread msgs counter
         self.setupTimer()
+
+    def addWrapper(self, url):
+        webView = Wrapper(self)
+        webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
+        webView.load(QtCore.QUrl(url))
+        webView.show()
+        self.stackedWidget.addWidget(webView)
+        self.stackedWidget.setCurrentWidget(webView)
 
     def setupTimer(self):
         timer = QTimer(self)
@@ -238,21 +242,14 @@ class ScudCloud(QtGui.QMainWindow):
             self.leftPane.show()
 
     def switchTo(self, url):
-        qUrl = QtCore.QUrl(url)
-        index = -1
+        exists = False
         for i in range(0, self.stackedWidget.count()):
             if self.stackedWidget.widget(i).url().toString().startswith(url):
-                index = i
+                self.stackedWidget.setCurrentIndex(i)
+                exists = True
                 break
-        if index != -1:
-            self.stackedWidget.setCurrentIndex(index)
-        else:
-            webView = Wrapper(self)
-            webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
-            webView.load(qUrl)
-            webView.show()
-            self.stackedWidget.addWidget(webView)
-            self.stackedWidget.setCurrentWidget(webView)
+        if not exists:
+            self.addWrapper(url)
         self.quicklist(self.current().listChannels())
         self.enableMenus(self.current().isConnected())
 
@@ -273,11 +270,9 @@ class ScudCloud(QtGui.QMainWindow):
                 elif event.key() == QtCore.Qt.Key_9: self.leftPane.click(8)
                 # Ctrl + Tab
                 elif event.key() == QtCore.Qt.Key_Tab: self.leftPane.clickNext(1)
-  
             # Ctrl + BackTab
             if (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ControlModifier) and (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier):
                 if event.key() == QtCore.Qt.Key_Backtab: self.leftPane.clickNext(-1)
-                        
             # Ctrl + Shift + <key>
             if (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier) and (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier):
                 if event.key() == QtCore.Qt.Key_V: self.current().createSnippet()
