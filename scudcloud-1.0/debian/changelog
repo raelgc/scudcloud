@@ -1,3 +1,10 @@
+scudcloud (1.0-64) trusty; urgency=medium
+
+  * Several code improvements
+  * Fixing teams loading order (#201)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 11 Sep 2015 19:32:26 -0300
+
 scudcloud (1.0-63) trusty; urgency=medium
 
   * Improving JS ScudCloud
