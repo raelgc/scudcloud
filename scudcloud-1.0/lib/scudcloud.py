@@ -231,7 +231,8 @@ class ScudCloud(QtGui.QMainWindow):
 
     def teams(self, teams):
         if teams is not None and len(teams) > 1:
-            self.leftPane.show()
+            if not self.leftPane.isVisible():
+                self.leftPane.show()
             for t in teams:
                 # If team_icon is not present, it's because team is already connected
                 if 'team_icon' in t:
