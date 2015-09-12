@@ -128,9 +128,9 @@ You can start ScudCloud minized to tray with:
 
 ScudCloud offers zoom support. The zoom level will be persisted between sessions.
 
-- Increase zoom pressing `Ctrl +`, usually fired with `Ctrl Shift =`
-- Decrease with `Ctrl -`
-- Reset it with `Ctrl 0`
+- Increase zoom pressing <kbd>Ctrl +</kbd>, usually fired with <kbd>Ctrl Shift =</kbd>
+- Decrease with <kbd>Ctrl -</kbd>
+- Reset it with <kbd>Ctrl 0</kbd>
 
 # Screenshots
 
