@@ -6,7 +6,6 @@ from notifier import Notifier
 from resources import Resources
 from systray import Systray
 from wrapper import Wrapper
-from os.path import expanduser
 from threading import Thread
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
