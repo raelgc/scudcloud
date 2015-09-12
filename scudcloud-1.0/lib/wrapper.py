@@ -1,12 +1,11 @@
 import sys, subprocess, os, json
+from urllib.parse import urlparse
+from resources import Resources
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 from PyQt4.QtNetwork import QNetworkProxy
-
-from urllib.parse import urlparse
-from resources import Resources
 
 class Wrapper(QWebView):
 
