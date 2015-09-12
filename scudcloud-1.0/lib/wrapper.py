@@ -67,7 +67,7 @@ class Wrapper(QWebView):
     def loadFinished(self, ok):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         self.page().currentFrame().evaluateJavaScript(self.js)
-        self.window.enableMenus(self.isConnected())        
+        self.window.enableMenus(self.isConnected())
         self.window.statusBar().hide()
 
     def systemOpen(self, url):
