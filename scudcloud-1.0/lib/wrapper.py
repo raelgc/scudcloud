@@ -134,7 +134,8 @@ class Wrapper(QWebView):
     def populate(self, serialized):
         data = json.loads(serialized)
         self.window.teams(data['teams'])
-        self.window.quicklist(data['channels'])
+        if self.window.current() == self:
+            self.window.quicklist(data['channels'])
         filename, headers = request.urlretrieve(data['icon'])
         self.icon = filename
 

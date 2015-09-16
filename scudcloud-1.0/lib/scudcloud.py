@@ -252,9 +252,10 @@ class ScudCloud(QtGui.QMainWindow):
                 self.stackedWidget.setCurrentIndex(i)
                 exists = True
                 break
-        if not exists:
+        if exists:
+            self.quicklist(self.current().listChannels())
+        else:
             self.addWrapper(url)
-        self.quicklist(self.current().listChannels())
         self.enableMenus(self.current().isConnected())
 
     def eventFilter(self, obj, event):
@@ -313,9 +314,9 @@ class ScudCloud(QtGui.QMainWindow):
 
     def quicklist(self, channels):
         if Dbusmenu is not None:
-            ql = Dbusmenu.Menuitem.new()
-            self.launcher.set_property("quicklist", ql)
             if channels is not None:
+                ql = Dbusmenu.Menuitem.new()
+                self.launcher.set_property("quicklist", ql)
                 for c in channels:
                     if c['is_member']:
                         item = Dbusmenu.Menuitem.new ()
