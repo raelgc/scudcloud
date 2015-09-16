@@ -11,6 +11,7 @@ from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
 from PyQt4.QtCore import QUrl, QSettings
 from PyQt4.QtWebKit import QWebSettings
+from PyQt4.QtNetwork import QNetworkDiskCache
 
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
@@ -64,6 +65,7 @@ class ScudCloud(QtGui.QMainWindow):
     def addWrapper(self, url):
         webView = Wrapper(self)
         webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
+        webView.page().networkAccessManager().setCache(self.diskCache)
         webView.load(QtCore.QUrl(url))
         webView.show()
         self.stackedWidget.addWidget(webView)
@@ -84,6 +86,10 @@ class ScudCloud(QtGui.QMainWindow):
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
         # We don't need History
         QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True)
+
+        self.diskCache = QNetworkDiskCache(self)
+        self.diskCache.setCacheDirectory(self.settings_path)
+
         # Required for copy and paste clipboard integration
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
