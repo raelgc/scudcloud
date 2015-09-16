@@ -1,8 +1,7 @@
 from resources import Resources
-from PyQt4 import QtWebKit, QtGui, QtCore
-from PyQt4.Qt import QApplication, QKeySequence
-from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
-from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
+from PyQt4 import QtCore
+from PyQt4.QtCore import QUrl
+from PyQt4.QtWebKit import QWebView, QWebSettings
 
 class LeftPane(QWebView):
 
