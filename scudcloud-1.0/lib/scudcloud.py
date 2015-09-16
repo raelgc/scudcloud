@@ -86,10 +86,9 @@ class ScudCloud(QtGui.QMainWindow):
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
         # We don't need History
         QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True)
-
+        # Enabling Cache
         self.diskCache = QNetworkDiskCache(self)
         self.diskCache.setCacheDirectory(self.settings_path)
-
         # Required for copy and paste clipboard integration
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
