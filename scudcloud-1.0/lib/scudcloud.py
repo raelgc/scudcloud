@@ -326,8 +326,8 @@ class ScudCloud(QtGui.QMainWindow):
                         ql.child_append(item)
                 self.launcher.set_property("quicklist", ql)
 
-    def notify(self, title, message):
-        self.notifier.notify(title, message)
+    def notify(self, title, message, icon=None):
+        self.notifier.notify(title, message, icon)
         self.alert()
 
     def alert(self):

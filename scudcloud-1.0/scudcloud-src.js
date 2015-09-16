@@ -12,7 +12,7 @@ var ScudCloud = {
 	},
 	connect: function(b){
 		desktop.enableMenus(b);
-		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams()}));
+		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_88}));
 	},
     count: function(){
 		var total=0;

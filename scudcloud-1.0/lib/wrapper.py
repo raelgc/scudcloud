@@ -1,4 +1,5 @@
 import sys, subprocess, os, json
+from urllib import request
 from urllib.parse import urlparse
 from resources import Resources
 from PyQt4 import QtWebKit, QtGui, QtCore
@@ -8,6 +9,8 @@ from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 from PyQt4.QtNetwork import QNetworkProxy
 
 class Wrapper(QWebView):
+
+    icon = None
 
     def __init__(self, window):
         self.configure_proxy()
@@ -132,6 +135,8 @@ class Wrapper(QWebView):
         data = json.loads(serialized)
         self.window.quicklist(data['channels'])
         self.window.teams(data['teams'])
+        filename, headers = request.urlretrieve(data['icon'])
+        self.icon = filename
 
     @QtCore.pyqtSlot(bool) 
     def enableMenus(self, enabled):
@@ -150,6 +155,6 @@ class Wrapper(QWebView):
 
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
-        self.window.notify(str(title).replace("New message from ", "").replace("New message in ", ""), str(message))
+        self.window.notify(str(title).replace("New message from ", "").replace("New message in ", ""), str(message), self.icon)
 
 
