@@ -133,8 +133,8 @@ class Wrapper(QWebView):
     @QtCore.pyqtSlot(str) 
     def populate(self, serialized):
         data = json.loads(serialized)
-        self.window.quicklist(data['channels'])
         self.window.teams(data['teams'])
+        self.window.quicklist(data['channels'])
         filename, headers = request.urlretrieve(data['icon'])
         self.icon = filename
 
