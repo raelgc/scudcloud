@@ -250,11 +250,10 @@ class ScudCloud(QtGui.QMainWindow):
         for i in range(0, self.stackedWidget.count()):
             if self.stackedWidget.widget(i).url().toString().startswith(url):
                 self.stackedWidget.setCurrentIndex(i)
+                self.quicklist(self.current().listChannels())
                 exists = True
                 break
-        if exists:
-            self.quicklist(self.current().listChannels())
-        else:
+        if not exists:
             self.addWrapper(url)
         self.enableMenus(self.current().isConnected())
 
