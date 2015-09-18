@@ -100,6 +100,13 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             self.showFullScreen()
 
+    def toggleMenuBar(self):
+        menu = self.menuBar()
+        if menu.isHidden():
+            menu.show()
+        else:
+            menu.hide()
+
     def restore(self):
         geometry = self.settings.value("geometry")
         if geometry is not None:
@@ -168,7 +175,8 @@ class ScudCloud(QtGui.QMainWindow):
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
                 "zoomout":     self.createAction("Zoom Out", self.zoomOut, QKeySequence.ZoomOut),
                 "reset":       self.createAction("Reset", self.zoomReset, QtCore.Qt.CTRL + QtCore.Qt.Key_0),
-                "fullscreen":  self.createAction("Toggle Full Screen", self.toggleFullScreen, QtCore.Qt.Key_F11)        
+                "fullscreen":  self.createAction("Toggle Full Screen", self.toggleFullScreen, QtCore.Qt.Key_F11),
+                "hidemenu":    self.createAction("Toggle Menubar", self.toggleMenuBar, QtCore.Qt.Key_F12)
             },
             "help": {
                 "help":       self.createAction("Help and Feedback", lambda : self.current().help(), QKeySequence.HelpContents),
@@ -203,6 +211,7 @@ class ScudCloud(QtGui.QMainWindow):
         viewMenu.addAction(self.menus["view"]["reset"])
         viewMenu.addSeparator()
         viewMenu.addAction(self.menus["view"]["fullscreen"])
+        viewMenu.addAction(self.menus["view"]["hidemenu"])
         helpMenu = menu.addMenu("&Help")
         helpMenu.addAction(self.menus["help"]["help"])
         helpMenu.addAction(self.menus["help"]["center"])
@@ -224,6 +233,8 @@ class ScudCloud(QtGui.QMainWindow):
         if shortcut is not None:
             action.setShortcut(shortcut)
         action.triggered.connect(slot)
+        if shortcut is not None:
+            self.addAction(action)
         if checkable:
             action.setCheckable(True)
         return action

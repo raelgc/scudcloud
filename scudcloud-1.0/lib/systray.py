@@ -12,6 +12,7 @@ class Systray(QtGui.QSystemTrayIcon):
         self.setToolTip(Resources.APP_NAME)
         self.menu = QtGui.QMenu(self.window)
         self.menu.addAction('Show', self.restore)
+        self.menu.addAction('Toggle Menubar', self.toggleMenuBar)
         self.menu.addSeparator()
         self.menu.addAction(self.window.menus["file"]["preferences"])
         self.menu.addAction(self.window.menus["help"]["about"])
@@ -42,6 +43,9 @@ class Systray(QtGui.QSystemTrayIcon):
     def restore(self):
         self.window.show()
         self.stopAlert()
+
+    def toggleMenuBar(self):
+        self.window.toggleMenuBar()
 
     def activatedEvent(self, reason):
         if reason in [QtGui.QSystemTrayIcon.MiddleClick, QtGui.QSystemTrayIcon.Trigger]:
