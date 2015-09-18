@@ -227,10 +227,9 @@ class ScudCloud(QtGui.QMainWindow):
 
     def createAction(self, text, slot, shortcut=None, checkable=False):
         action = QtGui.QAction(text, self)
-        if shortcut is not None:
-            action.setShortcut(shortcut)
         action.triggered.connect(slot)
         if shortcut is not None:
+            action.setShortcut(shortcut)
             self.addAction(action)
         if checkable:
             action.setCheckable(True)
