@@ -102,10 +102,7 @@ class ScudCloud(QtGui.QMainWindow):
 
     def toggleMenuBar(self):
         menu = self.menuBar()
-        if menu.isHidden():
-            menu.show()
-        else:
-            menu.hide()
+        menu.setVisible(menu.isHidden())
 
     def restore(self):
         geometry = self.settings.value("geometry")
