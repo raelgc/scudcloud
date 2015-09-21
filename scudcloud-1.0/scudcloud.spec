@@ -43,7 +43,11 @@ Url:            https://github.com/raelgc/scudcloud/
 Source:         %{name}-%{version}.tar.gz
 Requires:       python3
 Requires:       python3-qt4
+%if 0%{?suse_version}
+Requires:       google-lato-fonts
+%else
 Requires:       lato-fonts
+%endif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildArch:      noarch
 
