@@ -1,7 +1,7 @@
 #
 # spec file for package scudcloud
 #
-# Copyright (c) 2015 Marcin Trendota (moonwolf@techsterowniki.pl)
+# Copyright (c) 2015 Marcin Trendota (moonwolf@poczta.onet.pl)
 # Copyright (c) 2015 Marcin Bajor (marcin.bajor@gmail.com)
 #
 # All modifications and additions to the file contributed by third parties
@@ -43,6 +43,7 @@ Url:            https://github.com/raelgc/scudcloud/
 Source:         %{name}-%{version}.tar.gz
 Requires:       python3
 Requires:       python3-qt4
+Requires:       lato-fonts
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildArch:      noarch
 
@@ -142,6 +143,8 @@ fi
 %{_bindir}/scudcloud
 
 %changelog
+* Mon Sep 21 2015 Marcin Trendota <moonwolf@poczta.onet.pl>
+- Add lato-fonts dependency
 * Mon Aug 10 2015 Marcin Bajor <marcin.bajor@gmail.com>
 - Now build for CentOS, Red Hat Enterprise Linux, openSUSE, SUSE Linux Enterprise Server and others is possible
 * Mon May 18 2015 Marcin Trendota <moonwolf@poczta.onet.pl>
