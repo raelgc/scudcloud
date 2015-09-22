@@ -49,6 +49,23 @@ class Wrapper(QWebView):
         self.pageAction(QWebPage.Forward).setShortcuts(QKeySequence.Forward)
         self.pageAction(QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
 
+    def contextMenuEvent(self, event):
+        menu = QtGui.QMenu(self)
+        hit = self.page().currentFrame().hitTestContent(event.pos())
+        if self.window.speller.initialized and hit.isContentEditable() and not hit.isContentSelected():
+            self.window.speller.populateContextMenu(menu, hit)
+            if len(menu.actions()) > 0:
+                menu.addSeparator()
+        pageMenu = self.page().createStandardContextMenu()
+        if pageMenu is not None:
+            for a in pageMenu.actions():
+                if a.isSeparator():
+                    menu.addSeparator()
+                elif a.isVisible():
+                    menu.addAction(a)
+        del pageMenu
+        menu.exec_(event.globalPos())
+
     def call(self, function, arg=None):
         if isinstance(arg, str):
             arg = "'"+arg+"'"

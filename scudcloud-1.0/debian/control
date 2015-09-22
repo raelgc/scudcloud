@@ -18,6 +18,7 @@ Recommends: sni-qt,
             fonts-lato,
             gir1.2-unity-5.0,
             libqtwebkit-qupzillaplugins,
+            python3-hunspell,
             python3-gi,
             ttf-mscorefonts-installer
 Description: ScudCloud is a non official desktop client for Slack
