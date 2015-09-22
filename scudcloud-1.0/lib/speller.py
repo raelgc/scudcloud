@@ -6,7 +6,8 @@ from PyQt4.QtCore import QObject
 try:
      import hunspell
 except ImportError:
-     hunspell.HunSpell = None
+     class hunspell:
+         HunSpell = None
 
 from PyQt4.QtCore import QLocale, QFile, QTextBoundaryFinder
 
