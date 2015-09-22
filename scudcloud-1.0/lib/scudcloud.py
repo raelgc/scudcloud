@@ -4,6 +4,7 @@ from cookiejar import PersistentCookieJar
 from leftpane import LeftPane
 from notifier import Notifier
 from resources import Resources
+from speller import Speller
 from systray import Systray
 from wrapper import Wrapper
 from threading import Thread
@@ -19,7 +20,7 @@ try:
 except ImportError:
     Unity = None
     Dbusmenu = None
-    from launcher import DummyLauncher
+    from launcher import DummyLauncher 
 
 class ScudCloud(QtGui.QMainWindow):
 
@@ -27,6 +28,7 @@ class ScudCloud(QtGui.QMainWindow):
     debug = False
     forceClose = False
     messages = 0
+    speller = Speller()
 
     def __init__(self, parent = None, settings_path = ""):
         super(ScudCloud, self).__init__(parent)
