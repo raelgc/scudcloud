@@ -96,35 +96,43 @@ sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
 
 # Troubleshooting
 
-## 1. Default domain
+### 1. Default domain
 
 You can change the default domain editing or just deleting the config file:
 
     ~/.config/scudcloud/scudcloud.cfg
 
-## 2. Where is the package for my distro?
+### 2. Where is the package for my distro?
 
 If not listed above, you're welcome [to contribute](/CONTRIBUTING.md). In this meanwhile, try the [Manual Install](#manual-install) instructions.
 
-## 3. `Keep me signed in` is not working
+### 3. Spell checking is not working
+
+Make sure you have the following packages installed:
+
+* `libqtwebkit-qupzillaplugins`
+* `python3-hunspell`
+* `hunspell-en-us`
+
+### 4. `Keep me signed in` is not working
 
 For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder:
 
     ~/.config/scudcloud/
 
-## 4. How to disable Flash?
+### 5. How to disable Flash?
 
 Flash is required to display embedded videos, but if you don't care, disable it starting with:
 
     scudcloud --no_plugins=True
     
-## 5. How to start ScudCloud minimized?
+### 6. How to start ScudCloud minimized?
 
 You can start ScudCloud minized to tray with:
 
     scudcloud --minimized=True
 
-## 6. High DPI Support
+### 7. High DPI Support
 
 ScudCloud offers zoom support. The zoom level will be persisted between sessions.
 
