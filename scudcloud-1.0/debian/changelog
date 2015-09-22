@@ -1,3 +1,9 @@
+scudcloud (1.0-69) trusty; urgency=medium
+
+  * Fixing crash when python3-hunspell is not present (#237)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 22 Sep 2015 19:54:47 -0300
+
 scudcloud (1.0-68) trusty; urgency=medium
 
   * Adding HunSpell suggestions (#55)
