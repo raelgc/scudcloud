@@ -27,7 +27,7 @@ sudo apt-get update
 sudo apt-get install scudcloud
 ```
 
-If you want **spell checking** (it'll only mark wrong words in red, but no suggestions), add the `hunspell` dictionary for your language. For `en-us`:
+If you want **spell checking**, add the `hunspell` dictionary for your language. For `en-us`:
 
     sudo apt-get install hunspell-en-us
 
@@ -76,9 +76,9 @@ First, you'll need to install at least packages for `python3`, `python-qt4` (`qt
 Then run the below script: it'll download the code and install it:
 
 ```bash
-wget https://github.com/raelgc/scudcloud/archive/v1.0.67.tar.gz
-tar -xvf v1.0.67.tar.gz
-cd scudcloud-1.0.67
+wget https://github.com/raelgc/scudcloud/archive/v1.0.68.tar.gz
+tar -xvf v1.0.68.tar.gz
+cd scudcloud-1.0.68
 SOURCE="scudcloud-1.0"
 INSTALL="/opt/scudcloud"
 sudo mkdir -p $INSTALL/lib
