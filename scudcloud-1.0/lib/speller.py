@@ -1,6 +1,7 @@
 import os
 from PyQt4 import QtGui
 from PyQt4.QtCore import QObject
+from PyQt4.QtCore import QLocale, QFile, QTextBoundaryFinder
 
 # Checking if python-hunspell is present
 try:
@@ -8,8 +9,6 @@ try:
 except ImportError:
      class hunspell:
          HunSpell = None
-
-from PyQt4.QtCore import QLocale, QFile, QTextBoundaryFinder
 
 # Simplified version of QupZilla Speller (https://github.com/QupZilla/qupzilla/blob/v1.8/src/lib/plugins/qtwebkit/spellcheck/speller.cpp)
 class Speller(QObject):
