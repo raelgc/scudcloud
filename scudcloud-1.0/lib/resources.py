@@ -9,6 +9,9 @@ class Resources:
     SSO_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/sso/saml/start$')
     SERVICES_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/services/.*')
 
+    SPELL_DICT_PATH = "/usr/share/hunspell/"
+    SPELL_LIMIT = 6
+
     # It's initialized in /scudcloud script
     INSTALL_DIR = None
 

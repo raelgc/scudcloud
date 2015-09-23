@@ -51,11 +51,11 @@ class Wrapper(QWebView):
 
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu(self)
-        hit = self.page().currentFrame().hitTestContent(event.pos())
-        if self.window.speller.initialized and hit.isContentEditable() and not hit.isContentSelected():
-            self.window.speller.populateContextMenu(menu, hit)
-            if len(menu.actions()) > 0:
-                menu.addSeparator()
+        if self.window.speller.initialized:
+            hit = self.page().currentFrame().hitTestContent(event.pos())
+            element = hit.element()
+            if hit.isContentEditable() and not hit.isContentSelected() and element.attribute("type") != "password":
+                self.window.speller.populateContextMenu(menu, element)
         pageMenu = self.page().createStandardContextMenu()
         if pageMenu is not None:
             for a in pageMenu.actions():
