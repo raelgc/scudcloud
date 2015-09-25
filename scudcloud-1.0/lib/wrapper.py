@@ -3,7 +3,7 @@ from urllib import request
 from urllib.parse import urlparse
 from resources import Resources
 from PyQt4 import QtWebKit, QtGui, QtCore
-from PyQt4.Qt import QApplication, QKeySequence
+from PyQt4.Qt import QApplication, QKeySequence, QTimer
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 from PyQt4.QtNetwork import QNetworkProxy
@@ -25,6 +25,15 @@ class Wrapper(QWebView):
         self.connect(self, SIGNAL("loadFinished(bool)"), self.loadFinished)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
         self.addActions()
+        self.setupTimer()
+
+    # Starting a timer that will check by server side reloads (which drops ScudCloud JS)
+    def setupTimer(self):
+        timer = QTimer(self)
+        timer.timeout.connect(self.loadFinished)
+        # Hope each 10 minutes will not be produce high CPU usage
+        timer.setInterval(600000)
+        timer.start()
 
     def configure_proxy(self):
         proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
@@ -84,7 +93,7 @@ class Wrapper(QWebView):
             self.systemOpen(url)
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
 
-    def loadFinished(self, ok):
+    def loadFinished(self, ok=True):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         self.page().currentFrame().evaluateJavaScript(self.js)
         self.window.enableMenus(self.isConnected())
