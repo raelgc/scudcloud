@@ -208,7 +208,8 @@ class ScudCloud(QtGui.QMainWindow):
         viewMenu.addAction(self.menus["view"]["reset"])
         viewMenu.addSeparator()
         viewMenu.addAction(self.menus["view"]["fullscreen"])
-        viewMenu.addAction(self.menus["view"]["hidemenu"])
+        if Unity is None:
+            viewMenu.addAction(self.menus["view"]["hidemenu"])
         helpMenu = menu.addMenu("&Help")
         helpMenu.addAction(self.menus["help"]["help"])
         helpMenu.addAction(self.menus["help"]["center"])
