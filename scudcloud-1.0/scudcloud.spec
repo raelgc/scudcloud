@@ -48,6 +48,8 @@ Requires:       google-lato-fonts
 %else
 Requires:       lato-fonts
 %endif
+Requires:       libqt4-webkit-qupzillaplugins
+Requires:       python3-hunspell
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildArch:      noarch
 
@@ -147,6 +149,8 @@ fi
 %{_bindir}/scudcloud
 
 %changelog
+* Sat Sep 26 2015 Marcin Bajor <marcin.bajor@gmail.com>
+- Added dependencies: libqt4-webkit-qupzillaplugins and python3-hunspell 
 * Mon Sep 21 2015 Marcin Trendota <moonwolf@poczta.onet.pl>
 - Add lato-fonts dependency
 * Mon Aug 10 2015 Marcin Bajor <marcin.bajor@gmail.com>
