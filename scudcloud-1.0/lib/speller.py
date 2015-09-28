@@ -24,7 +24,7 @@ class Speller(QObject):
             return
         dictionaryPath = self.getDictionaryPath()
         language = self.parseLanguage(dictionaryPath)
-        if dictionaryPath is None or language is None:
+        if dictionaryPath=='' or language is None:
             return
         self.hunspell = hunspell.HunSpell(dictionaryPath + ".dic", dictionaryPath + ".aff")
         self.initialized = True
