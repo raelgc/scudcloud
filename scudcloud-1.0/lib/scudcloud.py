@@ -14,6 +14,13 @@ from PyQt4.QtCore import QUrl, QSettings
 from PyQt4.QtWebKit import QWebSettings
 from PyQt4.QtNetwork import QNetworkDiskCache
 
+# Auto-detection of dbus and dbus.mainloop.qt
+try:
+    import dbus
+    from dbus.mainloop.qt import DBusQtMainLoop
+except ImportError:
+    DBusQtMainLoop = None
+
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
     from gi.repository import Unity, Dbusmenu
@@ -63,6 +70,16 @@ class ScudCloud(QtGui.QMainWindow):
         self.statusBar().showMessage('Loading Slack...')
         # Starting unread msgs counter
         self.setupTimer()
+        # Watch for suspend/resume events
+        if DBusQtMainLoop is not None:
+            DBusQtMainLoop(set_as_default=True)
+            dbus.SystemBus().add_signal_receiver(self.sleep, 'PrepareForSleep', 'org.freedesktop.login1.Manager', 'org.freedesktop.login1')
+
+    def sleep(self, suspended):
+        # We want the Resume event
+        if not suspended:
+            for i in range(0, self.stackedWidget.count()):
+                self.stackedWidget.widget(i).loadFinished()
 
     def addWrapper(self, url):
         webView = Wrapper(self)
