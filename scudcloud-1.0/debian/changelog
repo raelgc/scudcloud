@@ -1,3 +1,9 @@
+scudcloud (1.0-72) trusty; urgency=medium
+
+  * Listening for resume event
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 30 Sep 2015 09:01:13 -0300
+
 scudcloud (1.0-71) trusty; urgency=medium
 
   * Fixing dictionary path checking (#241)
