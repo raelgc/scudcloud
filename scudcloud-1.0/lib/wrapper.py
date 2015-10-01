@@ -83,8 +83,8 @@ class Wrapper(QWebView):
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def loadStarted(self):
-        # Let's hide login header and footer links for clean UX
-        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("login.css")))
+        # Some custom CSS to clean/fix UX
+        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
 
     def urlChanged(self, qUrl):
         url = qUrl.toString()
