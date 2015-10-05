@@ -1,4 +1,4 @@
-import sys, subprocess, os, json
+import sys, subprocess, os, json, tempfile
 from urllib import request
 from urllib.parse import urlparse
 from resources import Resources
@@ -162,7 +162,8 @@ class Wrapper(QWebView):
         self.window.teams(data['teams'])
         if self.window.current() == self:
             self.window.quicklist(data['channels'])
-        filename, headers = request.urlretrieve(data['icon'])
+        iconFile = data['teams'][0]['team_name']+'.png'
+        filename, headers = request.urlretrieve(data['icon'], tempfile.gettempdir()+'/'+iconFile)
         self.icon = filename
 
     @QtCore.pyqtSlot(bool) 
