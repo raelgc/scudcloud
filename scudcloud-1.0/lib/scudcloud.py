@@ -79,7 +79,7 @@ class ScudCloud(QtGui.QMainWindow):
         # We want the Resume event
         if not suspended:
             for i in range(0, self.stackedWidget.count()):
-                self.stackedWidget.widget(i).loadFinished()
+                self.stackedWidget.widget(i).overrideNotifications()
 
     def addWrapper(self, url):
         webView = Wrapper(self)
