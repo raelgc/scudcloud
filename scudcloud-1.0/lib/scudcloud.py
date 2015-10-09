@@ -59,10 +59,10 @@ class ScudCloud(QtGui.QMainWindow):
         layout.addWidget(self.stackedWidget)
         centralWidget.setLayout(layout)
         self.setCentralWidget(centralWidget)
-        startURL = Resources.SIGNIN_URL
+        self.startURL = Resources.SIGNIN_URL
         if self.identifier is not None:
-            startURL = self.domain()
-        self.addWrapper(startURL)
+            self.startURL = self.domain()
+        self.addWrapper(self.startURL)
         self.addMenu()
         self.tray = Systray(self)
         self.systray(ScudCloud.minimized)
@@ -70,16 +70,6 @@ class ScudCloud(QtGui.QMainWindow):
         self.statusBar().showMessage('Loading Slack...')
         # Starting unread msgs counter
         self.setupTimer()
-        # Watch for suspend/resume events
-        if DBusQtMainLoop is not None:
-            DBusQtMainLoop(set_as_default=True)
-            dbus.SystemBus().add_signal_receiver(self.sleep, 'PrepareForSleep', 'org.freedesktop.login1.Manager', 'org.freedesktop.login1')
-
-    def sleep(self, suspended):
-        # We want the Resume event
-        if not suspended:
-            for i in range(0, self.stackedWidget.count()):
-                self.stackedWidget.widget(i).overrideNotifications()
 
     def addWrapper(self, url):
         webView = Wrapper(self)
@@ -91,10 +81,10 @@ class ScudCloud(QtGui.QMainWindow):
         self.stackedWidget.setCurrentWidget(webView)
 
     def setupTimer(self):
-        timer = QTimer(self)
-        timer.timeout.connect(self.count)
-        timer.setInterval(2000)
-        timer.start()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.count)
+        self.timer.setInterval(2000)
+        self.timer.start()
 
     def webSettings(self):
         self.cookiesjar = PersistentCookieJar(self)

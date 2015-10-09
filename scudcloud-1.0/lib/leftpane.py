@@ -10,10 +10,13 @@ class LeftPane(QWebView):
         self.window = window
         with open(Resources.get_path("leftpane.js"), "r") as f:
             self.js = f.read()
-        self.setFixedWidth(0)
-        self.setVisible(False)
         # We don't want plugins for this simple pane
         self.settings().setAttribute(QWebSettings.PluginsEnabled, False)
+        self.reset()
+
+    def reset(self):
+        self.setFixedWidth(0)
+        self.setVisible(False)
         self.setUrl(QUrl.fromLocalFile(Resources.get_path("leftpane.html")))
         self.page().currentFrame().addToJavaScriptWindowObject("leftPane", self)
         self.page().currentFrame().evaluateJavaScript(self.js)

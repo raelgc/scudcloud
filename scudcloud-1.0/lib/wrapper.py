@@ -134,9 +134,6 @@ class Wrapper(QWebView):
     def help(self):
         self.call("help")
 
-    def overrideNotifications(self):
-        self.call("overrideNotifications")
-
     def helpCenter(self):
         subprocess.call(('xdg-open', "https://slack.zendesk.com/hc/en-us"))
 
