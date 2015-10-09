@@ -14,7 +14,7 @@ from qsingleapplication import QSingleApplication
 # The ScudCloud QMainWindow
 win = None
 
-VERSION = '1.0.76'
+VERSION = '1.0.77'
 
 def main():
     global win;
