@@ -1,3 +1,9 @@
+scudcloud (1.0-78) trusty; urgency=medium
+
+  * Another attempt to minimize effects on reconnect scripts (#250)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 10 Oct 2015 21:25:51 -0300
+
 scudcloud (1.0-77) trusty; urgency=medium
 
   * New attempt to fix suspend script (#250)
