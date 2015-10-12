@@ -105,7 +105,7 @@ class ScudCloud(QtWidgets.QMainWindow):
         self.cookiesjar = PersistentCookieJar(self)
         self.zoom = self.readZoom()
         # We don't want Flash player support
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, True)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, False)
         # We don't want Java
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
         # We don't need History
