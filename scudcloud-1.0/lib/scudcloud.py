@@ -11,7 +11,7 @@ from threading import Thread
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
 from PyQt4.QtCore import QUrl, QSettings
-from PyQt4.QtWebKit import QWebSettings
+from PyQt4.QtWebKit import QWebSettings, QWebPage
 from PyQt4.QtNetwork import QNetworkDiskCache
 
 # Auto-detection of dbus and dbus.mainloop.qt
@@ -79,9 +79,13 @@ class ScudCloud(QtGui.QMainWindow):
         # We want the Resume event
         if not suspended:
             self.timer.stop()
-            # Let's give some time to Slack run reconnect scripts
-            time.sleep(60)
+            # Let's give some time to the desktop reconnect
+            time.sleep(10)
+            self.statusBar().showMessage('Loading Slack...')
+            for i in range(0, self.stackedWidget.count()):
+                self.stackedWidget.widget(i).page().triggerAction(QWebPage.Reload)
             self.timer.start()
+
 
     def addWrapper(self, url):
         webView = Wrapper(self)
