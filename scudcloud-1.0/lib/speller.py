@@ -1,8 +1,8 @@
 import os
 from resources import Resources
-from PyQt4 import QtGui
-from PyQt4.QtCore import QObject
-from PyQt4.QtCore import QLocale, QFile, QTextBoundaryFinder
+from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QLocale, QFile, QTextBoundaryFinder
 
 # Checking if python-hunspell is present
 try:
@@ -80,7 +80,7 @@ class Speller(QObject):
             boldFont = menu.font()
             boldFont.setBold(True)
             for i in range(0, count):
-                action = QtGui.QAction(str(suggests[i]), self)
+                action = QtWidgets.QAction(str(suggests[i]), self)
                 action.triggered.connect(lambda:self.replaceWord(element, word))
                 action.setData(suggests[i])
                 action.setFont(boldFont)

@@ -27,9 +27,9 @@ __email__ = "thomas.dallagnese@gmail.com"
 __version__ = "1.0"
 __URL__ = "http://www.dallagnese.fr"
 
-from PyQt4.QtGui import QMessageBox, QApplication
-from PyQt4.QtCore import QIODevice, QTimer, QCoreApplication
-from PyQt4.QtNetwork import QLocalServer, QLocalSocket
+from PyQt5.QtWidgets import QMessageBox, QApplication
+from PyQt5.QtCore import QIODevice, QTimer, QCoreApplication
+from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 import sys
 
 class QSingleApplication(QApplication):
