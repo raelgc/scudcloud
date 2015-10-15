@@ -1,19 +1,21 @@
 var LeftPane = {
 	addTeam: function(id, name, url, icon, active){
 		var node = document.getElementById(id);
-        if(node == null){
+        if(node === null){
 			var ul = document.getElementById('teams');
 			li = document.createElement('li');
 			li.id = id;
-			li.setAttribute("onclick", "LeftPane.switchTo('"+id+"','"+url+"')")
-			li.setAttribute("title", name)
+			li.setAttribute("onclick", "LeftPane.switchTo('"+id.replace(/'/g, '&quot;')+"','"+url.replace(/'/g, '&quot;')+"')");
+			li.setAttribute("title", name);
 			li.innerHTML = name[0];
 			if( icon ){
 			  li.style.backgroundImage = "url('"+ icon +"')";
-			  li.innerHTML = ""
+			  li.innerHTML = "";
 			}
 			ul.appendChild(li);
-			if(active) LeftPane.setActive(id);
+			if(active){
+				LeftPane.setActive(id);
+			}
 			LeftPane.switchTo(id, url);
 		}
 	},
@@ -33,7 +35,7 @@ var LeftPane = {
 		document.getElementById(team).classList.remove('alert');
 	},
 	switchTo: function(id, url){
-		leftPane.switchTo(url)
+		leftPane.switchTo(url);
 		LeftPane.setActive(id);
 	},
 	setActive: function(id){
@@ -57,10 +59,10 @@ var LeftPane = {
 		if (index >= list.length) {
 			index = 0;
 		} else if (index < 0) {
-			index = list.length - 1
+			index = list.length - 1;
 		}
 		
 		LeftPane.click(index);
 	}
-}
+};
 
