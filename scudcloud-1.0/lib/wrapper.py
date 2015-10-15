@@ -24,7 +24,11 @@ class Wrapper(QWebView):
         self.connect(self, SIGNAL("loadStarted()"), self.loadStarted)
         self.connect(self, SIGNAL("loadFinished(bool)"), self.loadFinished)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
+        #self.page().connect(self.page(), SIGNAL("featurePermissionRequested (QWebFrame*,QWebPage::Feature)"), self.permissionRequested)
         self.addActions()
+
+    def permissionRequested(self, frame, feature):
+        self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
 
     def configure_proxy(self):
         proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
