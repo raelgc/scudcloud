@@ -70,22 +70,6 @@ class ScudCloud(QtGui.QMainWindow):
         self.statusBar().showMessage('Loading Slack...')
         # Starting unread msgs counter
         self.setupTimer()
-        # Watch for suspend/resume events
-        if DBusQtMainLoop is not None:
-            DBusQtMainLoop(set_as_default=True)
-            dbus.SystemBus().add_signal_receiver(self.sleep, 'PrepareForSleep', 'org.freedesktop.login1.Manager', 'org.freedesktop.login1')
-
-    def sleep(self, suspended):
-        # We want the Resume event
-        if not suspended:
-            self.timer.stop()
-            # Let's give some time to the desktop reconnect
-            time.sleep(10)
-            self.statusBar().showMessage('Loading Slack...')
-            for i in range(0, self.stackedWidget.count()):
-                self.stackedWidget.widget(i).page().triggerAction(QWebPage.Reload)
-            self.timer.start()
-
 
     def addWrapper(self, url):
         webView = Wrapper(self)
