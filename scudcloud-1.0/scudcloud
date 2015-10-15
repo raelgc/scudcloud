@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, signal
+import fcntl, os, sys, signal, tempfile
 from PyQt4 import QtGui
 
 # Flexible install dir (we assume that 'lib' and 'resources' will be subdirs)
@@ -9,7 +9,6 @@ INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(INSTALL_DIR, 'lib'))
 from resources import Resources
 from scudcloud import ScudCloud
-from qsingleapplication import QSingleApplication
 
 # The ScudCloud QMainWindow
 win = None
@@ -17,10 +16,11 @@ win = None
 VERSION = '1.0.81'
 
 def main():
-    global win;
+    global win
     Resources.INSTALL_DIR = INSTALL_DIR
     signal.signal(signal.SIGINT, exit)
-    app = QSingleApplication(sys.argv)
+    lock()
+    app = QtGui.QApplication(sys.argv)
     app.setApplicationName(Resources.APP_NAME)
     app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
     args = parse_arguments()
@@ -33,9 +33,26 @@ def main():
         print("Configuration directory "+args.confdir+" could not be created! Exiting...")
         raise SystemExit()
     win = ScudCloud(settings_path=settings_path)
-    app.singleStart(win, "scudcloud.pid")
+    if win.minimized is None:
+        win.show()
     win.restore()
     sys.exit(app.exec_())
+
+def lock():
+    global fp
+    if 'XDG_RUNTIME_DIR' in os.environ and os.environ['XDG_RUNTIME_DIR']:
+        runtime_dir = os.environ['XDG_RUNTIME_DIR']
+    else:
+        runtime_dir = tempfile.gettempdir()
+    pid_file = runtime_dir+'/'+Resources.APP_NAME+'.pid'
+    fp = open(pid_file, 'w')
+    try:
+        fcntl.lockf(fp, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except IOError:
+        # Another instance is running
+        warning = QtGui.QApplication(sys.argv)
+        QtGui.QMessageBox.warning(None, "ScudCloud", warning.tr("Another instance of ScudCloud is already running."))
+        sys.exit(0)
 
 def load_settings(confdir):
     if not os.path.isdir(confdir):
@@ -68,7 +85,7 @@ def exit(*args):
     if win is not None:
         win.exit()
     else:
-        QSingleApplication.quit()
+        QtGui.QApplication.quit()
 
 if __name__ == '__main__':
     main()
