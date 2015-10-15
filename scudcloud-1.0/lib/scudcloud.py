@@ -14,13 +14,6 @@ from PyQt4.QtCore import QUrl, QSettings
 from PyQt4.QtWebKit import QWebSettings, QWebPage
 from PyQt4.QtNetwork import QNetworkDiskCache
 
-# Auto-detection of dbus and dbus.mainloop.qt
-try:
-    import dbus
-    from dbus.mainloop.qt import DBusQtMainLoop
-except ImportError:
-    DBusQtMainLoop = None
-
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
     from gi.repository import Unity, Dbusmenu
