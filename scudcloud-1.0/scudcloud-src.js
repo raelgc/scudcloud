@@ -1,5 +1,4 @@
 var ScudCloud = {
-    started: false,
 	overrideNotifications: function(){
 		TS.ui.growls.no_notifications = false;
 		TS.ui.growls.checkPermission = function() { return true; };
@@ -72,9 +71,8 @@ var ScudCloud = {
         return "undefined" != typeof TS && "undefined" != typeof TS.model && TS.model.ms_connected;
     }
 };
-if("undefined" != typeof TS && false == ScudCloud.started){
+if("undefined" != typeof TS){
 	document.onpaste = function(e){desktop.pasted(false);};
 	ScudCloud.overrideConnect();
 	ScudCloud.overrideBanner();
-	ScudCloud.started = true;
 }
