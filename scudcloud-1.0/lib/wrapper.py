@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 from resources import Resources
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
-from PyQt4.QtCore import QBuffer, QByteArray, QUrl, SIGNAL
+from PyQt4.QtCore import QBuffer, QByteArray, QUrl
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 from PyQt4.QtNetwork import QNetworkProxy
 
@@ -20,15 +20,11 @@ class Wrapper(QWebView):
             self.js = f.read()
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
-        self.connect(self, SIGNAL("urlChanged(const QUrl&)"), self.urlChanged)
-        self.connect(self, SIGNAL("loadStarted()"), self.loadStarted)
-        self.connect(self, SIGNAL("loadFinished(bool)"), self.loadFinished)
-        self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
-        #self.page().connect(self.page(), SIGNAL("featurePermissionRequested (QWebFrame*,QWebPage::Feature)"), self.permissionRequested)
+        self.urlChanged.connect(self._urlChanged)
+        self.loadStarted.connect(self._loadStarted)
+        self.loadFinished.connect(self._loadFinished)
+        self.linkClicked.connect(self._linkClicked)
         self.addActions()
-
-    def permissionRequested(self, frame, feature):
-        self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
 
     def configure_proxy(self):
         proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
@@ -77,18 +73,18 @@ class Wrapper(QWebView):
             arg = ""
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
-    def loadStarted(self):
+    def _loadStarted(self):
         # Some custom CSS to clean/fix UX
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
 
-    def urlChanged(self, qUrl):
+    def _urlChanged(self, qUrl):
         url = qUrl.toString()
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
 
-    def loadFinished(self, ok=True):
+    def _loadFinished(self, ok=True):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         self.page().currentFrame().evaluateJavaScript(self.js)
         self.window.enableMenus(self.isConnected())
@@ -97,7 +93,7 @@ class Wrapper(QWebView):
     def systemOpen(self, url):
         subprocess.call(('xdg-open', url))
 
-    def linkClicked(self, qUrl):
+    def _linkClicked(self, qUrl):
         url = qUrl.toString()
         handle_link = (
             Resources.SIGNIN_URL == url or
