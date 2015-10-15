@@ -25,15 +25,6 @@ class Wrapper(QWebView):
         self.connect(self, SIGNAL("loadFinished(bool)"), self.loadFinished)
         self.connect(self, SIGNAL("linkClicked(const QUrl&)"), self.linkClicked)
         self.addActions()
-        self.setupTimer()
-
-    # Starting a timer that will check by server side reloads (which drops ScudCloud JS)
-    def setupTimer(self):
-        timer = QTimer(self)
-        timer.timeout.connect(self.loadFinished)
-        # Hope each 10 minutes will not be produce high CPU usage
-        timer.setInterval(600000)
-        timer.start()
 
     def configure_proxy(self):
         proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
