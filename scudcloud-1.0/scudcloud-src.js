@@ -73,6 +73,7 @@ var ScudCloud = {
 };
 if("undefined" != typeof TS){
 	document.onpaste = function(e){desktop.pasted(false);};
+    ScudCloud.overrideNotifications();
 	ScudCloud.overrideConnect();
 	ScudCloud.overrideBanner();
 }
