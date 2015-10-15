@@ -17,7 +17,7 @@ var ScudCloud = {
 	},
 	connect: function(b){
 		desktop.enableMenus(b);
-		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_88}));
+		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
 	},
     count: function(){
 		var total=0;
@@ -35,7 +35,7 @@ var ScudCloud = {
     listTeams: function(){
 		var list = TS.getAllTeams();
 		// Fix for current team displaying no icon
-		list[0].team_icon = {"image_88":TS.model.team.icon.image_88};
+		list[0].team_icon = {"image_44":TS.model.team.icon.image_44};
 		return list;
 	},
     quicklist: function(){

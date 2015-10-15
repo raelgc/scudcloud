@@ -274,7 +274,7 @@ class ScudCloud(QtGui.QMainWindow):
         for t in teams:
             # If team_icon is not present, it's because team is already connected
             if 'team_icon' in t:
-                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
+                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
         if len(teams) > 1:
             self.leftPane.show()
 
