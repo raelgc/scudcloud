@@ -33,9 +33,9 @@ def main():
         print("Configuration directory "+args.confdir+" could not be created! Exiting...")
         raise SystemExit()
     win = ScudCloud(settings_path=settings_path)
+    win.restore()
     if win.minimized is None:
         win.show()
-    win.restore()
     sys.exit(app.exec_())
 
 def lock():

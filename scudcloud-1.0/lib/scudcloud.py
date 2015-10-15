@@ -114,7 +114,7 @@ class ScudCloud(QtGui.QMainWindow):
         if windowState is not None:
             self.restoreState(windowState)
         else:
-            self.showMaximized()
+            self.setWindowState(QtCore.Qt.WindowMaximized)
 
     def systray(self, show=None):
         if show is None:
