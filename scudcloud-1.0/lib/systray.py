@@ -10,7 +10,7 @@ class Systray(QtWidgets.QSystemTrayIcon):
         super(Systray, self).__init__(QtGui.QIcon.fromTheme("scudcloud"), window)
         self.activated.connect(self.activatedEvent)
         self.window = window
-        self.setToolTip(Resources.APP_NAME)
+        self.setToolTip('ScudCloud')
         self.menu = QtWidgets.QMenu(self.window)
         self.menu.addAction('Show', self.restore)
         if scudcloud.Unity is None:

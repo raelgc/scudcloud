@@ -3,7 +3,7 @@ from urllib import request
 from urllib.parse import urlparse
 from resources import Resources
 from PyQt5 import QtWebKit, QtGui, QtCore, QtWidgets
-from PyQt5.Qt import QApplication, QKeySequence, QTimer
+from PyQt5.Qt import QApplication, QKeySequence
 from PyQt5.QtCore import QBuffer, QByteArray, QUrl
 from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 from PyQt5.QtWebKit import QWebSettings
@@ -21,20 +21,11 @@ class Wrapper(QWebView):
             self.js = f.read()
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
-        self.urlChanged.connect(self.urlChangedEvent)
-        self.loadStarted.connect(self.loadStartedEvent)
-        self.loadFinished.connect(self.loadFinishedEvent)
-        self.linkClicked.connect(self.linkClickedEvent)
+        self.urlChanged.connect(self._urlChanged)
+        self.loadStarted.connect(self._loadStarted)
+        self.loadFinished.connect(self._loadFinished)
+        self.linkClicked.connect(self._linkClicked)
         self.addActions()
-        self.setupTimer()
-
-    # Starting a timer that will check by server side reloads (which drops ScudCloud JS)
-    def setupTimer(self):
-        timer = QTimer(self)
-        timer.timeout.connect(self.loadFinishedEvent)
-        # Hope each 10 minutes will not be produce high CPU usage
-        timer.setInterval(600000)
-        timer.start()
 
     def configure_proxy(self):
         proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
@@ -83,18 +74,18 @@ class Wrapper(QWebView):
             arg = ""
         return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
-    def loadStartedEvent(self):
+    def _loadStarted(self):
         # Some custom CSS to clean/fix UX
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
 
-    def urlChangedEvent(self, qUrl):
+    def _urlChanged(self, qUrl):
         url = qUrl.toString()
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
 
-    def loadFinishedEvent(self, ok=True):
+    def _loadFinished(self, ok=True):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         self.page().currentFrame().evaluateJavaScript(self.js)
         self.window.enableMenus(self.isConnected())
@@ -103,7 +94,7 @@ class Wrapper(QWebView):
     def systemOpen(self, url):
         subprocess.call(('xdg-open', url))
 
-    def linkClickedEvent(self, qUrl):
+    def _linkClicked(self, qUrl):
         url = qUrl.toString()
         handle_link = (
             Resources.SIGNIN_URL == url or

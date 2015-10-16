@@ -10,9 +10,13 @@ var ScudCloud = {
 		TS.ms.connected_sig.add(function(){ScudCloud.connect(true);});
 		TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
 	},
+	overrideBanner: function(){
+		ScudCloud.showBanner = TS.ui.banner.show;
+		TS.ui.banner.show = function(){ ScudCloud.showBanner(); ScudCloud.overrideNotifications(); };
+	},
 	connect: function(b){
 		desktop.enableMenus(b);
-		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_88}));
+		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
 	},
     count: function(){
 		var total=0;
@@ -30,7 +34,7 @@ var ScudCloud = {
     listTeams: function(){
 		var list = TS.getAllTeams();
 		// Fix for current team displaying no icon
-		list[0].team_icon = {"image_88":TS.model.team.icon.image_88};
+		list[0].team_icon = {"image_44":TS.model.team.icon.image_44};
 		return list;
 	},
     quicklist: function(){
@@ -69,6 +73,7 @@ var ScudCloud = {
 };
 if("undefined" != typeof TS){
 	document.onpaste = function(e){desktop.pasted(false);};
-	ScudCloud.overrideNotifications();
+    ScudCloud.overrideNotifications();
 	ScudCloud.overrideConnect();
+	ScudCloud.overrideBanner();
 }

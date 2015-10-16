@@ -14,13 +14,6 @@ from PyQt5.QtCore import QUrl, QSettings
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtNetwork import QNetworkDiskCache
 
-# Auto-detection of dbus and dbus.mainloop.qt
-try:
-    import dbus
-    from dbus.mainloop.qt import DBusQtMainLoop
-except ImportError:
-    DBusQtMainLoop = None
-
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
     from gi.repository import Unity, Dbusmenu
@@ -69,22 +62,6 @@ class ScudCloud(QtWidgets.QMainWindow):
         self.statusBar().showMessage('Loading Slack...')
         # Starting unread msgs counter
         self.setupTimer()
-        # Watch for suspend/resume events
-        #if DBusQtMainLoop is not None:
-        #    DBusQtMainLoop(set_as_default=True)
-        #    dbus.SystemBus().add_signal_receiver(self.sleep, 'PrepareForSleep', 'org.freedesktop.login1.Manager', 'org.freedesktop.login1')
-
-    #def sleep(self, suspended):
-    #    # We want the Resume event
-    #    if not suspended:
-    #        self.timer.stop()
-    #        # Let's give some time to the desktop reconnect
-    #        time.sleep(10)
-    #        self.statusBar().showMessage('Loading Slack...')
-    #        for i in range(0, self.stackedWidget.count()):
-    #            self.stackedWidget.widget(i).page().triggerAction(QWebPage.Reload)
-    #        self.timer.start()
-
 
     def addWrapper(self, url):
         webView = Wrapper(self)
@@ -136,7 +113,7 @@ class ScudCloud(QtWidgets.QMainWindow):
         if windowState is not None:
             self.restoreState(windowState)
         else:
-            self.showMaximized()
+            self.setWindowState(QtCore.Qt.WindowMaximized)
 
     def systray(self, show=None):
         if show is None:
@@ -183,14 +160,6 @@ class ScudCloud(QtWidgets.QMainWindow):
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
             "edit": {
-                "undo":        self.current().pageAction(QtWebKitWidgets.QWebPage.Undo),
-                "redo":        self.current().pageAction(QtWebKitWidgets.QWebPage.Redo),
-                "cut":         self.current().pageAction(QtWebKitWidgets.QWebPage.Cut),
-                "copy":        self.current().pageAction(QtWebKitWidgets.QWebPage.Copy),
-                "paste":       self.current().pageAction(QtWebKitWidgets.QWebPage.Paste),
-                "back":        self.current().pageAction(QtWebKitWidgets.QWebPage.Back),
-                "forward":     self.current().pageAction(QtWebKitWidgets.QWebPage.Forward),
-                "reload":      self.current().pageAction(QtWebKitWidgets.QWebPage.Reload)
             },
             "view": {
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
@@ -215,17 +184,8 @@ class ScudCloud(QtWidgets.QMainWindow):
         fileMenu.addSeparator()
         fileMenu.addAction(self.menus["file"]["close"])
         fileMenu.addAction(self.menus["file"]["exit"])
-        editMenu = menu.addMenu("&Edit")
-        editMenu.addAction(self.menus["edit"]["undo"])
-        editMenu.addAction(self.menus["edit"]["redo"])
-        editMenu.addSeparator()
-        editMenu.addAction(self.menus["edit"]["cut"])
-        editMenu.addAction(self.menus["edit"]["copy"])
-        editMenu.addAction(self.menus["edit"]["paste"])
-        editMenu.addSeparator()
-        editMenu.addAction(self.menus["edit"]["back"])
-        editMenu.addAction(self.menus["edit"]["forward"])
-        editMenu.addAction(self.menus["edit"]["reload"])
+        self.editMenu = menu.addMenu("&Edit")
+        self.updateEditMenu()
         viewMenu = menu.addMenu("&View")
         viewMenu.addAction(self.menus["view"]["zoomin"])
         viewMenu.addAction(self.menus["view"]["zoomout"])
@@ -250,6 +210,29 @@ class ScudCloud(QtWidgets.QMainWindow):
         self.menus["file"]["signout"].setEnabled(enabled == True)
         self.menus["help"]["help"].setEnabled(enabled == True)
 
+    def updateEditMenu(self):
+        self.editMenu.clear()
+        self.menus["edit"] = {
+            "undo":        self.current().pageAction(QtWebKitWidgets.QWebPage.Undo),
+            "redo":        self.current().pageAction(QtWebKitWidgets.QWebPage.Redo),
+            "cut":         self.current().pageAction(QtWebKitWidgets.QWebPage.Cut),
+            "copy":        self.current().pageAction(QtWebKitWidgets.QWebPage.Copy),
+            "paste":       self.current().pageAction(QtWebKitWidgets.QWebPage.Paste),
+            "back":        self.current().pageAction(QtWebKitWidgets.QWebPage.Back),
+            "forward":     self.current().pageAction(QtWebKitWidgets.QWebPage.Forward),
+            "reload":      self.current().pageAction(QtWebKitWidgets.QWebPage.Reload)
+        }
+        self.editMenu.addAction(self.menus["edit"]["undo"])
+        self.editMenu.addAction(self.menus["edit"]["redo"])
+        self.editMenu.addSeparator()
+        self.editMenu.addAction(self.menus["edit"]["cut"])
+        self.editMenu.addAction(self.menus["edit"]["copy"])
+        self.editMenu.addAction(self.menus["edit"]["paste"])
+        self.editMenu.addSeparator()
+        self.editMenu.addAction(self.menus["edit"]["back"])
+        self.editMenu.addAction(self.menus["edit"]["forward"])
+        self.editMenu.addAction(self.menus["edit"]["reload"])
+
     def createAction(self, text, slot, shortcut=None, checkable=False):
         action = QtWidgets.QAction(text, self)
         action.triggered.connect(slot)
@@ -273,7 +256,7 @@ class ScudCloud(QtWidgets.QMainWindow):
         for t in teams:
             # If team_icon is not present, it's because team is already connected
             if 'team_icon' in t:
-                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_88'], t == teams[0])
+                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
         if len(teams) > 1:
             self.leftPane.show()
 
@@ -288,6 +271,7 @@ class ScudCloud(QtWidgets.QMainWindow):
         if not exists:
             self.addWrapper(url)
         self.enableMenus(self.current().isConnected())
+        self.updateEditMenu()
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():

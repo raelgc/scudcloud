@@ -1,3 +1,22 @@
+scudcloud (1.0-82) trusty; urgency=medium
+
+  * Escaping single quotes in leftpane JS (#258)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 15 Oct 2015 09:50:58 -0300
+
+scudcloud (1.0-81) trusty; urgency=medium
+
+  * Removing no more required libraries
+  * Updating Edit menu on team switch (#259)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 15 Oct 2015 07:23:25 -0300
+
+scudcloud (1.0-80) trusty; urgency=medium
+
+  * Small improvements
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 15 Oct 2015 05:34:51 -0300
+
 scudcloud (1.0-79) trusty; urgency=medium
 
   * Workaround for #250

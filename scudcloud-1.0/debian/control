@@ -11,7 +11,6 @@ Architecture: all
 Depends: libqtwebkit4 (>= 2.3.2),
          python3,
          python3-dbus,
-         python3-dbus.mainloop.qt,
          python3-pyqt4,
          xdg-utils,
          ${misc:Depends}
