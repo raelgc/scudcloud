@@ -1,2 +1,2 @@
-nav.top, footer {display: none !important;}
+nav.top, footer, #prefs_mac_ssb_tab {display: none !important;}
 * {font-family: Lato,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;}
