@@ -44,7 +44,7 @@ def lock():
         runtime_dir = os.environ['XDG_RUNTIME_DIR']
     else:
         runtime_dir = tempfile.gettempdir()
-    pid_file = runtime_dir+'/'+Resources.APP_NAME+'.pid'
+    pid_file = runtime_dir+'/scudcloud.pid'
     fp = open(pid_file, 'w')
     try:
         fcntl.lockf(fp, fcntl.LOCK_EX | fcntl.LOCK_NB)
