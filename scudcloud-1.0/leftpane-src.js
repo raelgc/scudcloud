@@ -9,7 +9,7 @@ var LeftPane = {
 			li.setAttribute("title", name);
 			li.innerHTML = name[0];
 			if( icon ){
-			  li.style.backgroundImage = "url('"+ icon +"')";
+			  li.style.backgroundImage = "url('"+ icon.replace(/'/g, '&quot;') +"')";
 			  li.innerHTML = "";
 			}
 			ul.appendChild(li);
