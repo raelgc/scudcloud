@@ -104,7 +104,12 @@ class ScudCloud(QtGui.QMainWindow):
 
     def toggleMenuBar(self):
         menu = self.menuBar()
-        menu.setVisible(menu.isHidden())
+        state = menu.isHidden()
+        menu.setVisible(state)
+        if state:
+            self.settings.setValue("Menu", "False")
+        else:
+            self.settings.setValue("Menu", "True")
 
     def restore(self):
         geometry = self.settings.value("geometry")
@@ -204,6 +209,10 @@ class ScudCloud(QtGui.QMainWindow):
         showSystray = self.settings.value("Systray") == "True"
         self.menus["file"]["systray"].setChecked(showSystray)
         self.menus["file"]["close"].setEnabled(showSystray)
+        # Restore menu visibility
+        visible = self.settings.value("Menu")
+        if visible is not None and visible == "False":
+            menu.setVisible(False)
 
     def enableMenus(self, enabled):
         self.menus["file"]["preferences"].setEnabled(enabled == True)
