@@ -2,7 +2,7 @@ import os, re
 
 class Resources:
 
-    APP_NAME = "scudcloud"
+    APP_NAME = "ScudCloud Slack_SSB"
     SIGNIN_URL = "https://slack.com/signin"
     MAINPAGE_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/?$')
     MESSAGES_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/messages/.*')
