@@ -15,7 +15,7 @@ ScudCloud improves the Slack integration with Linux desktops featuring:
 
 # Install
 
-## Ubuntu/Kubuntu, Mint and Debian
+## Ubuntu/Kubuntu and Mint
 
 Please, first update your system with:
 
@@ -53,6 +53,19 @@ For Ubuntu 12.04 (Precise Pangolin), **additionally** you'll need to update `qtw
 sudo add-apt-repository -y ppa:immerrr-k/qtwebkit4-backport
 sudo apt-get update
 ```
+
+## Debian
+
+Make sure `software-properties-common` is installed, then run:
+
+```
+sudo apt-add-repository -y ppa:rael-gc/scudcloud
+sudo sed -i 's/jessie/trusty/g' /etc/apt/sources.list.d/rael-gc-scudcloud-jessie.list
+sudo apt-get update
+sudo apt-get install scudcloud
+```
+
+If you want spell checking and a Slack icon, follow related instructions on [Ubuntu Install section](#ubuntukubuntu-and-mint).
 
 ## Arch Linux
 
