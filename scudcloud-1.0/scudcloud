@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import fcntl, os, sys, signal, tempfile
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
+from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 
 # Flexible install dir (we assume that 'lib' and 'resources' will be subdirs)
 INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -19,7 +20,14 @@ def main():
     global win
     Resources.INSTALL_DIR = INSTALL_DIR
     signal.signal(signal.SIGINT, exit)
-    lock()
+    appKey = "scudcloud.pid"
+    socket = QLocalSocket()
+    socket.connectToServer(appKey)
+    if socket.isOpen():
+        socket.close()
+        socket.deleteLater()
+        return 0
+    socket.deleteLater()
     app = QtGui.QApplication(sys.argv)
     app.setApplicationName(Resources.APP_NAME)
     app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
@@ -33,26 +41,21 @@ def main():
         print("Configuration directory "+args.confdir+" could not be created! Exiting...")
         raise SystemExit()
     win = ScudCloud(settings_path=settings_path)
+    server = QLocalServer()
+    server.newConnection.connect(restore)
+    server.listen(appKey)
     win.restore()
     if win.minimized is None:
         win.show()
     sys.exit(app.exec_())
 
-def lock():
-    global fp
-    if 'XDG_RUNTIME_DIR' in os.environ and os.environ['XDG_RUNTIME_DIR']:
-        runtime_dir = os.environ['XDG_RUNTIME_DIR']
-    else:
-        runtime_dir = tempfile.gettempdir()
-    pid_file = runtime_dir+'/scudcloud.pid'
-    fp = open(pid_file, 'w')
-    try:
-        fcntl.lockf(fp, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except IOError:
-        # Another instance is running
-        warning = QtGui.QApplication(sys.argv)
-        QtGui.QMessageBox.warning(None, "ScudCloud", warning.tr("Another instance of ScudCloud is already running."))
-        sys.exit(0)
+def restore():
+    global win
+    win.setWindowFlags(win.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+    win.showNormal()
+    win.setWindowFlags(win.windowFlags() & ~QtCore.Qt.WindowStaysOnTopHint)
+    win.showNormal()
+    win.activateWindow()
 
 def load_settings(confdir):
     if not os.path.isdir(confdir):
