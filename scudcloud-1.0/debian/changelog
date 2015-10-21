@@ -1,3 +1,9 @@
+scudcloud (1.0-85) trusty; urgency=medium
+
+  * Restore window when trying to run again (#66)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 21 Oct 2015 21:57:36 -0200
+
 scudcloud (1.0-84) trusty; urgency=medium
 
   * Escape single quote on team icon (#264)
