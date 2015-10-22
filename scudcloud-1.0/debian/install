@@ -1,4 +1,5 @@
 LICENSE opt/scudcloud
+VERSION opt/scudcloud
 lib/*.py opt/scudcloud/lib
 resources/* opt/scudcloud/resources
 scudcloud opt/scudcloud
