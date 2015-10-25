@@ -289,7 +289,8 @@ class ScudCloud(QtGui.QMainWindow):
             self.focusInEvent(event)
         if event.type() == QtCore.QEvent.KeyPress:
             # Ctrl + <n>
-            if QtGui.QApplication.keyboardModifiers() == QtCore.Qt.ControlModifier:
+            modifiers = QtGui.QApplication.keyboardModifiers()
+            if modifiers == QtCore.Qt.ControlModifier:
                 if event.key() == QtCore.Qt.Key_1:   self.leftPane.click(0)
                 elif event.key() == QtCore.Qt.Key_2: self.leftPane.click(1)
                 elif event.key() == QtCore.Qt.Key_3: self.leftPane.click(2)
@@ -302,10 +303,10 @@ class ScudCloud(QtGui.QMainWindow):
                 # Ctrl + Tab
                 elif event.key() == QtCore.Qt.Key_Tab: self.leftPane.clickNext(1)
             # Ctrl + BackTab
-            if (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ControlModifier) and (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier):
+            if (modifiers & QtCore.Qt.ControlModifier) and (modifiers & QtCore.Qt.ShiftModifier):
                 if event.key() == QtCore.Qt.Key_Backtab: self.leftPane.clickNext(-1)
             # Ctrl + Shift + <key>
-            if (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier) and (QtGui.QApplication.keyboardModifiers() & QtCore.Qt.ShiftModifier):
+            if (modifiers & QtCore.Qt.ShiftModifier) and (modifiers & QtCore.Qt.ShiftModifier):
                 if event.key() == QtCore.Qt.Key_V: self.current().createSnippet()
         return QtGui.QMainWindow.eventFilter(self, obj, event);
 
