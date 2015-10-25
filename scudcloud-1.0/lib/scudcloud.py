@@ -276,6 +276,7 @@ class ScudCloud(QtGui.QMainWindow):
             if self.stackedWidget.widget(i).url().toString().startswith(url):
                 self.stackedWidget.setCurrentIndex(i)
                 self.quicklist(self.current().listChannels())
+                self.current().setFocus()
                 exists = True
                 break
         if not exists:
