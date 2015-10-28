@@ -1,3 +1,9 @@
+scudcloud (1.0-87) trusty; urgency=medium
+
+  * Re-enable desktop notifications on reconnect (#274)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 28 Oct 2015 08:47:13 -0200
+
 scudcloud (1.0-86) trusty; urgency=medium
 
   * Set focus after switch teams (#268)
