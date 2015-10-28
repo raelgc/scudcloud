@@ -24,7 +24,12 @@ class Wrapper(QWebView):
         self.loadStarted.connect(self._loadStarted)
         self.loadFinished.connect(self._loadFinished)
         self.linkClicked.connect(self._linkClicked)
+        self.page().featurePermissionRequested.connect(self.permissionRequested)
         self.addActions()
+
+    def permissionRequested(self, frame, feature):
+        self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
+        self.call("overrideNotifications")
 
     def configure_proxy(self):
         proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
