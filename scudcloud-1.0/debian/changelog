@@ -1,3 +1,15 @@
+scudcloud (1.0-89) trusty; urgency=medium
+
+  * Forgot to bump version
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sun, 01 Nov 2015 21:31:30 -0200
+
+scudcloud (1.0-88) trusty; urgency=medium
+
+  * Restoring wrapper timer to override notifications
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sun, 01 Nov 2015 10:27:18 -0200
+
 scudcloud (1.0-87) trusty; urgency=medium
 
   * Re-enable desktop notifications on reconnect (#274)
