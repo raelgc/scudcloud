@@ -16,7 +16,10 @@ var ScudCloud = {
 	},
 	connect: function(b){
 		desktop.enableMenus(b);
-		if(b) desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
+		if(b){
+			ScudCloud.overrideNotifications();
+			desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
+		}
 	},
     count: function(){
 		var total=0;

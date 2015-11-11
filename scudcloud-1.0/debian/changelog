@@ -1,3 +1,33 @@
+scudcloud (1.0-89) trusty; urgency=medium
+
+  * Forgot to bump version
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sun, 01 Nov 2015 21:31:30 -0200
+
+scudcloud (1.0-88) trusty; urgency=medium
+
+  * Restoring wrapper timer to override notifications
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sun, 01 Nov 2015 10:27:18 -0200
+
+scudcloud (1.0-87) trusty; urgency=medium
+
+  * Re-enable desktop notifications on reconnect (#274)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 28 Oct 2015 08:47:13 -0200
+
+scudcloud (1.0-86) trusty; urgency=medium
+
+  * Set focus after switch teams (#268)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sun, 25 Oct 2015 08:00:35 -0200
+
+scudcloud (1.0-85) trusty; urgency=medium
+
+  * Restore window when trying to run again (#66)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 21 Oct 2015 21:57:36 -0200
+
 scudcloud (1.0-84) trusty; urgency=medium
 
   * Escape single quote on team icon (#264)

@@ -2,12 +2,20 @@ import sys, subprocess, os, json, tempfile
 from urllib import request
 from urllib.parse import urlparse
 from resources import Resources
+<<<<<<< HEAD
 from PyQt5 import QtWebKit, QtGui, QtCore, QtWidgets
 from PyQt5.Qt import QApplication, QKeySequence
 from PyQt5.QtCore import QBuffer, QByteArray, QUrl
 from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtNetwork import QNetworkProxy
+=======
+from PyQt4 import QtWebKit, QtGui, QtCore
+from PyQt4.Qt import QApplication, QKeySequence, QTimer
+from PyQt4.QtCore import QBuffer, QByteArray, QUrl
+from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
+from PyQt4.QtNetwork import QNetworkProxy
+>>>>>>> master
 
 class Wrapper(QWebView):
 
@@ -25,7 +33,24 @@ class Wrapper(QWebView):
         self.loadStarted.connect(self._loadStarted)
         self.loadFinished.connect(self._loadFinished)
         self.linkClicked.connect(self._linkClicked)
+        self.page().featurePermissionRequested.connect(self.permissionRequested)
         self.addActions()
+        self.setupTimer()
+
+    # Starting a timer that will check by server side reloads (which drops ScudCloud notification)
+    def setupTimer(self):
+        timer = QTimer(self)
+        timer.timeout.connect(self.overrideNotifications)
+        # Hope each 10 minutes will not be produce high CPU usage
+        timer.setInterval(600000)
+        timer.start()
+
+    def overrideNotifications(self):
+        self.call("overrideNotifications")
+
+    def permissionRequested(self, frame, feature):
+        self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
+        self.overrideNotifications()
 
     def configure_proxy(self):
         proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
