@@ -27,15 +27,6 @@ class Wrapper(QWebView):
         self.linkClicked.connect(self._linkClicked)
         self.page().featurePermissionRequested.connect(self.permissionRequested)
         self.addActions()
-        self.setupTimer()
-
-    # Starting a timer that will check by server side reloads (which drops ScudCloud notification)
-    def setupTimer(self):
-        timer = QTimer(self)
-        timer.timeout.connect(self.overrideNotifications)
-        # Hope each 10 minutes will not be produce high CPU usage
-        timer.setInterval(600000)
-        timer.start()
 
     def overrideNotifications(self):
         self.call("overrideNotifications")
