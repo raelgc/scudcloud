@@ -2,20 +2,12 @@ import sys, subprocess, os, json, tempfile
 from urllib import request
 from urllib.parse import urlparse
 from resources import Resources
-<<<<<<< HEAD
 from PyQt5 import QtWebKit, QtGui, QtCore, QtWidgets
 from PyQt5.Qt import QApplication, QKeySequence
 from PyQt5.QtCore import QBuffer, QByteArray, QUrl
 from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtNetwork import QNetworkProxy
-=======
-from PyQt4 import QtWebKit, QtGui, QtCore
-from PyQt4.Qt import QApplication, QKeySequence, QTimer
-from PyQt4.QtCore import QBuffer, QByteArray, QUrl
-from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
-from PyQt4.QtNetwork import QNetworkProxy
->>>>>>> master
 
 class Wrapper(QWebView):
 
