@@ -10,6 +10,7 @@ from PyQt4.QtNetwork import QNetworkProxy
 
 class Wrapper(QWebView):
 
+    highlights = 0
     icon = None
 
     def __init__(self, window):
@@ -26,18 +27,6 @@ class Wrapper(QWebView):
         self.linkClicked.connect(self._linkClicked)
         self.page().featurePermissionRequested.connect(self.permissionRequested)
         self.addActions()
-        self.setupTimer()
-
-    # Starting a timer that will check by server side reloads (which drops ScudCloud notification)
-    def setupTimer(self):
-        timer = QTimer(self)
-        timer.timeout.connect(self.overrideNotifications)
-        # Hope each 10 minutes will not be produce high CPU usage
-        timer.setInterval(600000)
-        timer.start()
-
-    def overrideNotifications(self):
-        self.call("overrideNotifications")
 
     def permissionRequested(self, frame, feature):
         self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
@@ -104,7 +93,6 @@ class Wrapper(QWebView):
     def _loadFinished(self, ok=True):
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         self.page().currentFrame().evaluateJavaScript(self.js)
-        self.window.enableMenus(self.isConnected())
         self.window.statusBar().hide()
 
     def systemOpen(self, url):
@@ -127,9 +115,6 @@ class Wrapper(QWebView):
         self.window.show()
         self.call("preferences")
 
-    def isConnected(self):
-        return self.call("isConnected")
-
     def createSnippet(self):
         self.call("createSnippet")
 
@@ -148,9 +133,6 @@ class Wrapper(QWebView):
     def about(self):
         subprocess.call(('xdg-open', "https://github.com/raelgc/scudcloud"))
 
-    def isConnected(self):
-        return self.call("isConnected")
-
     def listChannels(self):
         return self.call("listChannels")
 
@@ -158,11 +140,10 @@ class Wrapper(QWebView):
         self.call("join", menuitem.property_get("id"))
         self.window.show()
 
-    def count(self):
-        try:
-            return self.call("count")
-        except:
-            return 0
+    @QtCore.pyqtSlot(int, int) 
+    def setBadgeCount(self, highlight, unread):
+        self.highlights = highlight
+        self.window.count()
 
     @QtCore.pyqtSlot(str) 
     def populate(self, serialized):

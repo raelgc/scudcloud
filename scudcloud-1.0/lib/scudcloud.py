@@ -61,8 +61,6 @@ class ScudCloud(QtGui.QMainWindow):
         self.systray(ScudCloud.minimized)
         self.installEventFilter(self)
         self.statusBar().showMessage('Loading Slack...')
-        # Starting unread msgs counter
-        self.setupTimer()
 
     def addWrapper(self, url):
         webView = Wrapper(self)
@@ -72,12 +70,6 @@ class ScudCloud(QtGui.QMainWindow):
         webView.show()
         self.stackedWidget.addWidget(webView)
         self.stackedWidget.setCurrentWidget(webView)
-
-    def setupTimer(self):
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.count)
-        self.timer.setInterval(2000)
-        self.timer.start()
 
     def webSettings(self):
         self.cookiesjar = PersistentCookieJar(self)
@@ -281,7 +273,6 @@ class ScudCloud(QtGui.QMainWindow):
                 break
         if not exists:
             self.addWrapper(url)
-        self.enableMenus(self.current().isConnected())
         self.updateEditMenu()
 
     def eventFilter(self, obj, event):
@@ -367,7 +358,7 @@ class ScudCloud(QtGui.QMainWindow):
         total = 0
         for i in range(0, self.stackedWidget.count()):
             widget = self.stackedWidget.widget(i)
-            messages = widget.count()
+            messages = widget.highlights
             if messages == 0:
                 self.leftPane.stopAlert(widget.team())
             else:
