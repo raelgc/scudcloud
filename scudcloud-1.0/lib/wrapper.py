@@ -173,7 +173,7 @@ class Wrapper(QWebView):
 
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
-        erase = ['New message from ', 'New message in ', '['+self.name.lower()+'] in ']
+        erase = ['['+self.name.lower()+'] in ', '['+self.name.lower()+'] from ']
         for s in erase:
             title = str(title).replace(s, '', 1)
         self.window.notify(title, str(message), self.icon)
