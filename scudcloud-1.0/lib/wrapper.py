@@ -142,7 +142,7 @@ class Wrapper(QWebView):
         self.window.show()
 
     @QtCore.pyqtSlot(int, int) 
-    def setBadgeCount(self, highlight, unread):
+    def count(self, highlight, unread):
         self.highlights = highlight
         self.window.count()
 

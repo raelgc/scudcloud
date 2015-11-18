@@ -70,7 +70,7 @@ ScudCloud = {
 		desktop.sendMessage(args.title, args.content);
 	},
 	setBadgeCount: function(args){
-		desktop.setBadgeCount(args.all_unread_highlights_cnt, args.all_unread_cnt);
+		desktop.count(args.all_unread_highlights_cnt, args.all_unread_cnt);
 	},
 	displayTeam: function(id){
 	},
