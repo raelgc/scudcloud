@@ -1,16 +1,18 @@
 ScudCloud = {
+	unloaded: true,
 	// App functions
     hasPreference: function(name){
-		return ScudCloud.na("hasPreference");
+		return false;
 	},
 	getPreference: function(name){
-		return ScudCloud.na("getPreference");
+		return false;
 	},
 	setPreference: function(name, value){
-		return ScudCloud.na("setPreference");
+		return false;
 	},
 	canShowHtmlNotifications: function(){
-		return ScudCloud.na("canShowHtmlNotifications");
+		// Ubuntu cannot display HTML notifications
+		return false;
 	},
 	// TSSSB.call
 	call: function(name, args){
@@ -30,23 +32,6 @@ ScudCloud = {
 				return ScudCloud.setBadgeCount(args);
 			case "displayTeam":
 				return ScudCloud.displayTeam(args);
-			case "getModifierKeys":
-			case "updateTitleBarColor":
-			case "disableSecureInput":
-			case "setImage":
-			case "listWindows":
-			case "focusWindow":
-			case "openWindow":
-			case "closeWindow":
-			case "getGeometryForWindow":
-			case "startDownload":
-			case "supportsOpenFileAtPath":
-			case "cancelDownloadWithToken":
-			case "openFileAtPath":
-			case "retryDownloadWithToken":
-			case "pruneTokensFromHistory":
-			case "metadataForDownloads":
-			case "readFindString":
 		}
 		return false;
 	},
@@ -57,7 +42,11 @@ ScudCloud = {
 	didStartLoading: function(){
 	},
 	didFinishLoading: function(){
-		ScudCloud.populate();
+		if(ScudCloud.unloaded){
+			TS.ui.banner.close();
+			ScudCloud.populate();
+			ScudCloud.unloaded = false;
+		}
 	},
 	setConnectionStatus: function(status){
 		// "online", "connecting", "offline"
@@ -75,10 +64,6 @@ ScudCloud = {
 	displayTeam: function(id){
 	},
 	// ScudCloud internal functions
-	na: function(name){
-		ScudCloud.log(name);
-		return false;
-	},
 	log: function(name){
 		console.log("ScudCloud."+name);
 	},
@@ -130,3 +115,5 @@ ScudCloud = {
 };
 document.onpaste = function(e){desktop.pasted(false);};
 window.winssb = TSSSB = ScudCloud;
+// Sometimes didFinishLoading is not loaded
+ScudCloud.didFinishLoading();
