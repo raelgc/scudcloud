@@ -128,7 +128,5 @@ ScudCloud = {
 		return TS.help_dialog.start();
 	}
 };
-if("undefined" != typeof TS){
-	document.onpaste = function(e){desktop.pasted(false);};
-	window.winssb = TSSSB = ScudCloud;
-}
+document.onpaste = function(e){desktop.pasted(false);};
+window.winssb = TSSSB = ScudCloud;
