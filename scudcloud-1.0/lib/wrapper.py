@@ -12,6 +12,7 @@ class Wrapper(QWebView):
 
     highlights = 0
     icon = None
+    name = ''
 
     def __init__(self, window):
         self.configure_proxy()
@@ -151,8 +152,8 @@ class Wrapper(QWebView):
         self.window.teams(data['teams'])
         if self.window.current() == self:
             self.window.quicklist(data['channels'])
-        iconFile = data['teams'][0]['team_name']+'.png'
-        filename, headers = request.urlretrieve(data['icon'], tempfile.gettempdir()+'/'+iconFile)
+        self.name = data['teams'][0]['team_name']
+        filename, headers = request.urlretrieve(data['icon'], tempfile.gettempdir()+'/'+self.name+'.png')
         self.icon = filename
 
     @QtCore.pyqtSlot(bool) 
@@ -172,6 +173,6 @@ class Wrapper(QWebView):
 
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
-        self.window.notify(str(title).replace("New message from ", "").replace("New message in ", ""), str(message), self.icon)
+        self.window.notify(str(title).replace('New message from ', '', 1).replace('New message in ', '', 1).replace('['+self.name.lower()+'] in ', '', 1), str(message), self.icon)
 
 
