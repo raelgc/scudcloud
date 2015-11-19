@@ -1,3 +1,4 @@
+
 ScudCloud = {
 	unloaded: true,
 	// App functions
@@ -42,11 +43,9 @@ ScudCloud = {
 	didStartLoading: function(){
 	},
 	didFinishLoading: function(){
-		if(ScudCloud.unloaded){
-			TS.ui.banner.close();
-			ScudCloud.populate();
-			ScudCloud.unloaded = false;
-		}
+		TS.ui.banner.close();
+		ScudCloud.populate();
+		ScudCloud.unloaded = false;
 	},
 	setConnectionStatus: function(status){
 		// "online", "connecting", "offline"
@@ -116,4 +115,6 @@ ScudCloud = {
 document.onpaste = function(e){desktop.pasted(false);};
 window.winssb = TSSSB = ScudCloud;
 // Sometimes didFinishLoading is not loaded
-ScudCloud.didFinishLoading();
+if(ScudCloud.unloaded){
+	ScudCloud.didFinishLoading();
+}
