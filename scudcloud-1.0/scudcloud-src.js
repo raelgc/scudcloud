@@ -1,33 +1,74 @@
-var ScudCloud = {
-	overrideNotifications: function(){
-		TS.ui.growls.no_notifications = false;
-		TS.ui.growls.checkPermission = function() { return true; };
-		TS.ui.growls.getPermissionLevel = function() { return 'granted'; };
-		TS.ui.growls.show = function(j,f,o,p){ desktop.sendMessage(j,f); };
+
+ScudCloud = {
+	unloaded: true,
+	// App functions
+    hasPreference: function(name){
+		return false;
+	},
+	getPreference: function(name){
+		return false;
+	},
+	setPreference: function(name, value){
+		return false;
+	},
+	canShowHtmlNotifications: function(){
+		// Ubuntu cannot display HTML notifications
+		return false;
+	},
+	// TSSSB.call
+	call: function(name, args){
+		ScudCloud.log(name);
+		switch(name){
+			case "reload":
+				return ScudCloud.reload();
+			case "didStartLoading":
+				return ScudCloud.didStartLoading();
+			case "didFinishLoading":
+				return ScudCloud.didFinishLoading();
+			case "setConnectionStatus":
+				return ScudCloud.setConnectionStatus(args);
+			case "notify":
+				return ScudCloud.notify(args);
+			case "setBadgeCount":
+				return ScudCloud.setBadgeCount(args);
+			case "displayTeam":
+				return ScudCloud.displayTeam(args);
+		}
+		return false;
+	},
+	// TSSSB.call implementations
+	reload: function(){
+		window.location.reload();
+	},
+	didStartLoading: function(){
+	},
+	didFinishLoading: function(){
 		TS.ui.banner.close();
+		ScudCloud.populate();
+		ScudCloud.unloaded = false;
 	},
-	overrideConnect: function(){
-		TS.ms.connected_sig.add(function(){ScudCloud.connect(true);});
-		TS.ms.disconnected_sig.add(function(){ScudCloud.connect(false);});
-	},
-	overrideBanner: function(){
-		ScudCloud.showBanner = TS.ui.banner.show;
-		TS.ui.banner.show = function(){ ScudCloud.showBanner(); ScudCloud.overrideNotifications(); };
-	},
-	connect: function(b){
-		desktop.enableMenus(b);
-		if(b){
-			ScudCloud.overrideNotifications();
-			desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
+	setConnectionStatus: function(status){
+		// "online", "connecting", "offline"
+		switch(status){
+			case "online": desktop.enableMenus(true); break;
+			default: desktop.enableMenus(false);
 		}
 	},
-    count: function(){
-		var total=0;
-		$('span.unread_highlight').not('.hidden').each(function(i){ 
-			total+= new Number($(this).text().replace('+','')); }
-		);
-		return total;
-    },
+	notify: function(args){
+		desktop.sendMessage(args.title, args.content);
+	},
+	setBadgeCount: function(args){
+		desktop.count(args.all_unread_highlights_cnt, args.all_unread_cnt);
+	},
+	displayTeam: function(id){
+	},
+	// ScudCloud internal functions
+	log: function(name){
+		console.log("ScudCloud."+name);
+	},
+	populate: function(){
+		desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
+	},
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
 	},
@@ -69,14 +110,11 @@ var ScudCloud = {
 	},
     help: function(){
 		return TS.help_dialog.start();
-	},
-    isConnected: function(){
-        return "undefined" != typeof TS && "undefined" != typeof TS.model && TS.model.ms_connected;
-    }
+	}
 };
-if("undefined" != typeof TS){
-	document.onpaste = function(e){desktop.pasted(false);};
-    ScudCloud.overrideNotifications();
-	ScudCloud.overrideConnect();
-	ScudCloud.overrideBanner();
+document.onpaste = function(e){desktop.pasted(false);};
+window.winssb = TSSSB = ScudCloud;
+// Sometimes didFinishLoading is not loaded
+if(ScudCloud.unloaded){
+	ScudCloud.didFinishLoading();
 }

@@ -10,7 +10,9 @@ from PyQt4.QtNetwork import QNetworkProxy
 
 class Wrapper(QWebView):
 
+    highlights = 0
     icon = None
+    name = ''
 
     def __init__(self, window):
         self.configure_proxy()
@@ -26,18 +28,6 @@ class Wrapper(QWebView):
         self.linkClicked.connect(self._linkClicked)
         self.page().featurePermissionRequested.connect(self.permissionRequested)
         self.addActions()
-        self.setupTimer()
-
-    # Starting a timer that will check by server side reloads (which drops ScudCloud notification)
-    def setupTimer(self):
-        timer = QTimer(self)
-        timer.timeout.connect(self.overrideNotifications)
-        # Hope each 10 minutes will not be produce high CPU usage
-        timer.setInterval(600000)
-        timer.start()
-
-    def overrideNotifications(self):
-        self.call("overrideNotifications")
 
     def permissionRequested(self, frame, feature):
         self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
@@ -102,9 +92,10 @@ class Wrapper(QWebView):
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
 
     def _loadFinished(self, ok=True):
+        # Starting the webkit-JS bridge
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+        # Loading ScudCloud JS client
         self.page().currentFrame().evaluateJavaScript(self.js)
-        self.window.enableMenus(self.isConnected())
         self.window.statusBar().hide()
 
     def systemOpen(self, url):
@@ -127,9 +118,6 @@ class Wrapper(QWebView):
         self.window.show()
         self.call("preferences")
 
-    def isConnected(self):
-        return self.call("isConnected")
-
     def createSnippet(self):
         self.call("createSnippet")
 
@@ -148,9 +136,6 @@ class Wrapper(QWebView):
     def about(self):
         subprocess.call(('xdg-open', "https://github.com/raelgc/scudcloud"))
 
-    def isConnected(self):
-        return self.call("isConnected")
-
     def listChannels(self):
         return self.call("listChannels")
 
@@ -158,11 +143,10 @@ class Wrapper(QWebView):
         self.call("join", menuitem.property_get("id"))
         self.window.show()
 
-    def count(self):
-        try:
-            return self.call("count")
-        except:
-            return 0
+    @QtCore.pyqtSlot(int, int) 
+    def count(self, highlight, unread):
+        self.highlights = highlight
+        self.window.count()
 
     @QtCore.pyqtSlot(str) 
     def populate(self, serialized):
@@ -170,8 +154,8 @@ class Wrapper(QWebView):
         self.window.teams(data['teams'])
         if self.window.current() == self:
             self.window.quicklist(data['channels'])
-        iconFile = data['teams'][0]['team_name']+'.png'
-        filename, headers = request.urlretrieve(data['icon'], tempfile.gettempdir()+'/'+iconFile)
+        self.name = data['teams'][0]['team_name']
+        filename, headers = request.urlretrieve(data['icon'], tempfile.gettempdir()+'/'+self.name+'.png')
         self.icon = filename
 
     @QtCore.pyqtSlot(bool) 
@@ -191,6 +175,9 @@ class Wrapper(QWebView):
 
     @QtCore.pyqtSlot(str, str) 
     def sendMessage(self, title, message):
-        self.window.notify(str(title).replace("New message from ", "").replace("New message in ", ""), str(message), self.icon)
+        erase = ['['+self.name.lower()+'] in ', '['+self.name.lower()+'] from ']
+        for s in erase:
+            title = str(title).replace(s, '', 1)
+        self.window.notify(title, str(message), self.icon)
 
 
