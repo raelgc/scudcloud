@@ -1,6 +1,6 @@
 # ScudCloud - Linux Client for Slack
 
-![ScudCloud Logo](/scudcloud-1.0/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
+![ScudCloud Logo](/scudcloud-1.1/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
 
 ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client for [Slack](http://slack.com).
 
@@ -95,10 +95,10 @@ First, you'll need to install at least packages for `python3`, `python-qt4` (`qt
 Then run the below script: it'll download the code and install it:
 
 ```bash
-wget https://github.com/raelgc/scudcloud/archive/v1.0.89.tar.gz
-tar -xvf v1.0.89.tar.gz
-cd scudcloud-1.0.89
-SOURCE="scudcloud-1.0"
+wget https://github.com/raelgc/scudcloud/archive/v1.1.0.tar.gz
+tar -xvf v1.1.0.tar.gz
+cd scudcloud-1.1.0
+SOURCE="scudcloud-1.1"
 INSTALL="/opt/scudcloud"
 sudo mkdir -p $INSTALL/lib
 sudo mkdir -p $INSTALL/resources

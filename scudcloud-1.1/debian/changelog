@@ -1,3 +1,10 @@
+scudcloud (1.1-0) trusty; urgency=medium
+
+  * Fixing stuck in loading screen (#294)
+  * Implementing a proper Slack JS client (#292)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 19 Nov 2015 09:43:01 -0200
+
 scudcloud (1.0-89) trusty; urgency=medium
 
   * Forgot to bump version
