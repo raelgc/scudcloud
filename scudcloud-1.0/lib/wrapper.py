@@ -83,8 +83,6 @@ class Wrapper(QWebView):
     def _loadStarted(self):
         # Some custom CSS to clean/fix UX
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
-        # Starting the webkit-JS bridge
-        self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
 
     def _urlChanged(self, qUrl):
         url = qUrl.toString()
@@ -94,6 +92,9 @@ class Wrapper(QWebView):
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
 
     def _loadFinished(self, ok=True):
+        # Starting the webkit-JS bridge
+        self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+        # Loading ScudCloud JS client
         self.page().currentFrame().evaluateJavaScript(self.js)
         self.window.statusBar().hide()
 
