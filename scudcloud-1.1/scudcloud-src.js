@@ -1,8 +1,7 @@
-
 ScudCloud = {
 	unloaded: true,
 	// App functions
-    hasPreference: function(name){
+	hasPreference: function(name){
 		return false;
 	},
 	getPreference: function(name){
@@ -72,16 +71,16 @@ ScudCloud = {
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();		
 	},
-    listChannels: function(){
+	listChannels: function(){
 		return TS.channels.getUnarchivedChannelsForUser();
 	},
-    listTeams: function(){
+	listTeams: function(){
 		var list = TS.getAllTeams();
 		// Fix for current team displaying no icon
 		list[0].team_icon = {"image_44":TS.model.team.icon.image_44};
 		return list;
 	},
-    quicklist: function(){
+	quicklist: function(){
 		desktop.quicklist(ScudCloud.listChannels());
 	},
 	join: function(c){
@@ -90,10 +89,10 @@ ScudCloud = {
 	setClipboard: function(data){
 		TS.client.ui.file_pasted_sig.dispatch(data, TS.model.shift_key_pressed);
 	},
-    preferences: function(){
+	preferences: function(){
 		return TS.ui.prefs_dialog.start();
 	},
-    addTeam: function(){
+	addTeam: function(){
 		document.location = TS.boot_data.signin_url;
 	},
 	getCurrentTeam: function(){
@@ -105,10 +104,10 @@ ScudCloud = {
 		}
 		return "";
 	},
-    logout: function(){
+	logout: function(){
 		document.location = TS.boot_data.logout_url;
 	},
-    help: function(){
+	help: function(){
 		return TS.help_dialog.start();
 	}
 };
