@@ -1,3 +1,9 @@
+scudcloud (1.1-1) trusty; urgency=medium
+
+  * Disabling Private browsing (#296)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 21 Nov 2015 13:52:35 -0200
+
 scudcloud (1.1-0) trusty; urgency=medium
 
   * Fixing stuck in loading screen (#294)
