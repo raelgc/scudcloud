@@ -79,7 +79,7 @@ class ScudCloud(QtGui.QMainWindow):
         # We don't want Java
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
         # We don't need History
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, True)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, False)
         # Enabling Local Storage (now required by Slack)
         QWebSettings.globalSettings().setAttribute(QWebSettings.LocalStorageEnabled, True)
         # Enabling Cache
