@@ -34,27 +34,27 @@ class LeftPane(QWebView):
             checked = "true"
         else:
             checked = "false"
-        self.page().currentFrame().evaluateJavaScript("LeftPane.addTeam('"+id+"','"+name+"','"+url+"','"+icon+"',"+checked+");")
-        
+        self.page().currentFrame().evaluateJavaScript('LeftPane.addTeam("{}","{}","{}","{}","{}");'.format(id, name, url, icon, checked))
+
     def click(self, i):
-        self.page().currentFrame().evaluateJavaScript("LeftPane.click("+str(i)+");")
+        self.page().currentFrame().evaluateJavaScript('LeftPane.click({});'.format(i))
 
     def alert(self, team):
         if team is not None:
-            self.page().currentFrame().evaluateJavaScript("LeftPane.alert('"+team+"');")
+            self.page().currentFrame().evaluateJavaScript('LeftPane.alert("{}");'.format(team))
 
     def stopAlert(self, team):
         if team is not None:
-            self.page().currentFrame().evaluateJavaScript("LeftPane.stopAlert('"+team+"');")
+            self.page().currentFrame().evaluateJavaScript('LeftPane.stopAlert("{}");'.format(team))
     
     def clickNext(self, direction):
-        self.page().currentFrame().evaluateJavaScript("LeftPane.clickNext("+str(direction)+");")
+        self.page().currentFrame().evaluateJavaScript('LeftPane.clickNext("{}");'.format(direction))
 
     @QtCore.pyqtSlot(str) 
     def switchTo(self, url):
         self.window.switchTo(url)
 
-    def contextMenuEvent(self, event):
-        pass
+#    def contextMenuEvent(self, event):
+#        pass
 
 

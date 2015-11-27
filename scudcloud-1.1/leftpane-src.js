@@ -47,21 +47,18 @@ var LeftPane = {
 	},
 	clickNext: function(direction){
 		var list = document.getElementsByTagName("li");
-		
 		var index = 0;
 		for(; index < list.length; index++){
 			if (list[index].className == "active") {
 				break;			
 			}
 		}
-
 		index += direction; //goto next one
 		if (index >= list.length) {
 			index = 0;
 		} else if (index < 0) {
 			index = list.length - 1;
 		}
-		
 		LeftPane.click(index);
 	}
 };
