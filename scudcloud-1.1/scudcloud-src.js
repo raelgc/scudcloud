@@ -16,7 +16,7 @@ ScudCloud = {
 	},
 	// TSSSB.call
 	call: function(name, args){
-		ScudCloud.log(name);
+		ScudCloud.log(name, args);
 		switch(name){
 			case "reload":
 				return ScudCloud.reload();
@@ -62,8 +62,9 @@ ScudCloud = {
 	displayTeam: function(id){
 	},
 	// ScudCloud internal functions
-	log: function(name){
-		console.log("ScudCloud."+name);
+	log: function(name, args){
+		if("object"== typeof(args)) args = JSON.stringify(args);
+		console.log("ScudCloud."+name+", args: "+args);
 	},
 	populate: function(){
 		desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
