@@ -1,3 +1,9 @@
+scudcloud (1.1-2) trusty; urgency=medium
+
+  * Cannot invite members to private channels (#280)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 25 Nov 2015 08:52:11 -0200
+
 scudcloud (1.1-1) trusty; urgency=medium
 
   * Disabling Private browsing (#296)
