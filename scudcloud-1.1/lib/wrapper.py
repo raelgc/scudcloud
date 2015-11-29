@@ -102,16 +102,19 @@ class Wrapper(QWebView):
 
     def _linkClicked(self, qUrl):
         url = qUrl.toString()
-        handle_link = (
-            Resources.SIGNIN_URL == url or
-            Resources.MAINPAGE_URL_RE.match(url) or
-            Resources.MESSAGES_URL_RE.match(url) or
-            Resources.SSO_URL_RE.match(url) or
-            url.startswith("https://accounts.google.com/o/oauth"))
-        if handle_link:
-            self.load(qUrl)
+        if Resources.SIGNIN_URL == url:
+            self.window.switchTo(url)
         else:
-            self.systemOpen(url)
+            handle_link = (
+                Resources.MAINPAGE_URL_RE.match(url) or
+                Resources.MESSAGES_URL_RE.match(url) or
+                Resources.SSO_URL_RE.match(url) or
+                Resources.GOOGLE_OAUTH2_URL_RE.match(url)
+            )
+            if handle_link:
+                self.load(qUrl)
+            else:
+                self.systemOpen(url)
 
     def preferences(self):
         self.window.show()
