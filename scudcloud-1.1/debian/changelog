@@ -1,3 +1,9 @@
+scudcloud (1.1-5) trusty; urgency=medium
+
+  * Improving signin to another team (#299)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sun, 29 Nov 2015 18:18:43 -0200
+
 scudcloud (1.1-4) trusty; urgency=medium
 
   * Forgot to bump version
