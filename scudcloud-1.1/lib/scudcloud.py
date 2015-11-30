@@ -271,6 +271,7 @@ class ScudCloud(QtGui.QMainWindow):
                 self.stackedWidget.setCurrentIndex(i)
                 self.quicklist(self.current().listChannels())
                 self.current().setFocus()
+                self.leftPane.click(i)
                 exists = True
                 break
         if not exists:
