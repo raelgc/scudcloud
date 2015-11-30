@@ -21,12 +21,7 @@ var LeftPane = {
 	},
 	click: function(i){
 		var list = document.getElementsByTagName("li");
-		for(var j=0; j < list.length; j++){
-			if(i==j){
-				list[j].click();
-				break;
-			}
-		}
+		if(i < list.length) list[i].click();
 	},
 	alert: function(team){
 		document.getElementById(team).classList.add('alert');
@@ -53,7 +48,8 @@ var LeftPane = {
 				break;			
 			}
 		}
-		index += direction; //goto next one
+		// Go up or down
+		index += new Number(direction);
 		if (index >= list.length) {
 			index = 0;
 		} else if (index < 0) {
