@@ -1,3 +1,10 @@
+scudcloud (1.1-6) trusty; urgency=medium
+
+  * Fixing ctrl+tab (#301)
+  * More improvements to signin to another team (#299)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 30 Nov 2015 09:15:34 -0200
+
 scudcloud (1.1-5) trusty; urgency=medium
 
   * Improving signin to another team (#299)
