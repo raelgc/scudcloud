@@ -1,3 +1,9 @@
+scudcloud (1.1-7) trusty; urgency=medium
+
+  * Channel list not scrollable (#309)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 07 Dec 2015 09:36:22 -0200
+
 scudcloud (1.1-6) trusty; urgency=medium
 
   * Fixing ctrl+tab (#301)
