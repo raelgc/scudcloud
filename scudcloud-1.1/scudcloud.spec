@@ -82,6 +82,7 @@ install -m0644 lib/*.py %{buildroot}/$INSTALL/lib
 install -m0644 resources/* %{buildroot}/$INSTALL/resources
 install -m0755 scudcloud %{buildroot}/$INSTALL
 install -m0644 LICENSE %{buildroot}/$INSTALL
+install -m0644 VERSION %{buildroot}/$INSTALL
 
 install -m0644 systray/hicolor/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 install -m0644 systray/mono-dark/* %{buildroot}%{_datadir}/icons/mono-dark/scalable/apps
@@ -149,6 +150,8 @@ fi
 %{_bindir}/scudcloud
 
 %changelog
+* Mon Dec  7 23:20:51 UTC 2015 - marcin.bajor@gmail.com
+- Added VERSION file to rpm package
 * Sat Sep 26 2015 Marcin Bajor <marcin.bajor@gmail.com>
 - Added dependencies: libqt4-webkit-qupzillaplugins and python3-hunspell 
 * Mon Sep 21 2015 Marcin Trendota <moonwolf@poczta.onet.pl>
