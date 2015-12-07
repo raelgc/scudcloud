@@ -106,6 +106,7 @@ sudo cp $SOURCE/lib/*.py $INSTALL/lib
 sudo cp $SOURCE/resources/* $INSTALL/resources
 sudo cp $SOURCE/scudcloud $INSTALL
 sudo cp $SOURCE/LICENSE $INSTALL
+sudo cp $SOURCE/VERSION $INSTALL
 sudo cp $SOURCE/scudcloud.desktop /usr/share/applications
 sudo cp $SOURCE/systray/hicolor/* /usr/share/icons/hicolor/scalable/apps
 sudo cp $SOURCE/systray/mono-dark/* /usr/share/icons/mono-dark/scalable/apps
