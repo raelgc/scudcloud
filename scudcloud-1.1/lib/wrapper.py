@@ -1,4 +1,4 @@
-import sys, subprocess, os, json, tempfile
+import sys, subprocess, os, json, tempfile, base64
 from urllib import request
 from urllib.parse import urlparse
 from resources import Resources
@@ -150,7 +150,11 @@ class Wrapper(QWebView):
         if self.window.current() == self:
             self.window.quicklist(data['channels'])
         self.name = data['teams'][0]['team_name']
-        filename, headers = request.urlretrieve(data['icon'], tempfile.gettempdir()+'/'+self.name+'.png')
+        # Using base64 to avoid invalid icon paths (Fixes #315)
+        icon_name = 'scudcloud_' + base64.urlsafe_b64encode(self.name.encode('ascii')).decode('ascii') + '.png'
+        icon_path = os.path.join(tempfile.gettempdir(), icon_name)
+        # Download the file to use in notifications
+        filename, headers = request.urlretrieve(data['icon'], icon_path)
         self.icon = filename
 
     @QtCore.pyqtSlot(bool) 
