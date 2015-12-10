@@ -43,9 +43,6 @@ class Wrapper(QWebView):
             QNetworkProxy.setApplicationProxy(q_network_proxy)
 
     def addActions(self):
-        self.pageAction(QWebPage.SetTextDirectionDefault).setVisible(False)
-        self.pageAction(QWebPage.SetTextDirectionLeftToRight).setVisible(False)
-        self.pageAction(QWebPage.SetTextDirectionRightToLeft).setVisible(False)
         self.pageAction(QWebPage.Undo).setShortcuts(QKeySequence.Undo)
         self.pageAction(QWebPage.Redo).setShortcuts(QKeySequence.Redo)
         self.pageAction(QWebPage.Cut).setShortcuts(QKeySequence.Cut)
@@ -56,6 +53,7 @@ class Wrapper(QWebView):
         self.pageAction(QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
 
     def contextMenuEvent(self, event):
+        entriesToHide = ['Direction', 'Open in New Window', 'Save Link...']
         menu = QtGui.QMenu(self)
         hit = self.page().currentFrame().hitTestContent(event.pos())
         if self.window.speller.initialized:
@@ -70,8 +68,7 @@ class Wrapper(QWebView):
                     action = QtGui.QAction('Open Link', self)
                     action.triggered.connect(lambda: self.systemOpen(url.toString()))
                     menu.addAction(action)
-                # Let's hide some options for hyperlinks
-                elif 'Open in New Window' == a.text() or 'Save Link...' == a.text():
+                elif a.text() in entriesToHide:
                     continue
                 # Let's skip Slack redirect engine only when copying the link (Fixes #42)
                 elif 'Copy Link' == a.text() and not url.isEmpty():
