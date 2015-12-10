@@ -1,3 +1,10 @@
+scudcloud (1.1-8) trusty; urgency=medium
+
+  * Strip redirection code when copying links (#42) 
+  * Avoid crash if slash in team name (#315) 
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 10 Dec 2015 20:44:03 -0200
+
 scudcloud (1.1-7) trusty; urgency=medium
 
   * Channel list not scrollable (#309)
