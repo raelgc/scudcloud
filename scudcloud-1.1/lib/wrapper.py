@@ -1,6 +1,6 @@
-import sys, subprocess, os, json, tempfile
+import sys, subprocess, os, json, tempfile, urllib
 from urllib import request
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 from resources import Resources
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
@@ -57,20 +57,38 @@ class Wrapper(QWebView):
 
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu(self)
+        hit = self.page().currentFrame().hitTestContent(event.pos())
         if self.window.speller.initialized:
-            hit = self.page().currentFrame().hitTestContent(event.pos())
             element = hit.element()
             if hit.isContentEditable() and not hit.isContentSelected() and element.attribute("type") != "password":
                 self.window.speller.populateContextMenu(menu, element)
         pageMenu = self.page().createStandardContextMenu()
+        url = hit.linkUrl()        
         if pageMenu is not None:
             for a in pageMenu.actions():
-                if a.isSeparator():
+                if 'Open Link' == a.text() and not url.isEmpty():
+                    action = QtGui.QAction('Open Link', self)
+                    action.triggered.connect(lambda: self.systemOpen(url.toString()))
+                    menu.addAction(action)
+                # Let's hide some options for hyperlinks
+                elif 'Open in New Window' == a.text() or 'Save Link...' == a.text():
+                    continue
+                # Let's skip Slack redirect engine only when copying the link (Fixes #42)
+                elif 'Copy Link' == a.text() and not url.isEmpty():
+                    action = QtGui.QAction('Copy Link', self)
+                    action.triggered.connect(lambda: self.decodeAndCopy(url.toString()))
+                    menu.addAction(action)
+                elif a.isSeparator():
                     menu.addSeparator()
                 elif a.isVisible():
                     menu.addAction(a)
         del pageMenu
         menu.exec_(event.globalPos())
+
+    def decodeAndCopy(self, url):
+        param, value = url.split("=",1)
+        decodedURL = unquote(value)
+        QApplication.clipboard().setText(decodedURL)
 
     def call(self, function, arg=None):
         if isinstance(arg, str):
