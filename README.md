@@ -1,6 +1,6 @@
 # ScudCloud - Linux Client for Slack
 
-![ScudCloud Logo](/scudcloud-1.1/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
+![ScudCloud Logo](/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
 
 ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client for [Slack](http://slack.com).
 
@@ -98,19 +98,18 @@ Then run the below script: it'll download the code and install it:
 wget https://github.com/raelgc/scudcloud/archive/v1.1.11.tar.gz
 tar -xvf v1.1.11.tar.gz
 cd scudcloud-1.1.11
-SOURCE="scudcloud-1.1"
 INSTALL="/opt/scudcloud"
 sudo mkdir -p $INSTALL/lib
 sudo mkdir -p $INSTALL/resources
-sudo cp $SOURCE/lib/*.py $INSTALL/lib
-sudo cp $SOURCE/resources/* $INSTALL/resources
-sudo cp $SOURCE/scudcloud $INSTALL
-sudo cp $SOURCE/LICENSE $INSTALL
-sudo cp $SOURCE/VERSION $INSTALL
-sudo cp $SOURCE/scudcloud.desktop /usr/share/applications
-sudo cp $SOURCE/systray/hicolor/* /usr/share/icons/hicolor/scalable/apps
-sudo cp $SOURCE/systray/mono-dark/* /usr/share/icons/mono-dark/scalable/apps
-sudo cp $SOURCE/systray/mono-light/* /usr/share/icons/mono-light/scalable/apps
+sudo cp lib/*.py $INSTALL/lib
+sudo cp resources/* $INSTALL/resources
+sudo cp scudcloud $INSTALL
+sudo cp LICENSE $INSTALL
+sudo cp VERSION $INSTALL
+sudo cp scudcloud.desktop /usr/share/applications
+sudo cp systray/hicolor/* /usr/share/icons/hicolor/scalable/apps
+sudo cp systray/mono-dark/* /usr/share/icons/mono-dark/scalable/apps
+sudo cp systray/mono-light/* /usr/share/icons/mono-light/scalable/apps
 sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
 ```
 
@@ -145,7 +144,7 @@ For some reason, ScudCloud was not able to create the configuration folder. Plea
 Flash is required to display embedded videos, but if you don't care, disable it starting with:
 
     scudcloud --no_plugins=True
-    
+
 #### 6. How to start ScudCloud minimized?
 
 You can start ScudCloud minized to tray with:

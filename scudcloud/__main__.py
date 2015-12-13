@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
 import fcntl, os, sys, signal, tempfile
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 
-# Flexible install dir (we assume that 'lib' and 'resources' will be subdirs)
+# Flexible install dir (we assume that 'resources' is package_data)
 INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
 
-# Append the lib directory in our installation path to get remaining libraries.
-sys.path.append(os.path.join(INSTALL_DIR, 'lib'))
 from resources import Resources
 from scudcloud import ScudCloud
 
