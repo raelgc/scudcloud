@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from PyQt4 import QtCore, QtNetwork
 
 class PersistentCookieJar(QtNetwork.QNetworkCookieJar):
