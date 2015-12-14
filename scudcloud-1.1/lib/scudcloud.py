@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import sys, os, time
 from cookiejar import PersistentCookieJar
 from leftpane import LeftPane
