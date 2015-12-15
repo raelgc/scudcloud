@@ -1,3 +1,9 @@
+scudcloud (1.1-9) trusty; urgency=medium
+
+  * Fix decodeAndCopy if there's no redirection in URL (#321)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 15 Dec 2015 11:37:51 -0200
+
 scudcloud (1.1-8) trusty; urgency=medium
 
   * Strip redirection code when copying links (#42) 
