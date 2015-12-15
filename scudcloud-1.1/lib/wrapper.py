@@ -83,8 +83,11 @@ class Wrapper(QWebView):
         menu.exec_(event.globalPos())
 
     def decodeAndCopy(self, url):
-        param, value = url.split("=",1)
-        decodedURL = unquote(value)
+        if url.startswith("https://slack-redir.net/link?url="):
+            param, value = url.split("=",1)
+            decodedURL = unquote(value)
+        else:
+            decodedURL = url
         QApplication.clipboard().setText(decodedURL)
 
     def call(self, function, arg=None):
