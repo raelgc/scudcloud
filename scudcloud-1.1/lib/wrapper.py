@@ -85,9 +85,9 @@ class Wrapper(QWebView):
     def decodeAndCopy(self, url):
         if url.startswith("https://slack-redir.net/link?url="):
             param, value = url.split("=",1)
+            decodedURL = unquote(value)
         else:
-            value = url
-        decodedURL = unquote(value)
+            decodedURL = url
         QApplication.clipboard().setText(decodedURL)
 
     def call(self, function, arg=None):
