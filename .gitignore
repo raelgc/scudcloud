@@ -12,3 +12,6 @@ __pycache__
 #IntelliJ
 .idea
 *.iml
+
+#Setup
+MANIFEST

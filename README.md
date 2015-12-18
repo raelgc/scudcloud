@@ -161,7 +161,7 @@ ScudCloud offers zoom support. The zoom level will be persisted between sessions
 
 # Screenshots
 
-![Some screenshots](/screenshot.png?raw=true)
+![Some screenshots](/share/screenshot.png?raw=true)
 
 # License
 

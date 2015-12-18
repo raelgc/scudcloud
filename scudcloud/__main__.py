@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import fcntl, os, sys, signal, tempfile
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket

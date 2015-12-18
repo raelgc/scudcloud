@@ -6,8 +6,14 @@ import os
 
 def get_icon_data_file_tuple(theme):
     directory = '/usr/share/icons/%s/scalable/apps' % theme
-    files = glob.glob(os.path.join('systray', theme, '*.svg'))
+    files = glob.glob(os.path.join('share', 'icons', theme, '*.svg'))
     return (directory, files)
+
+def _data_files():
+    yield 'share/applications', ['scudcloud.desktop']
+    yield 'share/doc/scudcloud', ['LICENSE', 'README.md']
+    for theme in ['hicolor', 'mono-dark', 'mono-light']:
+        yield get_icon_data_file_tuple(theme)
 
 # TODO: Get version information from git.
 def get_version():
@@ -17,11 +23,7 @@ def get_version():
 setup(name='scudcloud',
       author='Rael Gugelmin Cunha',
       author_email='rael.gc@gmail.com',
-      data_files=[('/usr/share/applications', ['scudcloud.desktop']),
-                  ('/usr/share/doc/scudcloud', ['LICENSE', 'README.md']),
-                  get_icon_data_file_tuple('hicolor'),
-                  get_icon_data_file_tuple('mono-dark'),
-                  get_icon_data_file_tuple('mono-light')],
+      data_files=list(_data_files()),
       description='Unofficial Slack Client',
       keywords = "slack chat im instant_message",
       license = "MIT",
