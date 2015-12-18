@@ -3,6 +3,7 @@
 import fcntl, os, sys, signal, tempfile
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
+from version import __version__
 
 # Flexible install dir (we assume that 'resources' is package_data)
 INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -77,8 +78,7 @@ def parse_arguments():
     parser.add_argument('--version',    action="store_true",                                         help="print version and exit")
     args = parser.parse_args()
     if args.version:
-        with open(os.path.join(Resources.INSTALL_DIR, 'VERSION'), "r") as f:
-            print("ScudCloud "+f.read())
+        print("ScudCloud " + __version__)
         sys.exit()
     args.confdir = expanduser(args.confdir)
     return args

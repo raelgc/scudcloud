@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 
 from distutils.core import setup
+from scudcloud.version import __version__
 import glob
 import os
 
-def get_icon_data_file_tuple(theme):
-    directory = '/usr/share/icons/%s/scalable/apps' % theme
-    files = glob.glob(os.path.join('share', 'icons', theme, '*.svg'))
-    return (directory, files)
-
 def _data_files():
     yield 'share/applications', ['scudcloud.desktop']
-    yield 'share/doc/scudcloud', ['LICENSE', 'README.md']
+    yield 'share/doc/scudcloud', ['LICENSE', 'README']
     for theme in ['hicolor', 'mono-dark', 'mono-light']:
-        yield get_icon_data_file_tuple(theme)
+        directory = 'share/icons/%s/scalable/apps' % theme
+        files = glob.glob(os.path.join('share', 'icons', theme, '*.svg'))
+        yield directory, files
 
 # TODO: Get version information from git.
 def get_version():
@@ -33,5 +31,5 @@ setup(name='scudcloud',
       packages=['scudcloud',],
       requires=['dbus', 'PyQt4',],
       url='https://github.com/raelgc/scudcloud',
-      version=get_version(),
+      version = __version__,
 )
