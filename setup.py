@@ -6,7 +6,7 @@ import glob
 import os
 
 def _data_files():
-    yield 'share/applications', ['scudcloud.desktop']
+    yield 'share/applications', ['share/scudcloud.desktop']
     yield 'share/doc/scudcloud', ['LICENSE', 'README']
     for theme in ['hicolor', 'mono-dark', 'mono-light']:
         directory = 'share/icons/%s/scalable/apps' % theme
