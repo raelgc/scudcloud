@@ -1,6 +1,6 @@
-import sys, subprocess, os, json, tempfile, urllib
+import sys, subprocess, os, json, tempfile
 from urllib import request
-from urllib.parse import urlparse, unquote
+from urllib.parse import urlparse, urlsplit, parse_qs
 from resources import Resources
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
@@ -84,8 +84,8 @@ class Wrapper(QWebView):
 
     def decodeAndCopy(self, url):
         if url.startswith("https://slack-redir.net/link?url="):
-            param, value = url.split("=",1)
-            decodedURL = unquote(value)
+            url_param = parse_qs(urlsplit(url).query).get('url')
+            decodedURL = url_param[0] if url_param else url
         else:
             decodedURL = url
         QApplication.clipboard().setText(decodedURL)
