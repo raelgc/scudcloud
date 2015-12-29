@@ -1,3 +1,10 @@
+scudcloud (1.1-11) trusty; urgency=medium
+
+  * Exit application on request by session manager (#314)
+  * Fix URL fragments in copied links (#328) 
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 29 Dec 2015 18:35:32 -0200
+
 scudcloud (1.1-10) trusty; urgency=medium
 
   * Don't return "&v=3" part when stripping redirection code (#324) 
