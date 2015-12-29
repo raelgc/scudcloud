@@ -39,6 +39,7 @@ def main():
         print("Configuration directory "+args.confdir+" could not be created! Exiting...")
         raise SystemExit()
     win = ScudCloud(settings_path=settings_path)
+    app.commitDataRequest.connect(win.setForceClose, type=QtCore.Qt.DirectConnection)
     server = QLocalServer()
     server.newConnection.connect(restore)
     server.listen(appKey)

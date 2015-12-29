@@ -310,6 +310,9 @@ class ScudCloud(QtGui.QMainWindow):
     def titleChanged(self):
         self.setWindowTitle(self.current().title())
 
+    def setForceClose(self):
+        self.forceClose = True
+
     def closeEvent(self, event):
         if not self.forceClose and self.settings.value("Systray") == "True":
             self.hide()
@@ -322,6 +325,7 @@ class ScudCloud(QtGui.QMainWindow):
             qUrl = self.stackedWidget.widget(0).url()
             if self.identifier is None and Resources.MESSAGES_URL_RE.match(qUrl.toString()):
                 self.settings.setValue("Domain", 'https://'+qUrl.host())
+        self.forceClose = False
 
     def show(self):
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
@@ -329,7 +333,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.setVisible(True)
 
     def exit(self):
-        self.forceClose = True
+        self.setForceClose()
         self.close()
 
     def quicklist(self, channels):
