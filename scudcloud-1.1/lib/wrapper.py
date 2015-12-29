@@ -61,19 +61,21 @@ class Wrapper(QWebView):
             if hit.isContentEditable() and not hit.isContentSelected() and element.attribute("type") != "password":
                 self.window.speller.populateContextMenu(menu, element)
         pageMenu = self.page().createStandardContextMenu()
-        url = hit.linkUrl()        
+        url = hit.linkUrl()
         if pageMenu is not None:
             for a in pageMenu.actions():
                 if 'Open Link' == a.text() and not url.isEmpty():
                     action = QtGui.QAction('Open Link', self)
-                    action.triggered.connect(lambda: self.systemOpen(url.toString()))
+                    action.triggered.connect(lambda: self.systemOpen(
+                        self._urlToString(url)))
                     menu.addAction(action)
                 elif a.text() in entriesToHide:
                     continue
                 # Let's skip Slack redirect engine only when copying the link (Fixes #42)
                 elif 'Copy Link' == a.text() and not url.isEmpty():
                     action = QtGui.QAction('Copy Link', self)
-                    action.triggered.connect(lambda: self.decodeAndCopy(url.toString()))
+                    action.triggered.connect(lambda: self.decodeAndCopy(
+                        self._urlToString(url)))
                     menu.addAction(action)
                 elif a.isSeparator():
                     menu.addSeparator()
@@ -107,6 +109,11 @@ class Wrapper(QWebView):
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
             self.load(QUrl("https://"+qUrl.host()+"/messages/general"))
+
+    @staticmethod
+    def _urlToString(url):
+        """Convert QUrl to str preserving encoding of special characters."""
+        return bytes(url.toEncoded()).decode('latin1')
 
     def _loadFinished(self, ok=True):
         # Starting the webkit-JS bridge
