@@ -14,7 +14,7 @@ class Resources:
     SPELL_LIMIT = 6
 
     # It's initialized in /scudcloud script
-    INSTALL_DIR = None
+    INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
 
     def get_path(filename):
         return os.path.join(Resources.INSTALL_DIR, 'resources', filename)

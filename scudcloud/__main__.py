@@ -1,22 +1,30 @@
 #!/usr/bin/env python3
 
-import fcntl, os, sys, signal, tempfile
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtNetwork import QLocalServer, QLocalSocket
-from version import __version__
+import os, sys
 
 # Flexible install dir (we assume that 'resources' is package_data)
-INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
+#INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
 
-from resources import Resources
-from scudcloud import ScudCloud
+# Ensure the workind directory containing this file is on the python
+# path.  Using the loader causes Python to not add this file to the
+# path.  :(
+#print("Sys.path is \"%s\"" % str(':'.join(sys.path)))
+#print("Appending path: \"%s\"" % INSTALL_DIR)
+#sys.path.append(INSTALL_DIR)
+
+from scudcloud.resources import Resources
+import scudcloud.scudcloud as sca
+from scudcloud.version import __version__
+
+import fcntl, signal, tempfile
+from PyQt4 import QtGui, QtCore
+from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 
 # The ScudCloud QMainWindow
 win = None
 
 def main():
     global win
-    Resources.INSTALL_DIR = INSTALL_DIR
     signal.signal(signal.SIGINT, exit)
     args = parse_arguments()
     appKey = "scudcloud.pid"
@@ -30,16 +38,20 @@ def main():
     app = QtGui.QApplication(sys.argv)
     app.setApplicationName(Resources.APP_NAME)
     app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
-    ScudCloud.debug = args.debug
-    ScudCloud.minimized = True if args.minimized is True else None
-    ScudCloud.plugins = False if args.no_plugins is True else True
+
     try:
         settings_path = load_settings(args.confdir)
     except:
-        print("Configuration directory "+args.confdir+" could not be created! Exiting...")
+        print("Configuration directory " + args.confdir +\
+              " could not be created! Exiting...")
         raise SystemExit()
-    win = ScudCloud(settings_path=settings_path)
+    minimized = True if args.minimized is True else None
+    enable_plugins = False if args.no_plugins is True else True
+
+    win = sca.ScudCloud(debug=args.debug, plugins=enable_plugins,\
+                        minimized=minimized, settings_path=settings_path)
     app.commitDataRequest.connect(win.setForceClose, type=QtCore.Qt.DirectConnection)
+
     server = QLocalServer()
     server.newConnection.connect(restore)
     server.listen(appKey)

@@ -1,7 +1,9 @@
+from scudcloud.resources import Resources
+
 import sys, subprocess, os, json, tempfile
 from urllib import request
-from urllib.parse import urlparse, urlsplit, parse_qs
-from resources import Resources
+from urllib.parse import urlparse, unquote, parse_qs
+
 from PyQt4 import QtWebKit, QtGui, QtCore
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
 from PyQt4.QtCore import QBuffer, QByteArray, QUrl
@@ -163,12 +165,12 @@ class Wrapper(QWebView):
         self.call("join", menuitem.property_get("id"))
         self.window.show()
 
-    @QtCore.pyqtSlot(int, int) 
+    @QtCore.pyqtSlot(int, int)
     def count(self, highlight, unread):
         self.highlights = highlight
         self.window.count()
 
-    @QtCore.pyqtSlot(str) 
+    @QtCore.pyqtSlot(str)
     def populate(self, serialized):
         data = json.loads(serialized)
         self.window.teams(data['teams'])
@@ -182,11 +184,11 @@ class Wrapper(QWebView):
         file_name, headers = request.urlretrieve(data['icon'], icon_path)
         self.icon = file_name
 
-    @QtCore.pyqtSlot(bool) 
+    @QtCore.pyqtSlot(bool)
     def enableMenus(self, enabled):
         self.window.enableMenus(enabled)
 
-    @QtCore.pyqtSlot(bool) 
+    @QtCore.pyqtSlot(bool)
     def pasted(self, checked):
         clipboard = QApplication.clipboard()
         mime = clipboard.mimeData()
@@ -197,11 +199,9 @@ class Wrapper(QWebView):
             pixmap.save(buffer, "PNG")
             self.call("setClipboard", str(byteArray.toBase64(), sys.stdout.encoding))
 
-    @QtCore.pyqtSlot(str, str) 
+    @QtCore.pyqtSlot(str, str)
     def sendMessage(self, title, message):
         erase = ['['+self.name.lower()+'] in ', '['+self.name.lower()+'] from ']
         for s in erase:
             title = str(title).replace(s, '', 1)
         self.window.notify(title, str(message), self.icon)
-
-

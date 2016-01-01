@@ -1,11 +1,13 @@
+from scudcloud.cookiejar import PersistentCookieJar
+from scudcloud.leftpane import LeftPane
+from scudcloud.notifier import Notifier
+from scudcloud.resources import Resources
+from scudcloud.systray import Systray
+from scudcloud.wrapper import Wrapper
+from scudcloud.speller import Speller
+
 import sys, os, time
-from cookiejar import PersistentCookieJar
-from leftpane import LeftPane
-from notifier import Notifier
-from resources import Resources
-from speller import Speller
-from systray import Systray
-from wrapper import Wrapper
+
 from threading import Thread
 from PyQt4 import QtCore, QtGui, QtWebKit
 from PyQt4.Qt import QApplication, QKeySequence, QTimer
@@ -19,18 +21,22 @@ try:
 except ImportError:
     Unity = None
     Dbusmenu = None
-    from launcher import DummyLauncher 
+    from scudcloud.launcher import DummyLauncher
 
 class ScudCloud(QtGui.QMainWindow):
 
-    plugins = True
-    debug = False
     forceClose = False
     messages = 0
     speller = Speller()
 
-    def __init__(self, parent = None, settings_path = ""):
+    def __init__(self, debug = False, plugins=True, parent = None,\
+                 minimized = None, settings_path = ""):
         super(ScudCloud, self).__init__(parent)
+
+        self.debug = debug
+        self.minimized = minimized
+        self.plugins = plugins
+
         self.setWindowTitle('ScudCloud')
         self.settings_path = settings_path
         self.notifier = Notifier(Resources.APP_NAME, Resources.get_path('scudcloud.png'))
@@ -57,7 +63,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.addWrapper(self.startURL)
         self.addMenu()
         self.tray = Systray(self)
-        self.systray(ScudCloud.minimized)
+        self.systray(self.minimized)
         self.installEventFilter(self)
         self.statusBar().showMessage('Loading Slack...')
 
