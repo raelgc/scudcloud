@@ -13,6 +13,15 @@ ScudCloud improves the Slack integration with Linux desktops featuring:
 * channels quicklist (Unity only),
 * optional "Close to Tray".
 
+# Running From Dev Tree
+
+Scudcloud can be run from the development tree.  Simply run the following command
+to run scudcloud from the root of the project tree:
+
+```bash
+python3 -m scudcloud
+```
+
 # Install
 
 ## Ubuntu/Kubuntu and Mint
@@ -98,19 +107,7 @@ Then run the below script: it'll download the code and install it:
 wget https://github.com/raelgc/scudcloud/archive/v1.1.11.tar.gz
 tar -xvf v1.1.11.tar.gz
 cd scudcloud-1.1.11
-INSTALL="/opt/scudcloud"
-sudo mkdir -p $INSTALL/lib
-sudo mkdir -p $INSTALL/resources
-sudo cp lib/*.py $INSTALL/lib
-sudo cp resources/* $INSTALL/resources
-sudo cp scudcloud $INSTALL
-sudo cp LICENSE $INSTALL
-sudo cp VERSION $INSTALL
-sudo cp scudcloud.desktop /usr/share/applications
-sudo cp systray/hicolor/* /usr/share/icons/hicolor/scalable/apps
-sudo cp systray/mono-dark/* /usr/share/icons/mono-dark/scalable/apps
-sudo cp systray/mono-light/* /usr/share/icons/mono-light/scalable/apps
-sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
+sudo python3 setup.py install
 ```
 
 # Troubleshooting
