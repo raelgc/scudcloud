@@ -68,28 +68,24 @@ but using the QWebkit-Native bridge to improve desktop integration with:
 
 %install
 INSTALL="/opt/scudcloud"
-cd scudcloud-1.0
 
-mkdir -p %{buildroot}/$INSTALL/lib
+mkdir -p %{buildroot}/$INSTALL
 mkdir -p %{buildroot}/$INSTALL/resources
 mkdir -p %{buildroot}%{_prefix}/bin
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 mkdir -p %{buildroot}%{_datadir}/icons/mono-dark/scalable/apps
 mkdir -p %{buildroot}%{_datadir}/icons/mono-light/scalable/apps
 
-
-install -m0644 lib/*.py %{buildroot}/$INSTALL/lib
-install -m0644 resources/* %{buildroot}/$INSTALL/resources
-install -m0755 scudcloud %{buildroot}/$INSTALL
+install -m0644 scudcloud/*.py %{buildroot}/$INSTALL
+install -m0644 scudcloud/resources/* %{buildroot}/$INSTALL/resources
 install -m0644 LICENSE %{buildroot}/$INSTALL
-install -m0644 VERSION %{buildroot}/$INSTALL
 
-install -m0644 systray/hicolor/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-install -m0644 systray/mono-dark/* %{buildroot}%{_datadir}/icons/mono-dark/scalable/apps
-install -m0644 systray/mono-light/* %{buildroot}%{_datadir}/icons/mono-light/scalable/apps
+install -m0644 share/icons/hicolor/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+install -m0644 share/icons/mono-dark/* %{buildroot}%{_datadir}/icons/mono-dark/scalable/apps
+install -m0644 share/icons/mono-light/* %{buildroot}%{_datadir}/icons/mono-light/scalable/apps
 
 %if 0%{!?suse_version}
-install -m0644 scudcloud.desktop %{buildroot}%{_datadir}/applications
+install -m0644 share/scudcloud.desktop %{buildroot}%{_datadir}/applications
 %endif
 
 ln -sf $INSTALL/scudcloud %{buildroot}%{_bindir}/scudcloud
@@ -153,7 +149,7 @@ fi
 * Mon Dec  7 23:20:51 UTC 2015 - marcin.bajor@gmail.com
 - Added VERSION file to rpm package
 * Sat Sep 26 2015 Marcin Bajor <marcin.bajor@gmail.com>
-- Added dependencies: libqt4-webkit-qupzillaplugins and python3-hunspell 
+- Added dependencies: libqt4-webkit-qupzillaplugins and python3-hunspell
 * Mon Sep 21 2015 Marcin Trendota <moonwolf@poczta.onet.pl>
 - Add lato-fonts dependency
 * Mon Aug 10 2015 Marcin Bajor <marcin.bajor@gmail.com>
