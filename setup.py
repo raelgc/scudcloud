@@ -6,12 +6,16 @@ import glob
 import os
 
 def _data_files():
-    yield 'share/applications', ['share/scudcloud.desktop']
-    yield 'share/doc/scudcloud', ['LICENSE', 'README']
     for theme in ['hicolor', 'mono-dark', 'mono-light']:
-        directory = 'share/icons/%s/scalable/apps' % theme
+        directory = os.path.join('share', 'icons', theme, 'scalable', 'apps')
         files = glob.glob(os.path.join('share', 'icons', theme, '*.svg'))
         yield directory, files
+
+    yield os.path.join('share', 'doc', 'scudcloud'), \
+        ['LICENSE', 'README']
+    yield os.path.join('share', 'applications'), \
+        glob.glob(os.path.join('share', '*.desktop'))
+
 
 setup(name='scudcloud',
       author='Rael Gugelmin Cunha',
