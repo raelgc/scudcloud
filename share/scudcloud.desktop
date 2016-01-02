@@ -8,4 +8,4 @@ Comment=ScudCloud is an open-source client for Slack
 Keywords=slack;chat;instant-messaging;collaboration;
 Exec=scudcloud
 StartupWMClass=scudcloud
-Icon=scudcloud.png
+Icon=scudcloud
