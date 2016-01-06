@@ -8,6 +8,7 @@ from PyQt4.QtCore import QBuffer, QByteArray, QUrl
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 from PyQt4.QtNetwork import QNetworkProxy
 
+
 class Wrapper(QWebView):
 
     highlights = 0
@@ -104,7 +105,7 @@ class Wrapper(QWebView):
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
 
     def _urlChanged(self, qUrl):
-        url = qUrl.toString()
+        url = self._urlToString(qUrl)
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
@@ -126,7 +127,7 @@ class Wrapper(QWebView):
         subprocess.call(('xdg-open', url))
 
     def _linkClicked(self, qUrl):
-        url = qUrl.toString()
+        url = self._urlToString(qUrl)
         if Resources.SIGNIN_URL == url or Resources.MAINPAGE_URL_RE.match(url):
             self.window.switchTo(url)
         elif Resources.MESSAGES_URL_RE.match(url) or Resources.SSO_URL_RE.match(url) or Resources.GOOGLE_OAUTH2_URL_RE.match(url):
