@@ -104,9 +104,10 @@ First, you'll need to install at least packages for `python3`, `python-qt4` (`qt
 Then run the below script: it'll download the code and install it:
 
 ```bash
-wget https://github.com/raelgc/scudcloud/archive/v1.1.11.tar.gz
-tar -xvf v1.1.11.tar.gz
-cd scudcloud-1.1.11
+<<<<<<< HEAD
+wget https://github.com/raelgc/scudcloud/archive/v1.1.12.tar.gz
+tar -xvf v1.1.12.tar.gz
+cd scudcloud-1.1.12
 sudo python3 setup.py install
 ```
 
