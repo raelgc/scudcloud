@@ -21,3 +21,5 @@ scudcloud.egg-info/
 
 #Deb
 .pybuild/
+debian/scudcloud/
+debian/scudcloud.*
