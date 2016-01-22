@@ -1,2 +1,0 @@
-python3:Depends=python3:any (>= 3.3.2-2~), python3
-misc:Depends=
