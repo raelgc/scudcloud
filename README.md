@@ -135,19 +135,13 @@ For some reason, ScudCloud was not able to create the configuration folder. Plea
 
     ~/.config/scudcloud/
 
-#### 5. How to disable Flash?
-
-Flash is required to display embedded videos, but if you don't care, disable it starting with:
-
-    scudcloud --no_plugins=True
-
-#### 6. How to start ScudCloud minimized?
+#### 5. How to start ScudCloud minimized?
 
 You can start ScudCloud minized to tray with:
 
     scudcloud --minimized=True
 
-#### 7. High DPI Support
+#### 6. High DPI Support
 
 ScudCloud offers zoom support. The zoom level will be persisted between sessions.
 
