@@ -9,6 +9,7 @@ Homepage: https://github.com/raelgc/scudcloud
 Package: scudcloud
 Architecture: all
 Depends: libqtwebkit4 (>= 2.3.2),
+         setuptools,
          python3,
          python3-dbus,
          python3-pyqt4,
