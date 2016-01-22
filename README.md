@@ -86,14 +86,6 @@ There are repositories available for these distributions. All you need to do is 
 
 [build_suse]: http://software.opensuse.org/download.html?project=home%3Amoonwolf%3Ascudcloud&package=scudcloud
 
-## Running From Dev Tree
-
-Scudcloud can be run from the development tree.  Simply run the following command
-to run scudcloud from the root of the project tree:
-
-```bash
-python3 -m scudcloud
-```
 ## Manual Install
 
 The manual install is intended for not supported distros (if you want to contribute with a package for your distro, you're welcome!).
@@ -107,6 +99,14 @@ wget https://github.com/raelgc/scudcloud/archive/v1.2.0.tar.gz
 tar -xvf v1.2.0.tar.gz
 cd scudcloud-1.2.0
 sudo python3 setup.py install
+```
+
+## Running From Dev Tree
+
+ScudCloud can be run from the development tree. Simply run the following from the root of the project tree:
+
+```bash
+python3 -m scudcloud
 ```
 
 # Troubleshooting
