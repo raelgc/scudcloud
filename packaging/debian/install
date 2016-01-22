@@ -1,7 +1,0 @@
-LICENSE opt/scudcloud
-scudcloud/*.py opt/scudcloud
-scudcloud/resources/* opt/scudcloud/resources
-share/icons/hicolor/* usr/share/icons/hicolor/scalable/apps
-share/icons/mono-dark/* usr/share/icons/ubuntu-mono-dark/scalable/apps
-share/icons/mono-light/* usr/share/icons/ubuntu-mono-light/scalable/apps
-share/scudcloud.desktop usr/share/applications

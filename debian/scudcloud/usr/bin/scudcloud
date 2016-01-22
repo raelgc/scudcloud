@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+# EASY-INSTALL-ENTRY-SCRIPT: 'scudcloud==1.2.0','gui_scripts','scudcloud'
+__requires__ = 'scudcloud==1.2.0'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('scudcloud==1.2.0', 'gui_scripts', 'scudcloud')()
+    )

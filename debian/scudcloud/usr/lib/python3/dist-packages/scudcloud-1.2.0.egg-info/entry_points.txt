@@ -1,0 +1,3 @@
+[gui_scripts]
+scudcloud = scudcloud.__main__:main
+

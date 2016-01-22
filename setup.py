@@ -6,7 +6,7 @@ import glob
 import os
 
 def _data_files():
-    for theme in ['hicolor', 'mono-dark', 'mono-light']:
+    for theme in ['hicolor', 'ubuntu-mono-dark', 'ubuntu-mono-light']:
         directory = os.path.join('share', 'icons', theme, 'scalable', 'apps')
         files = glob.glob(os.path.join('share', 'icons', theme, '*.svg'))
         yield directory, files
@@ -15,6 +15,8 @@ def _data_files():
         ['LICENSE', 'README']
     yield os.path.join('share', 'applications'), \
         glob.glob(os.path.join('share', '*.desktop'))
+    yield os.path.join('share', 'pixmaps'), \
+        glob.glob(os.path.join('scudcloud', 'resources', 'scudcloud.png'))
 
 
 setup(name='scudcloud',
