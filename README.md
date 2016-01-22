@@ -40,9 +40,9 @@ If you want **spell checking**, add the `hunspell` dictionary for your language.
 If you want to use a Slack icon instead of ScudCloud (which is not possible to include in this package due to copyright), download [any 128px Slack icon](https://www.google.com.br/search?q=slack+icon&tbm=isch&source=lnt&tbs=isz:ex,iszw:128,iszh:128) to your home folder saving as `scudcloud.png` and run:
 
 ```term
-sudo dpkg-divert --add --rename --divert /opt/scudcloud/resources/scudcloud.png.real /opt/scudcloud/resources/scudcloud.png
-sudo cp ~/scudcloud.png /opt/scudcloud/resources/
-sudo chmod +r /opt/scudcloud/resources/scudcloud.png
+sudo dpkg-divert --add --rename --divert /usr/share/pixmaps/scudcloud.png.real /usr/share/pixmaps/scudcloud.png
+sudo cp ~/scudcloud.png /usr/share/pixmaps/
+sudo chmod +r /usr/share/pixmaps/scudcloud.png
 ```
 
 ## Ubuntu 12.04
