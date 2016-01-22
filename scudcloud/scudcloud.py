@@ -29,13 +29,11 @@ class ScudCloud(QtGui.QMainWindow):
     messages = 0
     speller = Speller()
 
-    def __init__(self, debug = False, plugins=True, parent = None,\
-                 minimized = None, settings_path = ""):
+    def __init__(self, debug = False, parent = None, minimized = None, settings_path = ""):
         super(ScudCloud, self).__init__(parent)
 
         self.debug = debug
         self.minimized = minimized
-        self.plugins = plugins
 
         self.setWindowTitle('ScudCloud')
         self.settings_path = settings_path
@@ -79,9 +77,9 @@ class ScudCloud(QtGui.QMainWindow):
     def webSettings(self):
         self.cookiesjar = PersistentCookieJar(self)
         self.zoom = self.readZoom()
-        # Required by Youtube videos (HTML5 video support only on Qt5)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, self.plugins)
-        # We don't want Java
+        # We don't want Flash (it causes a lot of trouble in some distros)
+        QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, False)
+        # We don't need Java
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
         # Enabling Local Storage (now required by Slack)
         QWebSettings.globalSettings().setAttribute(QWebSettings.LocalStorageEnabled, True)
