@@ -1,5 +1,6 @@
+from scudcloud.resources import Resources
+
 import os
-from resources import Resources
 from PyQt4 import QtGui
 from PyQt4.QtCore import QObject
 from PyQt4.QtCore import QLocale, QFile, QTextBoundaryFinder

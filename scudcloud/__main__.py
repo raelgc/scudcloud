@@ -1,22 +1,30 @@
 #!/usr/bin/env python3
-import fcntl, os, sys, signal, tempfile
+
+import os, sys
+
+# Flexible install dir (we assume that 'resources' is package_data)
+#INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
+
+# Ensure the workind directory containing this file is on the python
+# path.  Using the loader causes Python to not add this file to the
+# path.  :(
+#print("Sys.path is \"%s\"" % str(':'.join(sys.path)))
+#print("Appending path: \"%s\"" % INSTALL_DIR)
+#sys.path.append(INSTALL_DIR)
+
+from scudcloud.resources import Resources
+import scudcloud.scudcloud as sca
+from scudcloud.version import __version__
+
+import fcntl, signal, tempfile
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
-
-# Flexible install dir (we assume that 'lib' and 'resources' will be subdirs)
-INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
-
-# Append the lib directory in our installation path to get remaining libraries.
-sys.path.append(os.path.join(INSTALL_DIR, 'lib'))
-from resources import Resources
-from scudcloud import ScudCloud
 
 # The ScudCloud QMainWindow
 win = None
 
 def main():
     global win
-    Resources.INSTALL_DIR = INSTALL_DIR
     signal.signal(signal.SIGINT, exit)
     args = parse_arguments()
     appKey = "scudcloud.pid"
@@ -30,16 +38,18 @@ def main():
     app = QtGui.QApplication(sys.argv)
     app.setApplicationName(Resources.APP_NAME)
     app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
-    ScudCloud.debug = args.debug
-    ScudCloud.minimized = True if args.minimized is True else None
-    ScudCloud.plugins = False if args.no_plugins is True else True
+
     try:
         settings_path = load_settings(args.confdir)
     except:
-        print("Configuration directory "+args.confdir+" could not be created! Exiting...")
+        print("Configuration directory " + args.confdir +\
+              " could not be created! Exiting...")
         raise SystemExit()
-    win = ScudCloud(settings_path=settings_path)
+    minimized = True if args.minimized is True else None
+
+    win = sca.ScudCloud(debug=args.debug, minimized=minimized, settings_path=settings_path)
     app.commitDataRequest.connect(win.setForceClose, type=QtCore.Qt.DirectConnection)
+
     server = QLocalServer()
     server.newConnection.connect(restore)
     server.listen(appKey)
@@ -74,12 +84,10 @@ def parse_arguments():
     parser.add_argument('--confdir',    dest='confdir',      metavar='dir', default=default_confdir, help="change the configuration directory")
     parser.add_argument('--debug',      dest='debug',        type=bool,     default=False,           help="enable webkit debug console (default: False)")
     parser.add_argument('--minimized',  dest='minimized',    type=bool,     default=False,           help="start minimized to tray (default: False)")
-    parser.add_argument('--no_plugins', dest='no_plugins',   type=bool,     default=False,           help="disable web plugins (default: False)")
     parser.add_argument('--version',    action="store_true",                                         help="print version and exit")
     args = parser.parse_args()
     if args.version:
-        with open(os.path.join(Resources.INSTALL_DIR, 'VERSION'), "r") as f:
-            print("ScudCloud "+f.read())
+        print("ScudCloud " + __version__)
         sys.exit()
     args.confdir = expanduser(args.confdir)
     return args

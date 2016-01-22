@@ -12,3 +12,15 @@ __pycache__
 #IntelliJ
 .idea
 *.iml
+
+#Setup
+MANIFEST
+build/
+dist/
+scudcloud.egg-info/
+
+#Deb
+.pybuild/
+debian/files
+debian/scudcloud/
+debian/scudcloud.*

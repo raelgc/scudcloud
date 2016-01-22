@@ -6,7 +6,6 @@ Categories=Network;Chat;
 Name=ScudCloud
 Comment=ScudCloud is an open-source client for Slack
 Keywords=slack;chat;instant-messaging;collaboration;
-Exec=/opt/scudcloud/scudcloud
+Exec=scudcloud
 StartupWMClass=scudcloud
-Icon=/opt/scudcloud/resources/scudcloud.png
-
+Icon=/usr/share/pixmaps/scudcloud.png

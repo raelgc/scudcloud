@@ -1,4 +1,5 @@
-from resources import Resources
+from scudcloud.resources import Resources
+
 from PyQt4 import QtCore
 from PyQt4.QtCore import QUrl
 from PyQt4.QtWebKit import QWebView, QWebSettings
@@ -46,15 +47,13 @@ class LeftPane(QWebView):
     def stopAlert(self, team):
         if team is not None:
             self.page().currentFrame().evaluateJavaScript('LeftPane.stopAlert("{}");'.format(team))
-    
+
     def clickNext(self, direction):
         self.page().currentFrame().evaluateJavaScript('LeftPane.clickNext("{}");'.format(direction))
 
-    @QtCore.pyqtSlot(str) 
+    @QtCore.pyqtSlot(str)
     def switchTo(self, url):
         self.window.switchTo(url)
 
     def contextMenuEvent(self, event):
         pass
-
-

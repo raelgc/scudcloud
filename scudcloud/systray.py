@@ -1,6 +1,7 @@
+from scudcloud.resources import Resources
+import scudcloud
+
 from PyQt4 import QtCore, QtGui
-from resources import Resources
-import scudcloud 
 
 class Systray(QtGui.QSystemTrayIcon):
 
@@ -13,7 +14,7 @@ class Systray(QtGui.QSystemTrayIcon):
         self.setToolTip('ScudCloud')
         self.menu = QtGui.QMenu(self.window)
         self.menu.addAction('Show', self.restore)
-        if scudcloud.Unity is None:
+        if scudcloud.scudcloud.Unity is None:
             self.menu.addAction('Toggle Menubar', self.toggleMenuBar)
         self.menu.addSeparator()
         self.menu.addAction(self.window.menus["file"]["preferences"])

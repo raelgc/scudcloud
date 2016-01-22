@@ -1,6 +1,6 @@
 # ScudCloud - Linux Client for Slack
 
-![ScudCloud Logo](/scudcloud-1.1/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
+![ScudCloud Logo](/scudcloud/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
 
 ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client for [Slack](http://slack.com).
 
@@ -40,9 +40,9 @@ If you want **spell checking**, add the `hunspell` dictionary for your language.
 If you want to use a Slack icon instead of ScudCloud (which is not possible to include in this package due to copyright), download [any 128px Slack icon](https://www.google.com.br/search?q=slack+icon&tbm=isch&source=lnt&tbs=isz:ex,iszw:128,iszh:128) to your home folder saving as `scudcloud.png` and run:
 
 ```term
-sudo dpkg-divert --add --rename --divert /opt/scudcloud/resources/scudcloud.png.real /opt/scudcloud/resources/scudcloud.png
-sudo cp ~/scudcloud.png /opt/scudcloud/resources/
-sudo chmod +r /opt/scudcloud/resources/scudcloud.png
+sudo dpkg-divert --add --rename --divert /usr/share/pixmaps/scudcloud.png.real /usr/share/pixmaps/scudcloud.png
+sudo cp ~/scudcloud.png /usr/share/pixmaps/
+sudo chmod +r /usr/share/pixmaps/scudcloud.png
 ```
 
 ## Ubuntu 12.04
@@ -92,26 +92,19 @@ The manual install is intended for not supported distros (if you want to contrib
 
 First, you'll need to install at least packages for `python3`, `python-qt4` (`qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
 
-Then run the below script: it'll download the code and install it:
+Then run the following steps:
+
+1. Download the [latest release](https://github.com/raelgc/scudcloud/releases/latest)
+2. Unpack/unzip it
+3. Change into the newly created directory
+4. Run `sudo python3 setup.py install`
+
+## Running From Dev Tree
+
+ScudCloud can be run from the development tree. Simply run the following from the root of the project tree:
 
 ```bash
-wget https://github.com/raelgc/scudcloud/archive/v1.1.12.tar.gz
-tar -xvf v1.1.12.tar.gz
-cd scudcloud-1.1.12
-SOURCE="scudcloud-1.1"
-INSTALL="/opt/scudcloud"
-sudo mkdir -p $INSTALL/lib
-sudo mkdir -p $INSTALL/resources
-sudo cp $SOURCE/lib/*.py $INSTALL/lib
-sudo cp $SOURCE/resources/* $INSTALL/resources
-sudo cp $SOURCE/scudcloud $INSTALL
-sudo cp $SOURCE/LICENSE $INSTALL
-sudo cp $SOURCE/VERSION $INSTALL
-sudo cp $SOURCE/scudcloud.desktop /usr/share/applications
-sudo cp $SOURCE/systray/hicolor/* /usr/share/icons/hicolor/scalable/apps
-sudo cp $SOURCE/systray/mono-dark/* /usr/share/icons/mono-dark/scalable/apps
-sudo cp $SOURCE/systray/mono-light/* /usr/share/icons/mono-light/scalable/apps
-sudo ln -sf $INSTALL/scudcloud /usr/bin/scudcloud
+python3 -m scudcloud
 ```
 
 # Troubleshooting
@@ -140,19 +133,13 @@ For some reason, ScudCloud was not able to create the configuration folder. Plea
 
     ~/.config/scudcloud/
 
-#### 5. How to disable Flash?
-
-Flash is required to display embedded videos, but if you don't care, disable it starting with:
-
-    scudcloud --no_plugins=True
-    
-#### 6. How to start ScudCloud minimized?
+#### 5. How to start ScudCloud minimized?
 
 You can start ScudCloud minized to tray with:
 
     scudcloud --minimized=True
 
-#### 7. High DPI Support
+#### 6. High DPI Support
 
 ScudCloud offers zoom support. The zoom level will be persisted between sessions.
 
@@ -162,7 +149,7 @@ ScudCloud offers zoom support. The zoom level will be persisted between sessions
 
 # Screenshots
 
-![Some screenshots](/screenshot.png?raw=true)
+![Some screenshots](/share/screenshot.png?raw=true)
 
 # License
 
