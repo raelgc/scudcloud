@@ -92,14 +92,12 @@ The manual install is intended for not supported distros (if you want to contrib
 
 First, you'll need to install at least packages for `python3`, `python-qt4` (`qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
 
-Then run the below script: it'll download the code and install it:
+Then run the following steps:
 
-```bash
-wget https://github.com/raelgc/scudcloud/archive/v1.2.0.tar.gz
-tar -xvf v1.2.0.tar.gz
-cd scudcloud-1.2.0
-sudo python3 setup.py install
-```
+1. Download the [latest release](https://github.com/raelgc/scudcloud/releases/latest)
+2. Unpack/unzip it
+3. Change into the newly created directory
+4. Run `sudo python3 setup.py install`
 
 ## Running From Dev Tree
 
