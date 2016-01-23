@@ -2,7 +2,7 @@
 # spec file for package scudcloud
 #
 # Copyright (c) 2015 Marcin Trendota (moonwolf@poczta.onet.pl)
-# Copyright (c) 2015 Marcin Bajor (marcin.bajor@gmail.com)
+# Copyright (c) 2016 Marcin Bajor (marcin.bajor@gmail.com)
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -18,12 +18,14 @@
 
 
 Name:           scudcloud
-Version:        1.0
-Release:        2%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Summary:        Non official desktop client for Slack©
 License:        MIT
 Group:          Applications/Internet
-BuildRequires:  python
+BuildRequires:  python3
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %if (0%{?suse_version} || 0%{?fedora_version})
 BuildRequires:  fdupes
@@ -42,14 +44,15 @@ Requires(postun): xdg-utils
 Url:            https://github.com/raelgc/scudcloud/
 Source:         %{name}-%{version}.tar.gz
 Requires:       python3
+Requires:       dbus-1-python3
 Requires:       python3-qt4
 %if 0%{?suse_version}
 Requires:       google-lato-fonts
 %else
 Requires:       lato-fonts
 %endif
-Requires:       libqt4-webkit-qupzillaplugins
-Requires:       python3-hunspell
+Suggests:       libqt4-webkit-qupzillaplugins
+Suggests:       python3-hunspell
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildArch:      noarch
 
@@ -65,88 +68,76 @@ but using the QWebkit-Native bridge to improve desktop integration with:
 
 %prep
 %setup -q
+%build
 
 %install
-INSTALL="/opt/scudcloud"
 
-mkdir -p %{buildroot}/$INSTALL
-mkdir -p %{buildroot}/$INSTALL/resources
-mkdir -p %{buildroot}%{_prefix}/bin
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-mkdir -p %{buildroot}%{_datadir}/icons/mono-dark/scalable/apps
-mkdir -p %{buildroot}%{_datadir}/icons/mono-light/scalable/apps
+python3 setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
-install -m0644 scudcloud/*.py %{buildroot}/$INSTALL
-install -m0644 scudcloud/resources/* %{buildroot}/$INSTALL/resources
-install -m0644 LICENSE %{buildroot}/$INSTALL
-
-install -m0644 share/icons/hicolor/* %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
-install -m0644 share/icons/mono-dark/* %{buildroot}%{_datadir}/icons/mono-dark/scalable/apps
-install -m0644 share/icons/mono-light/* %{buildroot}%{_datadir}/icons/mono-light/scalable/apps
-
-%if 0%{!?suse_version}
-install -m0644 share/scudcloud.desktop %{buildroot}%{_datadir}/applications
-%endif
-
-ln -sf $INSTALL/scudcloud %{buildroot}%{_bindir}/scudcloud
-
-%if 0%{?suse_version}
-%suse_update_desktop_file -i %{name} Network InstantMessaging
-%else
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{name}.desktop
+%if (0%{?suse_version} || 0%{?sles_version})
+%suse_update_desktop_file -r -i %{name} Network InstantMessaging
 %endif
 
 %if (0%{?suse_version} || 0%{?fedora_version})
-%fdupes %{buildroot}/%{_prefix}
+%fdupes %{buildroot}/%{_datadir}
 %endif
 
 %post
-%if 0%{?suse_version}
+
+%if (0%{?suse_version} || 0%{?sles_version})
 %desktop_database_post
 %icon_theme_cache_post
 %else
-xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
-xdg-icon-resource forceupdate --theme mono-dark 2> /dev/null || :
-xdg-icon-resource forceupdate --theme mono-light 2> /dev/null || :
-xdg-desktop-menu forceupdate 2> /dev/null || :
+/usr/bin/update-desktop-database &> /dev/null || :
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 
 %postun
-%if 0%{?suse_version}
+
+%if (0%{?suse_version} || 0%{?sles_version})
 %desktop_database_postun
 %icon_theme_cache_postun
 %else
+/usr/bin/update-desktop-database &> /dev/null || :
 if [ $1 -eq 0 ] ; then
-xdg-icon-resource forceupdate --theme hicolor 2> /dev/null || :
-xdg-icon-resource forceupdate --theme mono-dark 2> /dev/null || :
-xdg-icon-resource forceupdate --theme mono-light 2> /dev/null || :
-xdg-desktop-menu forceupdate 2> /dev/null || :
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
 %endif
 
 
+%posttrans
+
+%if !(0%{?suse_version} || 0%{?sles_version})
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
+
+%clean
+rm -rf %{buildroot}
+
 %files
 %defattr(-,root,root)
-%dir /opt/scudcloud
-%dir %{_datadir}/icons/hicolor
-%dir %{_datadir}/icons/hicolor/scalable
-%dir %{_datadir}/icons/hicolor/scalable/apps
-%dir %{_datadir}/icons/mono-dark
-%dir %{_datadir}/icons/mono-dark/scalable
-%dir %{_datadir}/icons/mono-dark/scalable/apps
-%dir %{_datadir}/icons/mono-light
-%dir %{_datadir}/icons/mono-light/scalable
-%dir %{_datadir}/icons/mono-light/scalable/apps
-/opt/scudcloud/*
-%{_datadir}/applications/scudcloud.desktop
-%{_datadir}/icons/hicolor/scalable/apps/*
-%{_datadir}/icons/mono-dark/scalable/apps/*
-%{_datadir}/icons/mono-light/scalable/apps/*
-%{_bindir}/scudcloud
+%{python3_sitelib}/*
+%{_bindir}/*
+%dir %{_datadir}/doc/%{name}
+%{_datadir}/doc/%{name}/*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/*
+%dir %{_datadir}/icons/ubuntu-mono-dark/
+%dir %{_datadir}/icons/ubuntu-mono-dark/scalable
+%dir %{_datadir}/icons/ubuntu-mono-dark/scalable/apps
+%dir %{_datadir}/icons/ubuntu-mono-light/
+%dir %{_datadir}/icons/ubuntu-mono-light/scalable
+%dir %{_datadir}/icons/ubuntu-mono-light/scalable/apps
+%{_datadir}/icons/ubuntu-mono-dark/*/apps/*
+%{_datadir}/icons/ubuntu-mono-light/*/apps/*
+%{_datadir}/pixmaps/%{name}.png
 
 %changelog
-* Mon Dec  7 23:20:51 UTC 2015 - marcin.bajor@gmail.com
+* Sat Jan 23 2016 Marcin Bajor <marcin.bajor@gmail.com>
+- Python package management update
+* Mon Dec  7 2015 Marcin Bajor <marcin.bajor@gmail.com>
 - Added VERSION file to rpm package
 * Sat Sep 26 2015 Marcin Bajor <marcin.bajor@gmail.com>
 - Added dependencies: libqt4-webkit-qupzillaplugins and python3-hunspell
