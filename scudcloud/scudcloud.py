@@ -239,6 +239,15 @@ class ScudCloud(QtGui.QMainWindow):
         self.editMenu.addAction(self.menus["edit"]["back"])
         self.editMenu.addAction(self.menus["edit"]["forward"])
         self.editMenu.addAction(self.menus["edit"]["reload"])
+        # Now register the same actions in the Window itself, to avoid lose them in full screen (#338)
+        self.addAction(self.menus["edit"]["undo"])
+        self.addAction(self.menus["edit"]["redo"])
+        self.addAction(self.menus["edit"]["cut"])
+        self.addAction(self.menus["edit"]["copy"])
+        self.addAction(self.menus["edit"]["paste"])
+        self.addAction(self.menus["edit"]["back"])
+        self.addAction(self.menus["edit"]["forward"])
+        self.addAction(self.menus["edit"]["reload"])
 
     def createAction(self, text, slot, shortcut=None, checkable=False):
         action = QtGui.QAction(text, self)
