@@ -2,7 +2,7 @@ from dbus.exceptions import DBusException
 try:
     from gi.repository import Notify
 except ImportError:
-    import notify2
+    from scudcloud import notify2
     Notify = None
 
 class Notifier(object):
