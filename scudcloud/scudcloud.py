@@ -28,14 +28,13 @@ class ScudCloud(QtGui.QMainWindow):
     forceClose = False
     messages = 0
     speller = Speller()
+    title = 'ScudCloud'
 
     def __init__(self, debug = False, parent = None, minimized = None, settings_path = ""):
         super(ScudCloud, self).__init__(parent)
-
         self.debug = debug
         self.minimized = minimized
-
-        self.setWindowTitle('ScudCloud')
+        self.setWindowTitle(self.title)
         self.settings_path = settings_path
         self.notifier = Notifier(Resources.APP_NAME, Resources.get_path('scudcloud.png'))
         self.settings = QSettings(self.settings_path + '/scudcloud.cfg', QSettings.IniFormat)
@@ -382,8 +381,10 @@ class ScudCloud(QtGui.QMainWindow):
         if 0 == total:
             self.launcher.set_property("count_visible", False)
             self.tray.setCounter(0)
+            self.setWindowTitle(self.title)
         else:
             self.tray.setCounter(total)
             self.launcher.set_property("count", total)
             self.launcher.set_property("count_visible", True)
+            self.setWindowTitle("[{}]{}".format(str(total), self.title))
         self.messages = total
