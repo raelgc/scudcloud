@@ -44,12 +44,13 @@ Requires(postun): xdg-utils
 Url:            https://github.com/raelgc/scudcloud/
 Source:         %{name}-%{version}.tar.gz
 Requires:       python3
-Requires:       dbus-1-python3
 Requires:       python3-qt4
 %if 0%{?suse_version}
 Requires:       google-lato-fonts
+Requires:       dbus-1-python3
 %else
 Requires:       lato-fonts
+Requires:       python3-dbus
 %endif
 Suggests:       libqt4-webkit-qupzillaplugins
 Suggests:       python3-hunspell
@@ -135,6 +136,8 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sat Jan 26 2016 Marcin Bajor <marcin.bajor@gmail.com>
+- Fixed python3-dbus dependency for Fedora
 * Sat Jan 23 2016 Marcin Bajor <marcin.bajor@gmail.com>
 - Python package management update
 * Mon Dec  7 2015 Marcin Bajor <marcin.bajor@gmail.com>
