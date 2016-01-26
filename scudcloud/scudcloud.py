@@ -153,6 +153,15 @@ class ScudCloud(QtGui.QMainWindow):
         self.setZoom()
 
     def addMenu(self):
+        # We'll register the webpage shorcuts with the window too (Fixes #338)
+        undo = self.current().pageAction(QtWebKit.QWebPage.Undo)
+        redo = self.current().pageAction(QtWebKit.QWebPage.Redo)
+        cut = self.current().pageAction(QtWebKit.QWebPage.Cut)
+        copy = self.current().pageAction(QtWebKit.QWebPage.Copy)
+        paste = self.current().pageAction(QtWebKit.QWebPage.Paste)
+        back = self.current().pageAction(QtWebKit.QWebPage.Back)
+        forward = self.current().pageAction(QtWebKit.QWebPage.Forward)
+        reload = self.current().pageAction(QtWebKit.QWebPage.Reload)
         self.menus = {
             "file": {
                 "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
@@ -163,6 +172,14 @@ class ScudCloud(QtGui.QMainWindow):
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
             "edit": {
+                "undo":        self.createAction(undo.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Undo), undo.shortcut()),
+                "redo":        self.createAction(redo.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Redo), redo.shortcut()),
+                "cut":         self.createAction(cut.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Cut), cut.shortcut()),
+                "copy":        self.createAction(copy.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Copy), copy.shortcut()),
+                "paste":       self.createAction(paste.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Paste), paste.shortcut()),
+                "back":        self.createAction(back.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Back), back.shortcut()),
+                "forward":     self.createAction(forward.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Forward), forward.shortcut()),
+                "reload":      self.createAction(reload.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Reload), reload.shortcut()),
             },
             "view": {
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
@@ -187,8 +204,17 @@ class ScudCloud(QtGui.QMainWindow):
         fileMenu.addSeparator()
         fileMenu.addAction(self.menus["file"]["close"])
         fileMenu.addAction(self.menus["file"]["exit"])
-        self.editMenu = menu.addMenu("&Edit")
-        self.updateEditMenu()
+        editMenu = menu.addMenu("&Edit")
+        editMenu.addAction(self.menus["edit"]["undo"])
+        editMenu.addAction(self.menus["edit"]["redo"])
+        editMenu.addSeparator()
+        editMenu.addAction(self.menus["edit"]["cut"])
+        editMenu.addAction(self.menus["edit"]["copy"])
+        editMenu.addAction(self.menus["edit"]["paste"])
+        editMenu.addSeparator()
+        editMenu.addAction(self.menus["edit"]["back"])
+        editMenu.addAction(self.menus["edit"]["forward"])
+        editMenu.addAction(self.menus["edit"]["reload"])
         viewMenu = menu.addMenu("&View")
         viewMenu.addAction(self.menus["view"]["zoomin"])
         viewMenu.addAction(self.menus["view"]["zoomout"])
@@ -216,29 +242,6 @@ class ScudCloud(QtGui.QMainWindow):
         self.menus["file"]["addTeam"].setEnabled(enabled == True)
         self.menus["file"]["signout"].setEnabled(enabled == True)
         self.menus["help"]["help"].setEnabled(enabled == True)
-
-    def updateEditMenu(self):
-        self.editMenu.clear()
-        self.menus["edit"] = {
-            "undo":        self.current().pageAction(QtWebKit.QWebPage.Undo),
-            "redo":        self.current().pageAction(QtWebKit.QWebPage.Redo),
-            "cut":         self.current().pageAction(QtWebKit.QWebPage.Cut),
-            "copy":        self.current().pageAction(QtWebKit.QWebPage.Copy),
-            "paste":       self.current().pageAction(QtWebKit.QWebPage.Paste),
-            "back":        self.current().pageAction(QtWebKit.QWebPage.Back),
-            "forward":     self.current().pageAction(QtWebKit.QWebPage.Forward),
-            "reload":      self.current().pageAction(QtWebKit.QWebPage.Reload)
-        }
-        self.editMenu.addAction(self.menus["edit"]["undo"])
-        self.editMenu.addAction(self.menus["edit"]["redo"])
-        self.editMenu.addSeparator()
-        self.editMenu.addAction(self.menus["edit"]["cut"])
-        self.editMenu.addAction(self.menus["edit"]["copy"])
-        self.editMenu.addAction(self.menus["edit"]["paste"])
-        self.editMenu.addSeparator()
-        self.editMenu.addAction(self.menus["edit"]["back"])
-        self.editMenu.addAction(self.menus["edit"]["forward"])
-        self.editMenu.addAction(self.menus["edit"]["reload"])
 
     def createAction(self, text, slot, shortcut=None, checkable=False):
         action = QtGui.QAction(text, self)
@@ -279,7 +282,6 @@ class ScudCloud(QtGui.QMainWindow):
                 break
         if not exists:
             self.addWrapper(url)
-        self.updateEditMenu()
 
     def eventFilter(self, obj, event):
         if event.type() == QtCore.QEvent.ActivationChange and self.isActiveWindow():
