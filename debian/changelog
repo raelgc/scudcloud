@@ -1,3 +1,11 @@
+scudcloud (1.4-0) trusty; urgency=medium
+
+  * Title notification (#334)
+  * Hicolor tray icon (#345)
+  * Adding wrapper shortcuts to mainwindow (#338)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 26 Jan 2016 15:47:26 -0200
+
 scudcloud (1.3-0) trusty; urgency=medium
 
   * Fixing Missing dependency (#342)
