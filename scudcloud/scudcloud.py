@@ -15,6 +15,13 @@ from PyQt4.QtCore import QUrl, QSettings
 from PyQt4.QtWebKit import QWebSettings, QWebPage
 from PyQt4.QtNetwork import QNetworkDiskCache
 
+# Auto-detection of dbus and dbus.mainloop.qt
+try:
+    import dbus
+    from dbus.mainloop.qt import DBusQtMainLoop
+except ImportError:
+    DBusQtMainLoop = None
+
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
     from gi.repository import Unity, Dbusmenu
@@ -63,6 +70,37 @@ class ScudCloud(QtGui.QMainWindow):
         self.systray(self.minimized)
         self.installEventFilter(self)
         self.statusBar().showMessage('Loading Slack...')
+        # Watch for ScreenLock events
+        if DBusQtMainLoop is not None:
+            DBusQtMainLoop(set_as_default=True)
+            sessionBus = dbus.SessionBus()
+            # Ubuntu 12.04 and other distros
+            sessionBus.add_match_string("type='signal',interface='org.gnome.ScreenSaver'")
+            # Ubuntu 14.04 and above
+            sessionBus.add_match_string("type='signal',interface='com.ubuntu.Upstart0_6'")
+            sessionBus.add_message_filter(self.screenListener)
+            self.setupTickler()
+
+    def screenListener(self, bus, message):
+        event = message.get_member()
+        # "ActiveChanged" for Ubuntu 12.04 and other distros. "EventEmitted" for Ubuntu 14.04 and above
+        if event == "ActiveChanged" or event == "EventEmitted":
+            arg = message.get_args_list()[0]
+            # True for Ubuntu 12.04 and other distros. "desktop-lock" for Ubuntu 14.04 and above
+            if (arg == True or arg == "desktop-lock") and self.tickler.isActive():
+                self.tickler.stop()
+            elif (arg == False or arg == "desktop-unlock") and not self.tickler.isActive():
+                self.tickler.start()
+
+    def setupTickler(self):
+        self.tickler = QTimer(self)
+        self.tickler.timeout.connect(self.sendTickle)
+        self.tickler.setInterval(1800000)
+        self.tickler.start()
+
+    def sendTickle(self):
+        for i in range(0, self.stackedWidget.count()):
+            self.stackedWidget.widget(i).sendTickle()
 
     def addWrapper(self, url):
         webView = Wrapper(self)

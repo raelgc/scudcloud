@@ -137,6 +137,9 @@ class Wrapper(QWebView):
         else:
             self.systemOpen(url)
 
+    def sendTickle(self):
+        self.call("sendTickle")
+
     def preferences(self):
         self.window.show()
         self.call("preferences")
