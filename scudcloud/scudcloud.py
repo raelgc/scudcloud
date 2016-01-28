@@ -87,6 +87,8 @@ class ScudCloud(QtGui.QMainWindow):
             self.tickler.setSingleShot(True)
         self.tickler.start()
 
+    def setupTimers(self):
+
     def screenListener(self, bus, message):
         event = message.get_member()
         # "ActiveChanged" for Ubuntu 12.04 and other distros. "EventEmitted" for Ubuntu 14.04 and above
@@ -96,6 +98,7 @@ class ScudCloud(QtGui.QMainWindow):
             if (arg == True or arg == "desktop-lock") and self.tickler.isActive():
                 self.tickler.stop()
             elif (arg == False or arg == "desktop-unlock") and not self.tickler.isActive():
+                self.sendTickle()
                 self.tickler.start()
 
     def sendTickle(self):
