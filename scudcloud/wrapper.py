@@ -14,6 +14,7 @@ from PyQt4.QtNetwork import QNetworkProxy
 class Wrapper(QWebView):
 
     highlights = 0
+    id = 0
     icon = None
     name = ''
 
@@ -172,6 +173,15 @@ class Wrapper(QWebView):
     @QtCore.pyqtSlot(int, int)
     def count(self, highlight, unread):
         self.highlights = highlight
+        team = self.team()
+        if highlight == 0:
+            self.window.leftPane.stopAlert(team)
+        else:
+            self.window.leftPane.alert(team, highlight)
+        if unread == 0:
+            self.window.leftPane.stopUnread(self.id)
+        else:
+            self.window.leftPane.unread(self.id)
         self.window.count()
 
     @QtCore.pyqtSlot(str)
@@ -180,6 +190,7 @@ class Wrapper(QWebView):
         self.window.teams(data['teams'])
         if self.window.current() == self:
             self.window.quicklist(data['channels'])
+        self.id = data['teams'][0]['id']
         self.name = data['teams'][0]['team_name']
         # Using team id to avoid invalid icon paths (Fixes #315)
         icon_name = 'scudcloud_' + data['teams'][0]['id'] + '.png'
