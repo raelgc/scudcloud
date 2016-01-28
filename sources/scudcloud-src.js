@@ -90,6 +90,9 @@ ScudCloud = {
 	setClipboard: function(data){
 		TS.client.ui.file_pasted_sig.dispatch(data, TS.model.shift_key_pressed);
 	},
+	sendTickle: function(){
+		return TS.ms.sendTickle();
+	},
 	preferences: function(){
 		return TS.ui.prefs_dialog.start();
 	},
