@@ -40,13 +40,19 @@ class LeftPane(QWebView):
     def click(self, i):
         self.page().currentFrame().evaluateJavaScript('LeftPane.click({});'.format(i))
 
-    def alert(self, team):
-        if team is not None:
-            self.page().currentFrame().evaluateJavaScript('LeftPane.alert("{}");'.format(team))
+    def alert(self, teamId, messages):
+        if teamId is not None:
+            self.page().currentFrame().evaluateJavaScript('LeftPane.alert("{}","{}");'.format(teamId, messages))
+
+    def unread(self, teamId):
+        self.page().currentFrame().evaluateJavaScript('LeftPane.unread("{}");'.format(teamId))
 
     def stopAlert(self, team):
         if team is not None:
             self.page().currentFrame().evaluateJavaScript('LeftPane.stopAlert("{}");'.format(team))
+
+    def stopUnread(self, teamId):
+        self.page().currentFrame().evaluateJavaScript('LeftPane.stopUnread("{}");'.format(teamId))
 
     def clickNext(self, direction):
         self.page().currentFrame().evaluateJavaScript('LeftPane.clickNext("{}");'.format(direction))
@@ -56,4 +62,7 @@ class LeftPane(QWebView):
         self.window.switchTo(url)
 
     def contextMenuEvent(self, event):
-        pass
+        if self.window.debug:
+            menu = self.page().createStandardContextMenu()
+            menu.exec_(event.globalPos())
+

@@ -23,20 +23,34 @@
 				font-weight: bold;
 				background-color: purple;
 				padding-top: 6px;
-				border-radius: 5px;
+				border-radius: 7px;
 				color: white;
 				cursor: pointer;
 				background-size:100%;
-			}
-			.inactive {
-				border-left: 0px;
+				border: 2px solid #201f20;
 			}
 			.active {
 				width: 40px;
 				height: 34px;
 			}
-			.alert {
-				border-right: solid 3px #ff3822;
+			.unread {
+				outline: none;
+				border: 2px solid #29b2ee;
+				box-shadow: 0 0 10px #29b2ee;
+			}
+			.highlight {
+				font-size: 0.6rem;
+				background-color: red;
+				width: 15px;
+				height: 15px;
+				float: right;
+				position: relative;
+				top: -12px;
+				left: 7px;
+				border-radius: 7px;
+			}
+			.hidden {
+				visibility: hidden;
 			}
 		</style>
 	</head>

@@ -87,8 +87,6 @@ class ScudCloud(QtGui.QMainWindow):
             self.tickler.setSingleShot(True)
         self.tickler.start()
 
-    def setupTimers(self):
-
     def screenListener(self, bus, message):
         event = message.get_member()
         # "ActiveChanged" for Ubuntu 12.04 and other distros. "EventEmitted" for Ubuntu 14.04 and above
@@ -401,7 +399,7 @@ class ScudCloud(QtGui.QMainWindow):
                         ql.child_append(item)
                 self.launcher.set_property("quicklist", ql)
 
-    def notify(self, title, message, icon=None):
+    def notify(self, title, message, icon):
         self.notifier.notify(title, message, icon)
         self.alert()
 
@@ -415,10 +413,6 @@ class ScudCloud(QtGui.QMainWindow):
         for i in range(0, self.stackedWidget.count()):
             widget = self.stackedWidget.widget(i)
             messages = widget.highlights
-            if messages == 0:
-                self.leftPane.stopAlert(widget.team())
-            else:
-                self.leftPane.alert(widget.team())
             if messages is not None:
                 total+=messages
         if total > self.messages:
