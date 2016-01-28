@@ -1,3 +1,13 @@
+scudcloud (1.5-0) trusty; urgency=medium
+
+  * Keep user online (#87)
+  * Fix spellchecker bug in Debian (#332)
+  * Leftpane notification for unread messages (#333)
+  * Make teams online on window focus (#334)
+  * Direct mention notification will disappear only when read (#354)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 28 Jan 2016 16:54:34 -0200
+
 scudcloud (1.4-0) trusty; urgency=medium
 
   * Title notification (#334)
