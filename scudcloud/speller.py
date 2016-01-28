@@ -83,6 +83,8 @@ class Speller(QObject):
             boldFont = menu.font()
             boldFont.setBold(True)
             for i in range(0, count):
+                if isinstance(suggests[i], bytes):
+                    suggests[i] = suggests[i].decode('utf8')
                 action = QtGui.QAction(str(suggests[i]), self)
                 action.triggered.connect(lambda:self.replaceWord(element, word))
                 action.setData(suggests[i])
