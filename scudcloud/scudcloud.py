@@ -89,10 +89,10 @@ class ScudCloud(QtGui.QMainWindow):
             # True for Ubuntu 12.04 and other distros. "desktop-lock" for Ubuntu 14.04 and above
             if (arg == True or arg == "desktop-lock") and self.tickler.isActive():
                 self.tickler.stop()
-            elif arg == False or arg == "desktop-unlock":
+            elif (arg == False or arg == "desktop-unlock") and not self.tickler.isActive():
                 self.tickler.start()
 
-     def setupTickler(self):
+    def setupTickler(self):
         self.tickler = QTimer(self)
         self.tickler.timeout.connect(self.sendTickle)
         self.tickler.setInterval(1800000)
