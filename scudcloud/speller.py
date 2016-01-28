@@ -54,6 +54,8 @@ class Speller(QObject):
     def replaceWord(self, element, word):
         action = self.sender()
         new = action.data()
+        if isinstance(new, bytes):
+            new = new.decode('utf8')
         text = str(element.evaluateJavaScript("this.value"))
         cursorPos = int(element.evaluateJavaScript("this.selectionStart"))
         text = text[:self.startPos] + new + text[self.startPos+len(word):]
@@ -81,6 +83,8 @@ class Speller(QObject):
             boldFont = menu.font()
             boldFont.setBold(True)
             for i in range(0, count):
+                if isinstance(suggests[i], bytes):
+                    suggests[i] = suggests[i].decode('utf8')
                 action = QtGui.QAction(str(suggests[i]), self)
                 action.triggered.connect(lambda:self.replaceWord(element, word))
                 action.setData(suggests[i])
