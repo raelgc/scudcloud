@@ -70,6 +70,8 @@ class ScudCloud(QtGui.QMainWindow):
         self.systray(self.minimized)
         self.installEventFilter(self)
         self.statusBar().showMessage('Loading Slack...')
+        self.tickler = QTimer(self)
+        self.tickler.setInterval(1800000)
         # Watch for ScreenLock events
         if DBusQtMainLoop is not None:
             DBusQtMainLoop(set_as_default=True)
@@ -79,7 +81,11 @@ class ScudCloud(QtGui.QMainWindow):
             # Ubuntu 14.04 and above
             sessionBus.add_match_string("type='signal',interface='com.ubuntu.Upstart0_6'")
             sessionBus.add_message_filter(self.screenListener)
-            self.setupTickler()
+            self.tickler.timeout.connect(self.sendTickle)
+        # If dbus is not present, tickler timer will act like a blocker to not send tickle too often
+        else:
+            self.tickler.setSingleShot(True)
+        self.tickler.start()
 
     def screenListener(self, bus, message):
         event = message.get_member()
@@ -91,12 +97,6 @@ class ScudCloud(QtGui.QMainWindow):
                 self.tickler.stop()
             elif (arg == False or arg == "desktop-unlock") and not self.tickler.isActive():
                 self.tickler.start()
-
-    def setupTickler(self):
-        self.tickler = QTimer(self)
-        self.tickler.timeout.connect(self.sendTickle)
-        self.tickler.setInterval(1800000)
-        self.tickler.start()
 
     def sendTickle(self):
         for i in range(0, self.stackedWidget.count()):
@@ -349,6 +349,10 @@ class ScudCloud(QtGui.QMainWindow):
     def focusInEvent(self, event):
         self.launcher.set_property("urgent", False)
         self.tray.stopAlert()
+        # Let's tickle all teams on window focus, but only if tickle was not fired in last 30 minutes
+        if DBusQtMainLoop is None and not self.tickler.isActive():
+            self.sendTickle()
+            self.tickler.start()
 
     def titleChanged(self):
         self.setWindowTitle(self.current().title())
