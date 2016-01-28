@@ -40,9 +40,9 @@ class LeftPane(QWebView):
     def click(self, i):
         self.page().currentFrame().evaluateJavaScript('LeftPane.click({});'.format(i))
 
-    def alert(self, teamId):
+    def alert(self, teamId, messages):
         if teamId is not None:
-            self.page().currentFrame().evaluateJavaScript('LeftPane.alert("{}");'.format(teamId))
+            self.page().currentFrame().evaluateJavaScript('LeftPane.alert("{}","{}");'.format(teamId, messages))
 
     def unread(self, teamId):
         self.page().currentFrame().evaluateJavaScript('LeftPane.unread("{}");'.format(teamId))
