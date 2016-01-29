@@ -67,7 +67,7 @@ class ScudCloud(QtGui.QMainWindow):
                 self.domains = self.identifier.split(",")
             else:
                 self.domains = self.identifier
-            self.startURL = self.domain(self.domains[0])
+            self.startURL = self.normalize(self.domains[0])
         else:
             self.domains = []
         self.addWrapper(self.startURL)
@@ -297,13 +297,12 @@ class ScudCloud(QtGui.QMainWindow):
             action.setCheckable(True)
         return action
 
-    def domain(self, url):
+    def normalize(self, url):
         if url.endswith(".slack.com"):
             url+= "/"
-        if url.endswith(".slack.com/"):
-            return url
-        else:
-            return "https://"+url+".slack.com"
+        elif not url.endswith(".slack.com/"):
+            url = "https://"+url+".slack.com/"
+        return url
 
     def current(self):
         return self.stackedWidget.currentWidget()
@@ -312,8 +311,7 @@ class ScudCloud(QtGui.QMainWindow):
         if len(self.domains) == 0:
             self.domains.append(teams[0]['team_url'])
         for i in range(0, len(self.domains)):
-            if not self.domains[i].endswith("/"):
-                self.domains[i]+="/"
+            self.domains[i] = self.normalize(self.domains[i])
             for t in teams:
                 self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
                 # Adding new teams and saving loading positions
