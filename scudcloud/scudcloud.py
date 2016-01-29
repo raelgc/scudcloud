@@ -63,7 +63,11 @@ class ScudCloud(QtGui.QMainWindow):
         self.setCentralWidget(centralWidget)
         self.startURL = Resources.SIGNIN_URL
         if self.identifier is not None:
-            self.startURL = self.domain()
+            if isinstance(self.identifier, str):
+                self.domains = self.identifier.split(",")
+            else:
+                self.domains = self.identifier
+            self.startURL = self.domain(self.domains[0])
         self.addWrapper(self.startURL)
         self.addMenu()
         self.tray = Systray(self)
@@ -291,22 +295,32 @@ class ScudCloud(QtGui.QMainWindow):
             action.setCheckable(True)
         return action
 
-    def domain(self):
-        if self.identifier.endswith(".slack.com"):
-            return self.identifier
+    def domain(self, url):
+        if url.endswith(".slack.com"):
+            return url
         else:
-            return "https://"+self.identifier+".slack.com"
+            return "https://"+url+".slack.com"
 
     def current(self):
         return self.stackedWidget.currentWidget()
 
     def teams(self, teams):
-        for t in teams:
-            # If team_icon is not present, it's because team is already connected
-            if 'team_icon' in t:
-                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
+        for d in self.domains:
+            for t in teams:
+                if not d.endswith("/"):
+                    d+= "/"
+                if d == t['team_url']:
+                    self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
         if len(teams) > 1:
             self.leftPane.show()
+            # Adding new teams and saving loading positions
+            if len(teams) > len(self.domains):
+                for i in range(len(self.domains), len(teams)):
+                    t = teams[i]
+                    if t['team_url'] not in self.domains:
+                        self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
+                        self.domains.append(t['team_url'])
+                        self.settings.setValue("Domain", self.domains)
 
     def switchTo(self, url):
         exists = False
