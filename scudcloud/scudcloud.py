@@ -420,17 +420,21 @@ class ScudCloud(QtGui.QMainWindow):
 
     def count(self):
         total = 0
+        unreads = 0
         for i in range(0, self.stackedWidget.count()):
             widget = self.stackedWidget.widget(i)
-            messages = widget.highlights
-            if messages is not None:
-                total+=messages
+            highlights = widget.highlights
+            unreads+= widget.unreads
+            total+=highlights
         if total > self.messages:
             self.alert()
         if 0 == total:
             self.launcher.set_property("count_visible", False)
             self.tray.setCounter(0)
-            self.setWindowTitle(self.title)
+            if unreads > 0:
+                self.setWindowTitle("*{}".format(self.title))
+            else:
+                self.setWindowTitle(self.title)
         else:
             self.tray.setCounter(total)
             self.launcher.set_property("count", total)

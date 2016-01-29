@@ -14,6 +14,7 @@ from PyQt4.QtNetwork import QNetworkProxy
 class Wrapper(QWebView):
 
     highlights = 0
+    unreads = 0
     id = 0
     icon = None
     name = ''
@@ -173,6 +174,7 @@ class Wrapper(QWebView):
     @QtCore.pyqtSlot(int, int)
     def count(self, highlight, unread):
         self.highlights = highlight
+        self.unreads = unread
         team = self.team()
         if highlight == 0:
             self.window.leftPane.stopAlert(team)
