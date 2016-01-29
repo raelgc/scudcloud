@@ -109,9 +109,9 @@ python3 -m scudcloud
 
 # Troubleshooting
 
-#### 1. Default domain
+#### 1. Default domain and loading order
 
-You can change the default domain editing or just deleting the config file:
+You can change the default domain (or the domain loading order) editing or just deleting the config file:
 
     ~/.config/scudcloud/scudcloud.cfg
 

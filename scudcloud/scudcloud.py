@@ -63,7 +63,13 @@ class ScudCloud(QtGui.QMainWindow):
         self.setCentralWidget(centralWidget)
         self.startURL = Resources.SIGNIN_URL
         if self.identifier is not None:
-            self.startURL = self.domain()
+            if isinstance(self.identifier, str):
+                self.domains = self.identifier.split(",")
+            else:
+                self.domains = self.identifier
+            self.startURL = self.normalize(self.domains[0])
+        else:
+            self.domains = []
         self.addWrapper(self.startURL)
         self.addMenu()
         self.tray = Systray(self)
@@ -291,20 +297,28 @@ class ScudCloud(QtGui.QMainWindow):
             action.setCheckable(True)
         return action
 
-    def domain(self):
-        if self.identifier.endswith(".slack.com"):
-            return self.identifier
-        else:
-            return "https://"+self.identifier+".slack.com"
+    def normalize(self, url):
+        if url.endswith(".slack.com"):
+            url+= "/"
+        elif not url.endswith(".slack.com/"):
+            url = "https://"+url+".slack.com/"
+        return url
 
     def current(self):
         return self.stackedWidget.currentWidget()
 
     def teams(self, teams):
-        for t in teams:
-            # If team_icon is not present, it's because team is already connected
-            if 'team_icon' in t:
+        if len(self.domains) == 0:
+            self.domains.append(teams[0]['team_url'])
+        for i in range(0, len(self.domains)):
+            self.domains[i] = self.normalize(self.domains[i])
+            for t in teams:
                 self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
+                # Adding new teams and saving loading positions
+                if t['team_url'] not in self.domains:
+                    self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
+                    self.domains.append(t['team_url'])
+                    self.settings.setValue("Domain", self.domains)
         if len(teams) > 1:
             self.leftPane.show()
 
@@ -369,10 +383,6 @@ class ScudCloud(QtGui.QMainWindow):
             self.cookiesjar.save()
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
-            # Let's save the first team registered as default
-            qUrl = self.stackedWidget.widget(0).url()
-            if self.identifier is None and Resources.MESSAGES_URL_RE.match(qUrl.toString()):
-                self.settings.setValue("Domain", 'https://'+qUrl.host())
         self.forceClose = False
 
     def show(self):
