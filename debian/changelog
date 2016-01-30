@@ -1,3 +1,11 @@
+scudcloud (1.6-0) trusty; urgency=medium
+
+  * Optimizing systray icon size
+  * Unread messages title notification (#362)
+  * Fixing team loading order and ability to edit (#355)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 30 Jan 2016 08:25:58 -0200
+
 scudcloud (1.5-0) trusty; urgency=medium
 
   * Keep user online (#87)
