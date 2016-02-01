@@ -6,7 +6,7 @@ import glob
 import os
 
 def _data_files():
-    for theme in ['hicolor', 'ubuntu-mono-dark', 'ubuntu-mono-light']:
+    for theme in ['hicolor', 'ubuntu-mono-dark', 'ubuntu-mono-light', 'elementary']:
         directory = os.path.join('share', 'icons', theme, 'scalable', 'apps')
         files = glob.glob(os.path.join('share', 'icons', theme, '*.svg'))
         yield directory, files
@@ -30,7 +30,7 @@ setup(name='scudcloud',
       keywords = "slack chat im instant_message",
       license = "MIT",
       maintainer='Andrew Stiegmann',
-      maintainer_email='andrew.stiegmann <AT> gmail.com',
+      maintainer_email='andrew.stiegmann AT gmail.com',
       package_data={'scudcloud': ['resources/*',]},
       packages=['scudcloud',],
       requires=['dbus', 'PyQt4',],
