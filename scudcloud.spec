@@ -73,7 +73,7 @@ but using the QWebkit-Native bridge to improve desktop integration with:
 
 %install
 
-python3 setup.py install --prefix=%{_prefix} --root=%{buildroot}
+/usr/bin/python3 setup.py install --prefix=%{_prefix} --root=%{buildroot}
 
 %if (0%{?suse_version} || 0%{?sles_version})
 %suse_update_desktop_file -r -i %{name} Network InstantMessaging
