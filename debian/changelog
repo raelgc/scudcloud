@@ -1,3 +1,9 @@
+scudcloud (1.8-0) trusty; urgency=medium
+
+  * Fixing keyboard team switching (#374)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 02 Feb 2016 16:29:24 -0200
+
 scudcloud (1.7-0) trusty; urgency=medium
 
   * Elementary icon theme (#369)
