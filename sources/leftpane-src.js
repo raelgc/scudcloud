@@ -56,7 +56,7 @@ var LeftPane = {
 		var list = document.getElementsByTagName("li");
 		var index = 0;
 		for(; index < list.length; index++){
-			if (list[index].className == "active") {
+			if (list[index].classList.contains("active")) {
 				break;			
 			}
 		}
