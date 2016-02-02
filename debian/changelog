@@ -1,3 +1,9 @@
+scudcloud (1.7-0) trusty; urgency=medium
+
+  * Elementary icon theme (#369)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 02 Feb 2016 07:59:41 -0200
+
 scudcloud (1.6-0) trusty; urgency=medium
 
   * Optimizing systray icon size
