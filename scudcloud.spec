@@ -18,7 +18,7 @@
 
 
 Name:           scudcloud
-Version:        1.2
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        Non official desktop client for Slack©
 License:        MIT
@@ -125,17 +125,23 @@ rm -rf %{buildroot}
 %{_datadir}/doc/%{name}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/*
+%dir %{_datadir}/icons/elementary/
+%dir %{_datadir}/icons/elementary/scalable
+%dir %{_datadir}/icons/elementary/scalable/apps
 %dir %{_datadir}/icons/ubuntu-mono-dark/
 %dir %{_datadir}/icons/ubuntu-mono-dark/scalable
 %dir %{_datadir}/icons/ubuntu-mono-dark/scalable/apps
 %dir %{_datadir}/icons/ubuntu-mono-light/
 %dir %{_datadir}/icons/ubuntu-mono-light/scalable
 %dir %{_datadir}/icons/ubuntu-mono-light/scalable/apps
+%{_datadir}/icons/elementary/*/apps/*
 %{_datadir}/icons/ubuntu-mono-dark/*/apps/*
 %{_datadir}/icons/ubuntu-mono-light/*/apps/*
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Tue Feb  2 2016 Marcin Bajor <marcin.bajor@gmail.com>
+- Added elementary icon theme
 * Sat Jan 26 2016 Marcin Bajor <marcin.bajor@gmail.com>
 - Fixed python3-dbus dependency for Fedora
 * Sat Jan 23 2016 Marcin Bajor <marcin.bajor@gmail.com>
