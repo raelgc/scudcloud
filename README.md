@@ -1,6 +1,6 @@
 # ScudCloud - Linux Client app for Slack
 
-![ScudCloud Slack on Ubuntu Unity](/share/screenshot.png?raw=true)
+![ScudCloud Slack app on Ubuntu Unity](/share/screenshot.png?raw=true)
 
 ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client app for [Slack](http://slack.com).
 
@@ -147,6 +147,9 @@ ScudCloud offers zoom support. The zoom level will be persisted between sessions
 - Decrease with <kbd>Ctrl -</kbd>
 - Reset it with <kbd>Ctrl 0</kbd>
 
+#### 7. No icon in systray/notification area
+
+Make sure that `File` > `Close to Tray` is checked.
 
 # License
 
