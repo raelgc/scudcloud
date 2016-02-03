@@ -1,8 +1,8 @@
-# ScudCloud - Linux Client for Slack
+# ScudCloud - Linux Client app for Slack
 
 ![ScudCloud Slack on Ubuntu Unity](/share/screenshot.png?raw=true)
 
-ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client for [Slack](http://slack.com).
+ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client app for [Slack](http://slack.com).
 
 ScudCloud improves the Slack integration with Linux desktops featuring:
 
