@@ -1,6 +1,6 @@
 # ScudCloud - Linux Client for Slack
 
-![ScudCloud Logo](/scudcloud/resources/scudcloud.png?raw=true "Scud clouds are low, ragged and wind-torn cloud fragments, usually not attached to the thunderstorm base. With the 'mother' cloud, the form of them together is like a chat balloon")
+![A screenshot](/share/screenshot.png?raw=true)
 
 ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint, Arch, Fedora) desktop client for [Slack](http://slack.com).
 
@@ -147,9 +147,6 @@ ScudCloud offers zoom support. The zoom level will be persisted between sessions
 - Decrease with <kbd>Ctrl -</kbd>
 - Reset it with <kbd>Ctrl 0</kbd>
 
-# Screenshots
-
-![Some screenshots](/share/screenshot.png?raw=true)
 
 # License
 
