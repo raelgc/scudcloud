@@ -6,12 +6,13 @@ ScudCloud is a **non official** open-source Linux (Debian, Ubuntu, Kubuntu, Mint
 
 ScudCloud improves the Slack integration with Linux desktops featuring:
 
-* multiple teams support,
-* native system notifications,
-* count of unread direct mentions at launcher/sytray icon,
-* alert/wobbling on new messages,
-* channels quicklist (Unity only),
-* optional "Close to Tray".
+* multiple teams support
+* native system notifications
+* count of unread direct mentions at launcher/sytray icon
+* alert/wobbling on new messages
+* channels quicklist (Unity only)
+* optional tray notifications and "Close to Tray"
+* follow your desktop activity and will stay online while you're logged in (if correct packages are installed)
 
 # Install
 
