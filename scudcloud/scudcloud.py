@@ -315,7 +315,8 @@ class ScudCloud(QtGui.QMainWindow):
                 self.domains[i] = self.normalize(self.domains[i])
                 self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
                 # Adding new teams and saving loading positions
-                if t['team_url'] not in self.domains:
+                # When team_icon is missing, the team already exists (Fixes #381)
+                if 'team_icon' in t and t['team_url'] not in self.domains:
                     self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
                     self.domains.append(t['team_url'])
                     self.settings.setValue("Domain", self.domains)
