@@ -1,3 +1,9 @@
+scudcloud (1.9-1) trusty; urgency=medium
+
+  * Exception on missing team_icon (#381)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 08 Feb 2016 08:49:41 -0200
+
 scudcloud (1.8-0) trusty; urgency=medium
 
   * Fixing keyboard team switching (#374)
