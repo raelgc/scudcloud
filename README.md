@@ -128,11 +128,15 @@ Make sure you have the following packages installed:
 * `python3-hunspell`
 * `hunspell-en-us`
 
-#### 4. `Keep me signed in` is not working
+#### 4. `Keep me signed in` is not working / My team is not saved
 
 For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder:
 
-    ~/.config/scudcloud/
+    mkdir -p ~/.config/scudcloud/
+    
+If it exists and `.cfg` file is present, try change permissions in config file:
+
+    chmod -R 0755 ~/.config/scudcloud/scudcloud.cfg
 
 #### 5. How to start ScudCloud minimized?
 
