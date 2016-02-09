@@ -1,3 +1,10 @@
+scudcloud (1.10-1) trusty; urgency=medium
+
+  * New attempt to fix loading order (#355)
+  * Print versions of Python, Qt, PyQt and SIP (#384)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 09 Feb 2016 13:03:15 -0200
+
 scudcloud (1.9-1) trusty; urgency=medium
 
   * Exception on missing team_icon (#381)
