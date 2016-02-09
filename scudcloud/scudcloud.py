@@ -310,10 +310,13 @@ class ScudCloud(QtGui.QMainWindow):
     def teams(self, teams):
         if len(self.domains) == 0:
             self.domains.append(teams[0]['team_url'])
+        team_list = [t['team_url'] for t in teams]
         for t in teams:
             for i in range(0, len(self.domains)):
                 self.domains[i] = self.normalize(self.domains[i])
-                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
+                if self.domains[i] in team_list:
+                    add = next(item for item in teams if item['team_url'] == self.domains[i])
+                    self.leftPane.addTeam(add['id'], add['team_name'], add['team_url'], add['team_icon']['image_44'], add == teams[0])
                 # Adding new teams and saving loading positions
                 # When team_icon is missing, the team already exists (Fixes #381)
                 if 'team_icon' in t and t['team_url'] not in self.domains:
