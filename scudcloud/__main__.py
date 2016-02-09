@@ -16,8 +16,11 @@ from scudcloud.resources import Resources
 import scudcloud.scudcloud as sca
 from scudcloud.version import __version__
 
-import fcntl, signal, tempfile
+import fcntl, platform, signal, tempfile
+from sip import SIP_VERSION_STR
 from PyQt4 import QtGui, QtCore
+from PyQt4.Qt import PYQT_VERSION_STR
+from PyQt4.QtCore import QT_VERSION_STR
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 
 # The ScudCloud QMainWindow
@@ -87,10 +90,17 @@ def parse_arguments():
     parser.add_argument('--version',    action="store_true",                                         help="print version and exit")
     args = parser.parse_args()
     if args.version:
-        print("ScudCloud " + __version__)
+        versions()
         sys.exit()
     args.confdir = expanduser(args.confdir)
     return args
+
+def versions():
+    print("ScudCloud", __version__)
+    print("Python", platform.python_version())
+    print("Qt", QT_VERSION_STR)
+    print("PyQt", PYQT_VERSION_STR)
+    print("SIP", SIP_VERSION_STR)
 
 def exit(*args):
     if win is not None:
