@@ -314,15 +314,16 @@ class ScudCloud(QtGui.QMainWindow):
         for t in teams:
             for i in range(0, len(self.domains)):
                 self.domains[i] = self.normalize(self.domains[i])
-                if self.domains[i] in team_list:
-                    add = next(item for item in teams if item['team_url'] == self.domains[i])
-                    self.leftPane.addTeam(add['id'], add['team_name'], add['team_url'], add['team_icon']['image_44'], add == teams[0])
-                # Adding new teams and saving loading positions
-                # When team_icon is missing, the team already exists (Fixes #381)
-                if 'team_icon' in t and t['team_url'] not in self.domains:
-                    self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
-                    self.domains.append(t['team_url'])
-                    self.settings.setValue("Domain", self.domains)
+                # When team_icon is missing, the team already exists (Fixes #381, #391)
+                if 'team_icon' in t:
+                    if self.domains[i] in team_list:
+                        add = next(item for item in teams if item['team_url'] == self.domains[i])
+                        self.leftPane.addTeam(add['id'], add['team_name'], add['team_url'], add['team_icon']['image_44'], add == teams[0])
+                        # Adding new teams and saving loading positions
+                        if t['team_url'] not in self.domains:
+                            self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
+                            self.domains.append(t['team_url'])
+                            self.settings.setValue("Domain", self.domains)
         if len(teams) > 1:
             self.leftPane.show()
 
