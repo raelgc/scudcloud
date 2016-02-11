@@ -53,6 +53,7 @@ For Ubuntu 12.04 (Precise Pangolin), first we need to update `qtwebkit`: Slack i
 ```term
 sudo add-apt-repository -y ppa:immerrr-k/qtwebkit4-backport
 sudo apt-get update
+sudo apt-get upgrade
 ```
 
 Then install all required dependencies:
