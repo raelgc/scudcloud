@@ -1,3 +1,9 @@
+scudcloud (1.13-1) trusty; urgency=medium
+
+  * Crashing while playing videos (#391)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 11 Feb 2016 20:59:03 -0200
+
 scudcloud (1.12-1) trusty; urgency=medium
 
   * Need to build package in Trusty, then copy to Precise (#388)
