@@ -1,3 +1,15 @@
+scudcloud (1.12-1) trusty; urgency=medium
+
+  * Need to build package in Trusty, then copy to Precise (#388)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 11 Feb 2016 15:08:40 -0200
+
+scudcloud (1.11-1) precise; urgency=medium
+
+  * Fixing dependencies on Precise 12.04 (#388)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 11 Feb 2016 14:59:50 -0200
+
 scudcloud (1.10-1) trusty; urgency=medium
 
   * New attempt to fix loading order (#355)
