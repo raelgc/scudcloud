@@ -48,11 +48,30 @@ sudo chmod +r /usr/share/pixmaps/scudcloud.png
 
 ## Ubuntu 12.04
 
-For Ubuntu 12.04 (Precise Pangolin), **additionally** you'll need to update `qtwebkit`: Slack is not compatible with `libqtwebkit4` package shipped with 12.04, hanging in the `Loading` screen. Please add the following PPAs (for updated `qtwebkit`):
+For Ubuntu 12.04 (Precise Pangolin), first we need to update `qtwebkit`: Slack is not compatible with `libqtwebkit4` package shipped with 12.04, hanging in the `Loading` screen. Please add the following PPAs (for updated `qtwebkit`):
 
 ```term
 sudo add-apt-repository -y ppa:immerrr-k/qtwebkit4-backport
 sudo apt-get update
+```
+
+Then install all required dependencies:
+
+```term
+sudo apt-get install git python3 python3-setuptools python3-dbus python3-pyqt4 python3-dbus.mainloop.qt
+```
+
+Clone the repo:
+
+```term
+git clone https://github.com/raelgc/scudcloud.git
+```
+
+Enter `scudcloud` folder and run setup:
+
+```term
+cd scudcloud
+sudo python3 setup install --record install.txt
 ```
 
 ## Debian
