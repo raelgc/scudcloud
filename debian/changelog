@@ -1,3 +1,21 @@
+scudcloud (1.14-3) precise; urgency=medium
+
+  * Trying build package for Precise 12.04 (#388)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 12 Feb 2016 15:16:54 -0200
+
+scudcloud (1.14-2) precise; urgency=medium
+
+  * Adding missing dependencie for Precise 12.04 building (#388)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 12 Feb 2016 10:21:51 -0200
+
+scudcloud (1.14-1) precise; urgency=medium
+
+  * Trying build package for Precise 12.04 (#388)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 12 Feb 2016 10:01:11 -0200
+
 scudcloud (1.13-1) trusty; urgency=medium
 
   * Crashing while playing videos (#391)
