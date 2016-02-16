@@ -1,3 +1,9 @@
+scudcloud (1.15-2) precise; urgency=medium
+
+  * For some teams, "Add a Post button" doesn't work (#225)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 16 Feb 2016 17:24:24 -0200
+
 scudcloud (1.15-1) trusty; urgency=medium
 
   * For some teams, "Add a Post button" doesn't work (#225)
