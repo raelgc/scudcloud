@@ -110,6 +110,7 @@ class Wrapper(QWebView):
 
     def _urlChanged(self, qUrl):
         url = self._urlToString(qUrl)
+        if self.window.debug: print("URL Changed: {}".format(url))
         # Some integrations/auth will get back to /services with no way to get back to chat
         if Resources.SERVICES_URL_RE.match(url):
             self.systemOpen(url)
@@ -132,6 +133,7 @@ class Wrapper(QWebView):
 
     def _linkClicked(self, qUrl):
         url = self._urlToString(qUrl)
+        if self.window.debug: print("Link Clicked: {}".format(url))
         if Resources.SIGNIN_URL == url or Resources.MAINPAGE_URL_RE.match(url):
             self.window.switchTo(url)
         elif Resources.MESSAGES_URL_RE.match(url) or Resources.SSO_URL_RE.match(url) or Resources.GOOGLE_OAUTH2_URL_RE.match(url):
@@ -159,10 +161,10 @@ class Wrapper(QWebView):
         self.call("help")
 
     def helpCenter(self):
-        subprocess.call(('xdg-open', "https://slack.zendesk.com/hc/en-us"))
+        self.systemOpen("https://slack.zendesk.com/hc/en-us")
 
     def about(self):
-        subprocess.call(('xdg-open', "https://github.com/raelgc/scudcloud"))
+        self.systemOpen("https://github.com/raelgc/scudcloud")
 
     def listChannels(self):
         return self.call("listChannels")
@@ -215,6 +217,10 @@ class Wrapper(QWebView):
             buffer = QBuffer(byteArray)
             pixmap.save(buffer, "PNG")
             self.call("setClipboard", str(byteArray.toBase64(), sys.stdout.encoding))
+
+    @QtCore.pyqtSlot(str)
+    def createPost(self, teamUrl):
+        self.systemOpen("{}files/create/space".format(teamUrl))
 
     @QtCore.pyqtSlot(str, str)
     def sendMessage(self, title, message):

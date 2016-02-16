@@ -116,6 +116,8 @@ ScudCloud = {
 	}
 };
 document.onpaste = function(e){desktop.pasted(false);};
+// Forcing new posts to get opened in system browser (Fixes #225)
+$("body").delegate('a[href="/files/create/space"]', "click", function(){desktop.createPost(TS.boot_data.team_url);});
 window.winssb = TSSSB = ScudCloud;
 // Sometimes didFinishLoading is not loaded
 if(ScudCloud.unloaded){
