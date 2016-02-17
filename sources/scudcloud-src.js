@@ -118,6 +118,16 @@ ScudCloud = {
 document.onpaste = function(e){desktop.pasted(false);};
 // Forcing new posts to get opened in system browser (Fixes #225)
 $("body").delegate('a[href="/files/create/space"]', "click", function(){desktop.createPost(TS.boot_data.team_url);});
+// Fixing profile display CSS (Fixes #396)
+$('body').delegate($("a[href^='/team']"), 'click', 
+    function(){ 
+        var obj = $('.member_preview_link.member_image.thumb_512');
+        if(obj.length > 0){
+            var style = obj.attr('style').replace('linear-gradient', '-webkit-linear-gradient'); 
+            obj.attr('style', style);
+        }
+    }
+);
 window.winssb = TSSSB = ScudCloud;
 // Sometimes didFinishLoading is not loaded
 if(ScudCloud.unloaded){
