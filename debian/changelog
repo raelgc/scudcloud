@@ -1,3 +1,15 @@
+scudcloud (1.16-2) precise; urgency=medium
+
+  * Fixing profile display (#396)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 17 Feb 2016 07:40:55 -0200
+
+scudcloud (1.16-1) precise; urgency=medium
+
+  * Fixing profile display (#396)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 17 Feb 2016 07:38:28 -0200
+
 scudcloud (1.15-2) precise; urgency=medium
 
   * For some teams, "Add a Post button" doesn't work (#225)
