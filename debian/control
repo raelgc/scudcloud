@@ -1,0 +1,30 @@
+Source: scudcloud
+Section: python
+Priority: optional
+Maintainer: Rael Gugelmin Cunha <rael.gc@gmail.com>
+Build-Depends: debhelper (>= 9), python3, python3-setuptools, dh-python
+Standards-Version: 3.9.5
+Homepage: https://github.com/raelgc/scudcloud
+
+Package: scudcloud
+Architecture: all
+Depends: libqtwebkit4 (>= 2.3.2),
+         python3,
+         python3-setuptools,
+         python3-dbus,
+         python3-dbus.mainloop.qt,
+         python3-pyqt4,
+         xdg-utils,
+         ${misc:Depends}, 
+         ${python3:Depends}
+Recommends: sni-qt,
+            fonts-lato,
+            gir1.2-unity-5.0,
+            libqtwebkit-qupzillaplugins,
+            python3-hunspell,
+            python3-notify2,
+            python3-gi,
+            ttf-mscorefonts-installer
+Description: ScudCloud is a non official desktop client for Slack
+ ScudCloud is a non official desktop client for Slack.
+ Slack (http://slack.com) is a platform for team communication.
