@@ -2,6 +2,7 @@ from scudcloud.resources import Resources
 
 import sys, subprocess, os, json, tempfile
 from urllib import request
+from urllib.parse import parse_qs, urlparse, urlsplit
 
 from PyQt5 import QtWebKit, QtGui, QtCore, QtWidgets
 from PyQt5.Qt import QApplication, QKeySequence, QTimer
