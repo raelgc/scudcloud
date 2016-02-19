@@ -13,6 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWebKit, QtWidgets, QtWebKitWidgets
 from PyQt5.Qt import QApplication, QKeySequence, QTimer
 from PyQt5.QtCore import QUrl, QSettings
 from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtWebKitWidgets import QWebPage
 from PyQt5.QtNetwork import QNetworkDiskCache
 
 # Auto-detection of dbus and dbus.mainloop.qt
@@ -198,14 +199,14 @@ class ScudCloud(QtWidgets.QMainWindow):
 
     def addMenu(self):
         # We'll register the webpage shorcuts with the window too (Fixes #338)
-        undo = self.current().pageAction(QtWebKit.QWebPage.Undo)
-        redo = self.current().pageAction(QtWebKit.QWebPage.Redo)
-        cut = self.current().pageAction(QtWebKit.QWebPage.Cut)
-        copy = self.current().pageAction(QtWebKit.QWebPage.Copy)
-        paste = self.current().pageAction(QtWebKit.QWebPage.Paste)
-        back = self.current().pageAction(QtWebKit.QWebPage.Back)
-        forward = self.current().pageAction(QtWebKit.QWebPage.Forward)
-        reload = self.current().pageAction(QtWebKit.QWebPage.Reload)
+        undo = self.current().pageAction(QWebPage.Undo)
+        redo = self.current().pageAction(QWebPage.Redo)
+        cut = self.current().pageAction(QWebPage.Cut)
+        copy = self.current().pageAction(QWebPage.Copy)
+        paste = self.current().pageAction(QWebPage.Paste)
+        back = self.current().pageAction(QWebPage.Back)
+        forward = self.current().pageAction(QWebPage.Forward)
+        reload = self.current().pageAction(QWebPage.Reload)
         self.menus = {
             "file": {
                 "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
@@ -216,14 +217,14 @@ class ScudCloud(QtWidgets.QMainWindow):
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
             "edit": {
-                "undo":        self.createAction(undo.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Undo), undo.shortcut()),
-                "redo":        self.createAction(redo.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Redo), redo.shortcut()),
-                "cut":         self.createAction(cut.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Cut), cut.shortcut()),
-                "copy":        self.createAction(copy.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Copy), copy.shortcut()),
-                "paste":       self.createAction(paste.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Paste), paste.shortcut()),
-                "back":        self.createAction(back.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Back), back.shortcut()),
-                "forward":     self.createAction(forward.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Forward), forward.shortcut()),
-                "reload":      self.createAction(reload.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Reload), reload.shortcut()),
+                "undo":        self.createAction(undo.text(), lambda : self.current().page().triggerAction(QWebPage.Undo), undo.shortcut()),
+                "redo":        self.createAction(redo.text(), lambda : self.current().page().triggerAction(QWebPage.Redo), redo.shortcut()),
+                "cut":         self.createAction(cut.text(), lambda : self.current().page().triggerAction(QWebPage.Cut), cut.shortcut()),
+                "copy":        self.createAction(copy.text(), lambda : self.current().page().triggerAction(QWebPage.Copy), copy.shortcut()),
+                "paste":       self.createAction(paste.text(), lambda : self.current().page().triggerAction(QWebPage.Paste), paste.shortcut()),
+                "back":        self.createAction(back.text(), lambda : self.current().page().triggerAction(QWebPage.Back), back.shortcut()),
+                "forward":     self.createAction(forward.text(), lambda : self.current().page().triggerAction(QWebPage.Forward), forward.shortcut()),
+                "reload":      self.createAction(reload.text(), lambda : self.current().page().triggerAction(QWebPage.Reload), reload.shortcut()),
             },
             "view": {
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
@@ -345,7 +346,7 @@ class ScudCloud(QtWidgets.QMainWindow):
             self.focusInEvent(event)
         if event.type() == QtCore.QEvent.KeyPress:
             # Ctrl + <n>
-            modifiers = QtGui.QApplication.keyboardModifiers()
+            modifiers = QtWidgets.QApplication.keyboardModifiers()
             if modifiers == QtCore.Qt.ControlModifier:
                 if event.key() == QtCore.Qt.Key_1:   self.leftPane.click(0)
                 elif event.key() == QtCore.Qt.Key_2: self.leftPane.click(1)
@@ -388,6 +389,7 @@ class ScudCloud(QtWidgets.QMainWindow):
             self.cookiesjar.save()
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
+            self.settings.setValue("Domain", self.domains)
         self.forceClose = False
 
     def show(self):

@@ -2,6 +2,7 @@ from scudcloud.resources import Resources
 
 import os
 from PyQt5 import QtGui, QtWidgets
+from PyQt5.QtWidgets import QAction
 from PyQt5.QtCore import QObject
 from PyQt5.QtCore import QLocale, QFile, QTextBoundaryFinder
 
@@ -85,7 +86,7 @@ class Speller(QObject):
             for i in range(0, count):
                 if isinstance(suggests[i], bytes):
                     suggests[i] = suggests[i].decode('utf8')
-                action = QtGui.QAction(str(suggests[i]), self)
+                action = QAction(str(suggests[i]), self)
                 action.triggered.connect(lambda:self.replaceWord(element, word))
                 action.setData(suggests[i])
                 action.setFont(boldFont)
