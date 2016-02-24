@@ -1,3 +1,15 @@
+scudcloud (1.17-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 24 Feb 2016 08:59:29 -0300
+
+scudcloud (1.17-1) trusty; urgency=medium
+
+  * Fixing notification icon extension (#404)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 24 Feb 2016 08:57:25 -0300
+
 scudcloud (1.16-3) trusty; urgency=medium
 
   * Publishing on trusty
