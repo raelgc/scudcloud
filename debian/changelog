@@ -1,3 +1,15 @@
+scudcloud (1.18-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 25 Feb 2016 21:35:53 -0300
+
+scudcloud (1.18-1) trusty; urgency=medium
+
+  * Make Hide Menubar entry always visible (#406)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 25 Feb 2016 21:34:01 -0300
+
 scudcloud (1.17-2) precise; urgency=medium
 
   * Publishing on Precise
