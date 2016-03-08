@@ -108,9 +108,6 @@ ScudCloud = {
 		}
 		return "";
 	},
-	getCurrentChannel: function(){
-		return TS.model.active_cid;
-	},
 	logout: function(){
 		document.location = TS.boot_data.logout_url;
 	},
