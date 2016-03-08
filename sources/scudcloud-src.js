@@ -70,7 +70,7 @@ ScudCloud = {
 		desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
 	},
 	createSnippet: function(){
-		return TS.ui.snippet_dialog.start();		
+		return TS.ui.snippet_dialog.start();
 	},
 	listChannels: function(){
 		return TS.channels.getUnarchivedChannelsForUser();
@@ -108,6 +108,9 @@ ScudCloud = {
 		}
 		return "";
 	},
+	getCurrentChannel: function(){
+		return TS.model.active_cid;
+	},
 	logout: function(){
 		document.location = TS.boot_data.logout_url;
 	},
@@ -117,17 +120,19 @@ ScudCloud = {
 };
 document.onpaste = function(e){desktop.pasted(false);};
 // Forcing new posts to get opened in system browser (Fixes #225)
-$("body").delegate('a[href="/files/create/space"]', "click", function(){desktop.createPost(TS.boot_data.team_url);});
+$('body').delegate('a[href="/files/create/space"]', 'click', function(){desktop.open(TS.boot_data.team_url+'files/create/space');});
 // Fixing profile display CSS (Fixes #396)
-$('body').delegate($("a[href^='/team']"), 'click', 
-    function(){ 
+$('body').delegate('a[href^="/team"]', 'click',
+    function(){
         var obj = $('.member_preview_link.member_image.thumb_512');
         if(obj.length > 0){
-            var style = obj.attr('style').replace('linear-gradient', '-webkit-linear-gradient'); 
+            var style = obj.attr('style').replace('linear-gradient', '-webkit-linear-gradient');
             obj.attr('style', style);
         }
     }
 );
+// Forcing call button handling
+$('body').delegate('#channel_header_call_button', 'click', function(){desktop.open(TS.boot_data.team_url+'call/'+TS.model.active_cid);});
 window.winssb = TSSSB = ScudCloud;
 // Sometimes didFinishLoading is not loaded
 if(ScudCloud.unloaded){
