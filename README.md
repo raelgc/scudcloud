@@ -30,6 +30,7 @@ Then, to install it under **Ubuntu/Kubuntu** (16.04, 15.10, 14.04), **Mint** and
 
 ```term
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 sudo apt-get update
 sudo apt-get install scudcloud
 ```
@@ -134,7 +135,7 @@ Make sure you have the following packages installed:
 For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder:
 
     mkdir -p ~/.config/scudcloud/
-    
+
 If it exists and `.cfg` file is present, try change permissions in config file:
 
     chmod -R 0755 ~/.config/scudcloud/scudcloud.cfg
