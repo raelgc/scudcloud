@@ -219,8 +219,8 @@ class Wrapper(QWebView):
             self.call("setClipboard", str(byteArray.toBase64(), sys.stdout.encoding))
 
     @QtCore.pyqtSlot(str)
-    def createPost(self, teamUrl):
-        self.systemOpen("{}files/create/space".format(teamUrl))
+    def open(self, url):
+        self.systemOpen(url)
 
     @QtCore.pyqtSlot(str, str)
     def sendMessage(self, title, message):
