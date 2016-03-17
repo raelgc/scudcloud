@@ -1,3 +1,27 @@
+scudcloud (1.20-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 17 Mar 2016 14:47:03 -0300
+
+scudcloud (1.20-1) trusty; urgency=medium
+
+  * Updating button call to reflect Slack changes (#412)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 17 Mar 2016 14:44:44 -0300
+
+scudcloud (1.19-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 14 Mar 2016 08:44:59 -0300
+
+scudcloud (1.19-1) trusty; urgency=medium
+
+  * Support to start calls (#412)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 14 Mar 2016 08:39:10 -0300
+
 scudcloud (1.18-2) precise; urgency=medium
 
   * Publishing on Precise
