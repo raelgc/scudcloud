@@ -129,7 +129,7 @@ $('body').delegate('a[href^="/team"]', 'click',
     }
 );
 // Forcing call button handling
-$('body').delegate('#channel_header_call_button', 'click', function(){desktop.open(TS.boot_data.team_url+'call/'+TS.model.active_cid);});
+$('body').delegate('#channel_calls_button', 'click', function(){desktop.open(TS.boot_data.team_url+'call/'+TS.model.active_cid);});
 window.winssb = TSSSB = ScudCloud;
 // Sometimes didFinishLoading is not loaded
 if(ScudCloud.unloaded){
