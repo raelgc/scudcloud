@@ -5,3 +5,5 @@ nav.top, footer, #prefs_mac_ssb_tab {display: none !important;}
 /* Fix to force display of scrollbar in channel list (Fixes #309) */
 .channel_modal_with_list .monkey_scroll_wrapper {display: block !important; overflow-y: scroll !important;}
 .channel_modal_with_list .monkey_scroll_hider {display: block !important;}
+/* Removes the "Download the Slack App..." menu entry */
+.slack_menu_download {display: none !important;}
