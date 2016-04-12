@@ -1,3 +1,16 @@
+scudcloud (1.21-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 12 Apr 2016 18:23:43 -0300
+
+scudcloud (1.21-1) precise; urgency=medium
+
+  * Support mouse forward/back navigation (#128)
+  * Remove 'Download the Slack App' from menu (#426) 
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 12 Apr 2016 18:20:48 -0300
+
 scudcloud (1.20-2) precise; urgency=medium
 
   * Publishing on Precise
