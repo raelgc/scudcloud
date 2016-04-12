@@ -108,6 +108,14 @@ class Wrapper(QWebView):
         # Some custom CSS to clean/fix UX
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
 
+    def mousePressEvent(self, event):
+        if self.window.debug: print("Mouse Button {}".format(event.button()))
+        if 8 == event.button():
+            self.back()
+        elif 16 == event.button():
+            self.forward()
+        super(Wrapper, self).mousePressEvent(event)
+
     def _urlChanged(self, qUrl):
         url = self._urlToString(qUrl)
         if self.window.debug: print("URL Changed: {}".format(url))
