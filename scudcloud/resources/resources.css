@@ -9,3 +9,5 @@ nav.top, footer, #prefs_mac_ssb_tab {display: none !important;}
 .slack_menu_download {display: none !important;}
 /* Force monospaced fonts in <pre> (Fixes #428) */
 pre, pre > span { font-family: Monaco,Menlo,Consolas,"Courier New",monospace; }
+/* Assign x width (Fixes #y) */
+.overflow_ellipsis { width: 148px; }
