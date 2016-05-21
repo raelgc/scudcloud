@@ -32,6 +32,8 @@ ScudCloud = {
 				return ScudCloud.setBadgeCount(args);
 			case "displayTeam":
 				return ScudCloud.displayTeam(args);
+			case "signInTeam":
+				return ScudCloud.signInTeam();
 		}
 		return false;
 	},
@@ -58,6 +60,9 @@ ScudCloud = {
 	},
 	setBadgeCount: function(args){
 		desktop.count(args.all_unread_highlights_cnt, args.all_unread_cnt);
+	},
+	signInTeam: function(){
+		desktop.addTeam();
 	},
 	displayTeam: function(id){
 	},
