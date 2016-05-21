@@ -181,6 +181,10 @@ class Wrapper(QWebView):
         self.call("join", menuitem.property_get("id"))
         self.window.show()
 
+    @QtCore.pyqtSlot()
+    def addTeam(self):
+        self.window.addTeam()
+
     @QtCore.pyqtSlot(int, int)
     def count(self, highlight, unread):
         self.highlights = highlight

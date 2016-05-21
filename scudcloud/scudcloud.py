@@ -196,6 +196,9 @@ class ScudCloud(QtGui.QMainWindow):
     def zoomReset(self):
         self.setZoom()
 
+    def addTeam(self):
+        self.switchTo(Resources.SIGNIN_URL)
+
     def addMenu(self):
         # We'll register the webpage shorcuts with the window too (Fixes #338)
         undo = self.current().pageAction(QtWebKit.QWebPage.Undo)
@@ -210,7 +213,7 @@ class ScudCloud(QtGui.QMainWindow):
             "file": {
                 "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
                 "systray":     self.createAction("Close to Tray", self.systray, None, True),
-                "addTeam":     self.createAction("Sign in to Another Team", lambda : self.switchTo(Resources.SIGNIN_URL)),
+                "addTeam":     self.createAction("Sign in to Another Team", lambda : self.addTeam()),
                 "signout":     self.createAction("Signout", lambda : self.current().logout()),
                 "close":       self.createAction("Close", self.close, QKeySequence.Close),
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
