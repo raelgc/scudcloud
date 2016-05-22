@@ -1,3 +1,16 @@
+scudcloud (1.23-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 21 May 2016 21:12:55 -0300
+
+scudcloud (1.23-1) precise; urgency=medium
+
+  * Fixing add another team (#433)
+  * Fixing Long team names overflow  (#437)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 21 May 2016 21:09:36 -0300
+
 scudcloud (1.22-2) trusty; urgency=medium
 
   * Publishing on Trusty
