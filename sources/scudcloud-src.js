@@ -124,12 +124,14 @@ document.onpaste = function(e){desktop.pasted(false);};
 // Forcing new posts to get opened in system browser (Fixes #225)
 $('body').delegate('a[href="/files/create/space"]', 'click', function(){desktop.open(TS.boot_data.team_url+'files/create/space');});
 // Fixing profile display CSS (Fixes #396)
-$('body').delegate('a[href^="/team"]', 'click',
+$('body').delegate('#client-ui', 'DOMNodeInserted',
     function(){
         var obj = $('.member_preview_link.member_image.thumb_512');
         if(obj.length > 0){
-            var style = obj.attr('style').replace('linear-gradient', '-webkit-linear-gradient');
-            obj.attr('style', style);
+            var style = obj.attr('style');
+						if(-1==style.indexOf('-webkit-linear-gradient')){
+							obj.attr('style', style.replace('linear-gradient', '-webkit-linear-gradient'));							
+						}
         }
     }
 );
