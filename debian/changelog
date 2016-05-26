@@ -1,3 +1,15 @@
+scudcloud (1.24-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 26 May 2016 08:19:12 -0300
+
+scudcloud (1.24-1) precise; urgency=medium
+
+  * Fixing profile again (#396)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 26 May 2016 08:16:32 -0300
+
 scudcloud (1.23-2) trusty; urgency=medium
 
   * Publishing on Trusty
