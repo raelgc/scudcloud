@@ -1,3 +1,15 @@
+scudcloud (1.25-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 17 Jun 2016 07:42:07 -0300
+
+scudcloud (1.25-1) precise; urgency=medium
+
+  * Fix attempt to general channel disappearing (#454)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 17 Jun 2016 07:39:03 -0300
+
 scudcloud (1.24-2) trusty; urgency=medium
 
   * Publishing on Trusty
