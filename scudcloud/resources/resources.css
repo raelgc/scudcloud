@@ -11,3 +11,5 @@ nav.top, footer, #prefs_mac_ssb_tab {display: none !important;}
 pre, pre > span { font-family: Monaco,Menlo,Consolas,"Courier New",monospace; }
 /* Assign .overflow_ellipsis width (Fixes #437) */
 .overflow_ellipsis { width: 148px; }
+/* Multi-user chats (with unread messages) don't show usernames (Fixes #449) */
+#im-list { width: 100% !important; }
