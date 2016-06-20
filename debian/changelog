@@ -1,3 +1,15 @@
+scudcloud (1.26-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 20 Jun 2016 13:56:08 -0300
+
+scudcloud (1.26-1) precise; urgency=medium
+
+  * Fixing no usernames in multichat (#449)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 20 Jun 2016 13:47:51 -0300
+
 scudcloud (1.25-2) trusty; urgency=medium
 
   * Publishing on Trusty
