@@ -38,7 +38,7 @@ def main():
         socket.deleteLater()
         return 0
     socket.deleteLater()
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     app.setApplicationName(Resources.APP_NAME+' Slack_SSB')
     app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
     try:
