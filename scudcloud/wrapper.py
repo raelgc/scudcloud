@@ -109,6 +109,14 @@ class Wrapper(QWebView):
         # Some custom CSS to clean/fix UX
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
 
+    def mousePressEvent(self, event):
+        if self.window.debug: print("Mouse Button {}".format(event.button()))
+        if 8 == event.button():
+            self.back()
+        elif 16 == event.button():
+            self.forward()
+        super(Wrapper, self).mousePressEvent(event)
+
     def _urlChanged(self, qUrl):
         url = self._urlToString(qUrl)
         if self.window.debug: print("URL Changed: {}".format(url))
@@ -174,6 +182,10 @@ class Wrapper(QWebView):
         self.call("join", menuitem.property_get("id"))
         self.window.show()
 
+    @QtCore.pyqtSlot()
+    def addTeam(self):
+        self.window.addTeam()
+
     @QtCore.pyqtSlot(int, int)
     def count(self, highlight, unread):
         self.highlights = highlight
@@ -198,7 +210,7 @@ class Wrapper(QWebView):
         self.id = data['teams'][0]['id']
         self.name = data['teams'][0]['team_name']
         # Using team id to avoid invalid icon paths (Fixes #315)
-        icon_name = 'scudcloud_' + data['teams'][0]['id'] + '.png'
+        icon_name = 'scudcloud_' + data['teams'][0]['id'] + '.jpg'
         icon_path = os.path.join(tempfile.gettempdir(), icon_name)
         # Download the file to use in notifications
         file_name, headers = request.urlretrieve(data['icon'], icon_path)
@@ -220,8 +232,8 @@ class Wrapper(QWebView):
             self.call("setClipboard", str(byteArray.toBase64(), sys.stdout.encoding))
 
     @QtCore.pyqtSlot(str)
-    def createPost(self, teamUrl):
-        self.systemOpen("{}files/create/space".format(teamUrl))
+    def open(self, url):
+        self.systemOpen(url)
 
     @QtCore.pyqtSlot(str, str)
     def sendMessage(self, title, message):

@@ -30,6 +30,7 @@ Then, to install it under **Ubuntu/Kubuntu** (16.04, 15.10, 14.04), **Mint** and
 
 ```term
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 sudo apt-get update
 sudo apt-get install scudcloud
 ```
@@ -92,7 +93,7 @@ There are repositories available for these distributions. All you need to do is 
 
 The manual install is intended for not supported distros (if you want to contribute with a package for your distro, you're welcome!).
 
-First, you'll need to install at least packages for `python3`, `python-qt4` (`qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
+First, you'll need to install at least packages for `python3`, `python3-setuptools`, `python-qt4` (`qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
 
 Then run the following steps:
 
@@ -134,7 +135,7 @@ Make sure you have the following packages installed:
 For some reason, ScudCloud was not able to create the configuration folder. Please, manually create this folder:
 
     mkdir -p ~/.config/scudcloud/
-    
+
 If it exists and `.cfg` file is present, try change permissions in config file:
 
     chmod -R 0755 ~/.config/scudcloud/scudcloud.cfg

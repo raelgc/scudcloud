@@ -197,6 +197,9 @@ class ScudCloud(QtWidgets.QMainWindow):
     def zoomReset(self):
         self.setZoom()
 
+    def addTeam(self):
+        self.switchTo(Resources.SIGNIN_URL)
+
     def addMenu(self):
         # We'll register the webpage shorcuts with the window too (Fixes #338)
         undo = self.current().pageAction(QWebPage.Undo)
@@ -211,7 +214,7 @@ class ScudCloud(QtWidgets.QMainWindow):
             "file": {
                 "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
                 "systray":     self.createAction("Close to Tray", self.systray, None, True),
-                "addTeam":     self.createAction("Sign in to Another Team", lambda : self.switchTo(Resources.SIGNIN_URL)),
+                "addTeam":     self.createAction("Sign in to Another Team", lambda : self.addTeam()),
                 "signout":     self.createAction("Signout", lambda : self.current().logout()),
                 "close":       self.createAction("Close", self.close, QKeySequence.Close),
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
@@ -266,8 +269,7 @@ class ScudCloud(QtWidgets.QMainWindow):
         viewMenu.addAction(self.menus["view"]["reset"])
         viewMenu.addSeparator()
         viewMenu.addAction(self.menus["view"]["fullscreen"])
-        if Unity is None:
-            viewMenu.addAction(self.menus["view"]["hidemenu"])
+        viewMenu.addAction(self.menus["view"]["hidemenu"])
         helpMenu = menu.addMenu("&Help")
         helpMenu.addAction(self.menus["help"]["help"])
         helpMenu.addAction(self.menus["help"]["center"])
@@ -319,12 +321,13 @@ class ScudCloud(QtWidgets.QMainWindow):
                 if 'team_icon' in t:
                     if self.domains[i] in team_list:
                         add = next(item for item in teams if item['team_url'] == self.domains[i])
-                        self.leftPane.addTeam(add['id'], add['team_name'], add['team_url'], add['team_icon']['image_44'], add == teams[0])
-                        # Adding new teams and saving loading positions
-                        if t['team_url'] not in self.domains:
-                            self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
-                            self.domains.append(t['team_url'])
-                            self.settings.setValue("Domain", self.domains)
+                        if 'team_icon' in add:
+                            self.leftPane.addTeam(add['id'], add['team_name'], add['team_url'], add['team_icon']['image_44'], add == teams[0])
+                            # Adding new teams and saving loading positions
+                            if t['team_url'] not in self.domains:
+                                self.leftPane.addTeam(t['id'], t['team_name'], t['team_url'], t['team_icon']['image_44'], t == teams[0])
+                                self.domains.append(t['team_url'])
+                                self.settings.setValue("Domain", self.domains)
         if len(teams) > 1:
             self.leftPane.show()
 

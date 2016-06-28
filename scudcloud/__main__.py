@@ -38,8 +38,8 @@ def main():
         socket.deleteLater()
         return 0
     socket.deleteLater()
-    app = QtWidgets.QApplication(sys.argv)
-    app.setApplicationName(Resources.APP_NAME)
+    app = QtGui.QApplication(sys.argv)
+    app.setApplicationName(Resources.APP_NAME+' Slack_SSB')
     app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
     try:
         settings_path = load_settings(args.confdir)

@@ -1,3 +1,125 @@
+scudcloud (1.26-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 20 Jun 2016 13:56:08 -0300
+
+scudcloud (1.26-1) precise; urgency=medium
+
+  * Fixing no usernames in multichat (#449)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 20 Jun 2016 13:47:51 -0300
+
+scudcloud (1.25-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 17 Jun 2016 07:42:07 -0300
+
+scudcloud (1.25-1) precise; urgency=medium
+
+  * Fix attempt to general channel disappearing (#454)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 17 Jun 2016 07:39:03 -0300
+
+scudcloud (1.24-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 26 May 2016 08:19:12 -0300
+
+scudcloud (1.24-1) precise; urgency=medium
+
+  * Fixing profile again (#396)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 26 May 2016 08:16:32 -0300
+
+scudcloud (1.23-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 21 May 2016 21:12:55 -0300
+
+scudcloud (1.23-1) precise; urgency=medium
+
+  * Fixing add another team (#433)
+  * Fixing Long team names overflow  (#437)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 21 May 2016 21:09:36 -0300
+
+scudcloud (1.22-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 13 Apr 2016 08:45:35 -0300
+
+scudcloud (1.22-1) precise; urgency=medium
+
+  * Monospaced fonts for snippets (#428)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 13 Apr 2016 08:42:50 -0300
+
+scudcloud (1.21-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 12 Apr 2016 18:23:43 -0300
+
+scudcloud (1.21-1) precise; urgency=medium
+
+  * Support mouse forward/back navigation (#128)
+  * Remove 'Download the Slack App' from menu (#426) 
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 12 Apr 2016 18:20:48 -0300
+
+scudcloud (1.20-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 17 Mar 2016 14:47:03 -0300
+
+scudcloud (1.20-1) trusty; urgency=medium
+
+  * Updating button call to reflect Slack changes (#412)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 17 Mar 2016 14:44:44 -0300
+
+scudcloud (1.19-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 14 Mar 2016 08:44:59 -0300
+
+scudcloud (1.19-1) trusty; urgency=medium
+
+  * Support to start calls (#412)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 14 Mar 2016 08:39:10 -0300
+
+scudcloud (1.18-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 25 Feb 2016 21:35:53 -0300
+
+scudcloud (1.18-1) trusty; urgency=medium
+
+  * Make Hide Menubar entry always visible (#406)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 25 Feb 2016 21:34:01 -0300
+
+scudcloud (1.17-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 24 Feb 2016 08:59:29 -0300
+
+scudcloud (1.17-1) trusty; urgency=medium
+
+  * Fixing notification icon extension (#404)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 24 Feb 2016 08:57:25 -0300
+
 scudcloud (1.16-3) trusty; urgency=medium
 
   * Publishing on trusty
