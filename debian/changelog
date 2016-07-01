@@ -1,3 +1,15 @@
+scudcloud (1.27-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 30 Jun 2016 22:58:00 -0300
+
+scudcloud (1.27-1) precise; urgency=medium
+
+  * Adding some timeout to load all data (#454)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 30 Jun 2016 22:54:33 -0300
+
 scudcloud (1.26-2) trusty; urgency=medium
 
   * Publishing on Trusty
