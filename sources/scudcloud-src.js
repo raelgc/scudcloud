@@ -68,7 +68,12 @@ ScudCloud = {
 	},
 	// ScudCloud internal functions
 	log: function(name, args){
-		if("object"== typeof(args)) args = JSON.stringify(args);
+		// Sometimes stringify will fail with complex objects. Specifically, it'll break message edit (#)
+		try {
+			if("object"== typeof(args)) args = JSON.stringify(args);
+		} catch (e) {
+			args = '';
+		}
 		console.log("ScudCloud."+name+", args: "+args);
 	},
 	populate: function(){
