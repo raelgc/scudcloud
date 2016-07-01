@@ -72,6 +72,7 @@ ScudCloud = {
 		console.log("ScudCloud."+name+", args: "+args);
 	},
 	populate: function(){
+		// Wait until image_44 get ready (Fixes #454)
 		setTimeout(function(){
 			desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
 		}, 500);
