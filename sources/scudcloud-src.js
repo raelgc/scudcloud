@@ -72,13 +72,18 @@ ScudCloud = {
 		console.log("ScudCloud."+name+", args: "+args);
 	},
 	populate: function(){
-		desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
+		// Wait until image_44 get ready (Fixes #454)
+		setTimeout(function(){
+			desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
+		}, 500);
 	},
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();
 	},
 	listChannels: function(){
-		return TS.channels.getUnarchivedChannelsForUser();
+		var channels = TS.channels.getUnarchivedChannelsForUser();
+		channels.push(TS.channels.getChannelById(TS.model.active_channel_id));
+		return channels;
 	},
 	listTeams: function(){
 		var list = TS.getAllTeams();
@@ -130,7 +135,7 @@ $('body').delegate('#client-ui', 'DOMNodeInserted',
         if(obj.length > 0){
             var style = obj.attr('style');
 						if(-1==style.indexOf('-webkit-linear-gradient')){
-							obj.attr('style', style.replace('linear-gradient', '-webkit-linear-gradient'));							
+							obj.attr('style', style.replace('linear-gradient', '-webkit-linear-gradient'));
 						}
         }
     }
