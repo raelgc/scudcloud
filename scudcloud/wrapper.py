@@ -71,7 +71,7 @@ class Wrapper(QWebView):
         if pageMenu is not None:
             for a in pageMenu.actions():
                 if 'Open Link' == a.text() and not url.isEmpty():
-                    action = QtGui.QAction('Open Link', self)
+                    action = QtWidgets.QAction('Open Link', self)
                     action.triggered.connect(lambda: self.systemOpen(
                         self._urlToString(url)))
                     menu.addAction(action)
@@ -79,7 +79,7 @@ class Wrapper(QWebView):
                     continue
                 # Let's skip Slack redirect engine only when copying the link (Fixes #42)
                 elif 'Copy Link' == a.text() and not url.isEmpty():
-                    action = QtGui.QAction('Copy Link', self)
+                    action = QtWidgets.QAction('Copy Link', self)
                     action.triggered.connect(lambda: self.decodeAndCopy(
                         self._urlToString(url)))
                     menu.addAction(action)
