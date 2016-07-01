@@ -1,3 +1,15 @@
+scudcloud (1.28-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 01 Jul 2016 11:15:28 -0300
+
+scudcloud (1.28-1) precise; urgency=medium
+
+  * Fixing message edit (#459)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 01 Jul 2016 11:09:58 -0300
+
 scudcloud (1.27-2) trusty; urgency=medium
 
   * Publishing on Trusty
