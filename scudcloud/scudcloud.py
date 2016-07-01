@@ -408,7 +408,7 @@ class ScudCloud(QtGui.QMainWindow):
                 ql = Dbusmenu.Menuitem.new()
                 self.launcher.set_property("quicklist", ql)
                 for c in channels:
-                    if c['is_member']:
+                    if hasattr(c, '__getitem__') and c['is_member']:
                         item = Dbusmenu.Menuitem.new ()
                         item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, "#"+c['name'])
                         item.property_set ("id", c['name'])
