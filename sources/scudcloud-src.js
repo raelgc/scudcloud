@@ -1,5 +1,7 @@
 ScudCloud = {
 	unloaded: true,
+	// This will fix Preferences > Advanced Options (#469)
+	env: { mac_ssb_version: 1 },
 	// App functions
 	hasPreference: function(name){
 		return false;
@@ -68,7 +70,12 @@ ScudCloud = {
 	},
 	// ScudCloud internal functions
 	log: function(name, args){
-		if("object"== typeof(args)) args = JSON.stringify(args);
+		// Sometimes stringify will fail with complex objects. Specifically, it'll break message edit (#)
+		try {
+			if("object"== typeof(args)) args = JSON.stringify(args);
+		} catch (e) {
+			args = '';
+		}
 		console.log("ScudCloud."+name+", args: "+args);
 	},
 	populate: function(){
