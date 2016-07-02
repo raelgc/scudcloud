@@ -1,5 +1,7 @@
 ScudCloud = {
 	unloaded: true,
+	// This will fix Preferences > Advanced Options (#469)
+	env: { mac_ssb_version: 1 },
 	// App functions
 	hasPreference: function(name){
 		return false;
