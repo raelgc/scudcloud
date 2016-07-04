@@ -13,3 +13,5 @@ pre, pre > span { font-family: Monaco,Menlo,Consolas,"Courier New",monospace; }
 .overflow_ellipsis { width: 148px; }
 /* Multi-user chats (with unread messages) don't show usernames (Fixes #449) */
 #im-list { width: 100% !important; }
+/* Names on jumper list should be not trimmed (Fixes #471) */
+ts-jumper ol li .item_details { width: 100% !important; }
