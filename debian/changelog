@@ -1,3 +1,15 @@
+scudcloud (1.29-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 02 Jul 2016 12:30:35 -0300
+
+scudcloud (1.29-1) precise; urgency=medium
+
+  * Fixing advanced tab preferences (#469)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Sat, 02 Jul 2016 12:28:30 -0300
+
 scudcloud (1.28-2) trusty; urgency=medium
 
   * Publishing on Trusty
