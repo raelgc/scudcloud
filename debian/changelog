@@ -1,3 +1,15 @@
+scudcloud (1.30-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 05 Jul 2016 09:11:10 -0300
+
+scudcloud (1.30-1) precise; urgency=medium
+
+  * Names on jumper list should be not trimmed (#471)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 05 Jul 2016 09:09:13 -0300
+
 scudcloud (1.29-2) trusty; urgency=medium
 
   * Publishing on Trusty
