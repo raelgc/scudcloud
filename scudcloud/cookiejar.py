@@ -11,9 +11,9 @@ class PersistentCookieJar(QtNetwork.QNetworkCookieJar):
     def save(self):
         listCookies = self.allCookies()
         data = QtCore.QByteArray()
-        for cookie in  listCookies:
+        for cookie in listCookies:
             if not cookie.isSessionCookie():
-                data.append(cookie.toRawForm()+ "\n")
+                data.append(cookie.toRawForm().append("\n"))
         self.mainWindow.settings.setValue("Cookies",data)
 
     def load(self):
