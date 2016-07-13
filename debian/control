@@ -13,9 +13,11 @@ Depends: libqtwebkit4 (>= 2.3.2),
          python3-setuptools,
          python3-dbus,
          python3-dbus.mainloop.qt,
-         python3-pyqt4,
+         python3-pyqt5,
+         python3-pyqt5.qtsvg,
+         python3-pyqt5.qtwebkit
          xdg-utils,
-         ${misc:Depends}, 
+         ${misc:Depends},
          ${python3:Depends}
 Recommends: sni-qt,
             fonts-lato,

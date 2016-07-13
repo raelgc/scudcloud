@@ -44,7 +44,7 @@ Requires(postun): xdg-utils
 Url:            https://github.com/raelgc/scudcloud/
 Source:         %{name}-%{version}.tar.gz
 Requires:       python3
-Requires:       python3-qt4
+Requires:       python3-qt5
 %if 0%{?suse_version}
 Requires:       google-lato-fonts
 Requires:       dbus-1-python3
@@ -52,7 +52,7 @@ Requires:       dbus-1-python3
 Requires:       lato-fonts
 Requires:       python3-dbus
 %endif
-Suggests:       libqt4-webkit-qupzillaplugins
+Suggests:       libqt5-webkit-qupzillaplugins
 Suggests:       python3-hunspell
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildArch:      noarch

@@ -33,7 +33,7 @@ setup(name='scudcloud',
       maintainer_email='andrew.stiegmann@gmail.com',
       package_data={'scudcloud': ['resources/*',]},
       packages=['scudcloud',],
-      requires=['dbus', 'PyQt4',],
+      requires=['dbus', 'PyQt5',],
       url='https://github.com/raelgc/scudcloud',
       version = __version__,
 )
