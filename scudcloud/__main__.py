@@ -49,8 +49,9 @@ def main():
               " could not be created! Exiting...")
         raise SystemExit()
     minimized = True if args.minimized is True else None
+    urgent_hint = True if args.urgent_hint is True else None
 
-    win = sca.ScudCloud(debug=args.debug, minimized=minimized, settings_path=settings_path)
+    win = sca.ScudCloud(debug=args.debug, minimized=minimized, urgent_hint=urgent_hint, settings_path=settings_path)
     app.commitDataRequest.connect(win.setForceClose, type=QtCore.Qt.DirectConnection)
 
     server = QLocalServer()
@@ -87,6 +88,7 @@ def parse_arguments():
     parser.add_argument('--confdir',    dest='confdir',      metavar='dir', default=default_confdir, help="change the configuration directory")
     parser.add_argument('--debug',      dest='debug',        type=bool,     default=False,           help="enable webkit debug console (default: False)")
     parser.add_argument('--minimized',  dest='minimized',    type=bool,     default=False,           help="start minimized to tray (default: False)")
+    parser.add_argument('--urgent-hint',dest='urgent_hint',  type=bool,     default=False,           help="set window manager URGENT hint( default: False)")
     parser.add_argument('--version',    action="store_true",                                         help="print version and exit")
     args = parser.parse_args()
     if args.version:
