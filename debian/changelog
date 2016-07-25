@@ -1,3 +1,15 @@
+scudcloud (1.31-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 25 Jul 2016 20:13:21 -0300
+
+scudcloud (1.31-1) precise; urgency=medium
+
+  * Option to enable urgent flag (#401)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 25 Jul 2016 20:11:36 -0300
+
 scudcloud (1.30-2) trusty; urgency=medium
 
   * Publishing on Trusty
