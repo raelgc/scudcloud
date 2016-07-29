@@ -1,3 +1,9 @@
+scudcloud (1.31-3) trusty; urgency=medium
+
+  * Re-Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 25 Jul 2016 20:36:05 -0300
+
 scudcloud (1.31-2) trusty; urgency=medium
 
   * Publishing on Trusty
