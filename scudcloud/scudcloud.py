@@ -25,8 +25,10 @@ except ImportError:
 
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
+    import gi
+    gi.require_version('Unity', '7.0')
     from gi.repository import Unity, Dbusmenu
-except ImportError:
+except (ImportError, ValueError):
     Unity = None
     Dbusmenu = None
     from scudcloud.launcher import DummyLauncher
