@@ -38,10 +38,11 @@ class ScudCloud(QtWidgets.QMainWindow):
     speller = Speller()
     title = 'ScudCloud'
 
-    def __init__(self, debug = False, parent = None, minimized = None, settings_path = ""):
+    def __init__(self, debug = False, parent = None, minimized = None, urgent_hint = None, settings_path = ""):
         super(ScudCloud, self).__init__(parent)
         self.debug = debug
         self.minimized = minimized
+        self.urgent_hint = urgent_hint
         self.setWindowTitle(self.title)
         self.settings_path = settings_path
         self.notifier = Notifier(Resources.APP_NAME, Resources.get_path('scudcloud.png'))
@@ -428,6 +429,8 @@ class ScudCloud(QtWidgets.QMainWindow):
         if not self.isActiveWindow():
             self.launcher.set_property("urgent", True)
             self.tray.alert()
+        if self.urgent_hint is True:
+            QApplication.alert(self)
 
     def count(self):
         total = 0
