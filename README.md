@@ -164,6 +164,10 @@ ScudCloud offers zoom support. The zoom level will be persisted between sessions
 
 Make sure that `File` > `Close to Tray` is checked.
 
+#### 8. Code blocks are not using fixed width font
+
+This is the font-family required (i.e., you need of them): `Monaco, Menlo, Consolas, Courier New, monospace`.
+
 # License
 
 ScudCloud is is released under the [MIT License](/LICENSE).
