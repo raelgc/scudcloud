@@ -393,6 +393,7 @@ class ScudCloud(QtWidgets.QMainWindow):
             event.ignore()
         else:
             self.cookiesjar.save()
+            self.settings.setValue("Domain", self.domains)
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
             self.settings.setValue("Domain", self.domains)
