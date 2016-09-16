@@ -14,6 +14,7 @@ Depends: libqtwebkit4 (>= 2.3.2),
          python3-dbus,
          python3-dbus.mainloop.qt,
          python3-pyqt4,
+         gir1.2-notify-0.7,
          xdg-utils,
          ${misc:Depends}, 
          ${python3:Depends}
