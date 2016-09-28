@@ -46,6 +46,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.settings_path = settings_path
         self.notifier = Notifier(Resources.APP_NAME, Resources.get_path('scudcloud.png'))
         self.settings = QSettings(self.settings_path + '/scudcloud.cfg', QSettings.IniFormat)
+        self.notifier.enabled = self.settings.value('Notifications')
         self.identifier = self.settings.value("Domain")
         if Unity is not None:
             self.launcher = Unity.LauncherEntry.get_for_desktop_id("scudcloud.desktop")
