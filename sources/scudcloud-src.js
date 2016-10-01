@@ -16,6 +16,13 @@ ScudCloud = {
 		// Ubuntu cannot display HTML notifications
 		return false;
 	},
+    // Uploading doesn't work in some cases when slack cannot call getModifierKeys on this variable.
+    // This works, even if nothing is being returned
+    app: {
+        getModifierKeys: function() {
+            //TODO: actually get modifier keys
+        }
+    },
 	// TSSSB.call
 	call: function(name, args){
 		ScudCloud.log(name, args);
