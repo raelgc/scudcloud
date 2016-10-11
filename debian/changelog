@@ -1,3 +1,29 @@
+scudcloud (1.33-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 10 Oct 2016 08:13:00 -0300
+
+scudcloud (1.33-1) precise; urgency=medium
+
+  * Config file option to disable notifications (#492)
+  * Better drag n' drop file support (#493)
+  * Fixing "Create new channel" positioning (#495)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 10 Oct 2016 08:00:06 -0300
+
+scudcloud (1.32-2) yakkety; urgency=medium
+
+  * Fixing dependencies on Yakkety
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 31 Aug 2016 18:52:41 -0300
+
+scudcloud (1.32-1) yakkety; urgency=medium
+
+  * Qt5 port for Yakkety
+
+-- Rael Gugelmin Cunha <rael.gc@gmail.com> Tue, 30 Aug 2016 17:52:47 -0300
+
 scudcloud (1.31-3) trusty; urgency=medium
 
   * Re-Publishing on Trusty
