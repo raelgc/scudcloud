@@ -69,7 +69,13 @@ class Wrapper(QWebView):
         url = hit.linkUrl()
         if pageMenu is not None:
             for a in pageMenu.actions():
-                if 'Open Link' == a.text() and not url.isEmpty():
+                if 'Copy' == a.text():
+                    menu.addAction(a)
+                    # Adding Copy Quoted
+                    action = QtGui.QAction('Copy Quoted', self)
+                    action.triggered.connect(lambda: self.copyQuoted(str(self.selectedText())))
+                    menu.addAction(action)
+                elif 'Open Link' == a.text() and not url.isEmpty():
                     action = QtGui.QAction('Open Link', self)
                     action.triggered.connect(lambda: self.systemOpen(
                         self._urlToString(url)))
@@ -88,6 +94,11 @@ class Wrapper(QWebView):
                     menu.addAction(a)
         del pageMenu
         menu.exec_(event.globalPos())
+
+    def copyQuoted(self, str):
+        mark = '> '
+        quote = mark + str.replace('\n', '\n' + mark)
+        QApplication.clipboard().setText(quote)
 
     def decodeAndCopy(self, url):
         if url.startswith("https://slack-redir.net/link?url="):
