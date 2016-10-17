@@ -1,3 +1,15 @@
+scudcloud (1.34-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 17 Oct 2016 13:54:46 -0200
+
+scudcloud (1.34-1) trusty; urgency=medium
+
+  * Implement `Copy Quoted` to context menu (#499)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 17 Oct 2016 13:52:43 -0200
+
 scudcloud (1.33-2) trusty; urgency=medium
 
   * Publishing on Trusty
