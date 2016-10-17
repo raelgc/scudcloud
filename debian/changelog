@@ -1,3 +1,29 @@
+scudcloud (1.34-2) precise; urgency=medium
+
+  * Publishing on Precise
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 17 Oct 2016 13:54:46 -0200
+
+scudcloud (1.34-1) trusty; urgency=medium
+
+  * Implement `Copy Quoted` to context menu (#499)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 17 Oct 2016 13:52:43 -0200
+
+scudcloud (1.33-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 10 Oct 2016 08:13:00 -0300
+
+scudcloud (1.33-1) precise; urgency=medium
+
+  * Config file option to disable notifications (#492)
+  * Better drag n' drop file support (#493)
+  * Fixing "Create new channel" positioning (#495)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 10 Oct 2016 08:00:06 -0300
+
 scudcloud (1.32-2) yakkety; urgency=medium
 
   * Fixing dependencies on Yakkety
@@ -146,7 +172,7 @@ scudcloud (1.21-2) trusty; urgency=medium
 scudcloud (1.21-1) precise; urgency=medium
 
   * Support mouse forward/back navigation (#128)
-  * Remove 'Download the Slack App' from menu (#426) 
+  * Remove 'Download the Slack App' from menu (#426)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 12 Apr 2016 18:20:48 -0300
 
@@ -329,20 +355,20 @@ scudcloud (1.2-0) trusty; urgency=medium
 
 scudcloud (1.1-12) trusty; urgency=medium
 
-  * URLs breaking at first '&' (#330) 
+  * URLs breaking at first '&' (#330)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 06 Jan 2016 13:07:34 -0200
 
 scudcloud (1.1-11) trusty; urgency=medium
 
   * Exit application on request by session manager (#314)
-  * Fix URL fragments in copied links (#328) 
+  * Fix URL fragments in copied links (#328)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 29 Dec 2015 18:35:32 -0200
 
 scudcloud (1.1-10) trusty; urgency=medium
 
-  * Don't return "&v=3" part when stripping redirection code (#324) 
+  * Don't return "&v=3" part when stripping redirection code (#324)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 22 Dec 2015 13:02:21 -0200
 
@@ -354,8 +380,8 @@ scudcloud (1.1-9) trusty; urgency=medium
 
 scudcloud (1.1-8) trusty; urgency=medium
 
-  * Strip redirection code when copying links (#42) 
-  * Avoid crash if slash in team name (#315) 
+  * Strip redirection code when copying links (#42)
+  * Avoid crash if slash in team name (#315)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 10 Dec 2015 20:44:03 -0200
 
@@ -883,7 +909,7 @@ scudcloud (1.0-15) trusty; urgency=low
 
 scudcloud (1.0-14) trusty; urgency=low
 
-  * Adding count to systray (#16) 
+  * Adding count to systray (#16)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 12 Mar 2015 10:33:49 -0300
 

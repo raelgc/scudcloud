@@ -15,3 +15,5 @@ pre, pre > span { font-family: Monaco,Menlo,Consolas,"Courier New",monospace; }
 #im-list { width: 100% !important; }
 /* Names on jumper list should be not trimmed (Fixes #471) */
 ts-jumper ol li .item_details { width: 100% !important; }
+/* "Create new channel" button is in wrong position (Fixes #495) */
+.channels_list_new_btn { right: 16px !important; }
