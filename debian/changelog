@@ -1,3 +1,9 @@
+scudcloud (1.35-1) yakkety; urgency=medium
+
+  * Publishing on Yakkety
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 19 Oct 2016 07:53:09 -0200
+
 scudcloud (1.34-2) precise; urgency=medium
 
   * Publishing on Precise
