@@ -73,11 +73,11 @@ class Wrapper(QWebView):
                 if 'Copy' == a.text():
                     menu.addAction(a)
                     # Adding Copy Quoted
-                    action = QtGui.QAction('Copy Quoted', self)
+                    action = QtWidgets.QAction('Copy Quoted', self)
                     action.triggered.connect(lambda: self.copyQuoted(str(self.selectedText())))
                     menu.addAction(action)
                 elif 'Open Link' == a.text() and not url.isEmpty():
-                    action = QtGui.QAction('Open Link', self)
+                    action = QtWidgets.QAction('Open Link', self)
                     action.triggered.connect(lambda: self.systemOpen(
                         self._urlToString(url)))
                     menu.addAction(action)
