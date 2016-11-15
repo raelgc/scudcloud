@@ -18,6 +18,7 @@ from scudcloud.version import __version__
 
 import fcntl, platform, signal, tempfile
 from sip import SIP_VERSION_STR
+from shutil import copyfile
 from PyQt4 import QtGui, QtCore
 from PyQt4.Qt import PYQT_VERSION_STR
 from PyQt4.QtCore import QT_VERSION_STR
@@ -49,6 +50,9 @@ def main():
         raise SystemExit()
     minimized = True if args.minimized is True else None
     urgent_hint = True if args.urgent_hint is True else None
+
+    # Let's move the CSS to cachedir to enable additional actions
+    copyfile(Resources.get_path('resources.css'), os.path.join(cache_path, 'resources.css'))
 
     win = sca.ScudCloud(
         debug=args.debug,

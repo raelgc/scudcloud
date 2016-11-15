@@ -22,8 +22,11 @@ class Wrapper(QWebView):
         self.configure_proxy()
         QWebView.__init__(self)
         self.window = window
-        with open(Resources.get_path("scudcloud.js"), "r") as f:
-            self.js = f.read()
+        with open(Resources.get_path('scudcloud.js'), 'r') as f:
+            self.default_js = f.read()
+        if self.window.disable_snippets:
+            with open(Resources.get_path('disable_snippets.js'), 'r') as f:
+                self.disable_snippets_js = f.read()
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.urlChanged.connect(self._urlChanged)
@@ -116,7 +119,8 @@ class Wrapper(QWebView):
 
     def _loadStarted(self):
         # Some custom CSS to clean/fix UX
-        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
+        resources = os.path.join(self.window.cache_path, 'resources.css')
+        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(resources))
 
     def mousePressEvent(self, event):
         if self.window.debug: print("Mouse Button {}".format(event.button()))
@@ -143,7 +147,9 @@ class Wrapper(QWebView):
         # Starting the webkit-JS bridge
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         # Loading ScudCloud JS client
-        self.page().currentFrame().evaluateJavaScript(self.js)
+        self.page().currentFrame().evaluateJavaScript(self.default_js)
+        if self.window.disable_snippets:
+            self.page().currentFrame().evaluateJavaScript(self.disable_snippets_js)
         self.window.statusBar().hide()
 
     def systemOpen(self, url):
