@@ -10,7 +10,6 @@ from PyQt4.QtCore import QBuffer, QByteArray, QUrl
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 from PyQt4.QtNetwork import QNetworkProxy
 
-
 class Wrapper(QWebView):
 
     highlights = 0
@@ -221,7 +220,7 @@ class Wrapper(QWebView):
         self.name = data['teams'][0]['team_name']
         # Using team id to avoid invalid icon paths (Fixes #315)
         icon_name = 'scudcloud_' + data['teams'][0]['id'] + '.jpg'
-        icon_path = os.path.join(tempfile.gettempdir(), icon_name)
+        icon_path = os.path.join(self.window.cache_path, icon_name)
         # Download the file to use in notifications
         file_name, headers = request.urlretrieve(data['icon'], icon_path)
         self.icon = file_name
