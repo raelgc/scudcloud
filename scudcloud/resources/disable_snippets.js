@@ -1,0 +1,2 @@
+// Disabling flex panels
+$('body').delegate('.file_preview_link.no_jumbomoji.file_force_flexpane.bold.msg_inline_file_preview_title', 'click', function(e){e.preventDefault();desktop.open($(this).parent().attr("href"));});

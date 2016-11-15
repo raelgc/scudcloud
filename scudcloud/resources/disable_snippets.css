@@ -1,0 +1,3 @@
+/* Hidding snippets */
+.snippet_container { display: none !important; }
+.msg_inline_file_preview_toggler .msg_inline_media_toggler { display: none !important; }
