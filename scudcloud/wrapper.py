@@ -1,6 +1,6 @@
 from scudcloud.resources import Resources
 
-import sys, subprocess, os, json, tempfile
+import sys, subprocess, os, json
 from urllib import request
 from urllib.parse import parse_qs, urlparse, urlsplit
 

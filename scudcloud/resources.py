@@ -11,8 +11,8 @@ class Resources:
     GOOGLE_OAUTH2_URL_RE = re.compile(r'^https://accounts.google.com/o/oauth')
 
     SPELL_LIMIT = 6
-    SPELL_DICT_PATH = '/usr/share/hunspell'
-    DEFAULT_CONFDIR = '~/.config/scudcloud'
+    SPELL_DICT_PATH  = '/usr/share/hunspell'
+    DEFAULT_CONFDIR  = '~/.config/scudcloud'
     DEFAULT_CACHEDIR = '~/.cache/scudcloud'
 
     # It's initialized in /scudcloud script
