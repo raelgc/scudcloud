@@ -54,6 +54,7 @@ class ScudCloud(QtGui.QMainWindow):
         else:
             self.launcher = DummyLauncher(self)
         self.webSettings()
+        self.snippetsSettings()
         self.leftPane = LeftPane(self)
         self.stackedWidget = QtGui.QStackedWidget()
         centralWidget = QtGui.QWidget(self)
@@ -139,6 +140,19 @@ class ScudCloud(QtGui.QMainWindow):
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.debug)
+
+    def snippetsSettings(self):
+        self.disable_snippets = self.settings.value("Snippets")
+        if self.disable_snippets is not None:
+            self.disable_snippets = self.disable_snippets == "False"
+        else:
+            self.disable_snippets = False
+        if self.disable_snippets:
+            disable_snippets_css = ''
+            with open(Resources.get_path('disable_snippets.css'), 'r') as f:
+                disable_snippets_css = f.read()
+            with open(os.path.join(self.cache_path, 'resources.css'), 'a') as f:
+                f.write(disable_snippets_css)
 
     def toggleFullScreen(self):
         if self.isFullScreen():
