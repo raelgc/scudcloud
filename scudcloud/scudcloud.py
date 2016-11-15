@@ -37,13 +37,14 @@ class ScudCloud(QtGui.QMainWindow):
     speller = Speller()
     title = 'ScudCloud'
 
-    def __init__(self, debug = False, parent = None, minimized = None, urgent_hint = None, settings_path = ""):
-        super(ScudCloud, self).__init__(parent)
+    def __init__(self, debug = False, minimized = None, urgent_hint = None, settings_path = '', cache_path = ''):
+        super(ScudCloud, self).__init__(None)
         self.debug = debug
         self.minimized = minimized
         self.urgent_hint = urgent_hint
         self.setWindowTitle(self.title)
         self.settings_path = settings_path
+        self.cache_path = cache_path
         self.notifier = Notifier(Resources.APP_NAME, Resources.get_path('scudcloud.png'))
         self.settings = QSettings(self.settings_path + '/scudcloud.cfg', QSettings.IniFormat)
         self.notifier.enabled = self.settings.value('Notifications', defaultValue=True, type=bool)
@@ -133,7 +134,7 @@ class ScudCloud(QtGui.QMainWindow):
         QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, False)
         # Enabling Cache
         self.diskCache = QNetworkDiskCache(self)
-        self.diskCache.setCacheDirectory(self.settings_path)
+        self.diskCache.setCacheDirectory(self.cache_path)
         # Required for copy and paste clipboard integration
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)

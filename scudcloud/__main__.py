@@ -43,15 +43,20 @@ def main():
     app.setWindowIcon(QtGui.QIcon(Resources.get_path('scudcloud.png')))
 
     try:
-        settings_path = load_settings(args.confdir)
+        settings_path, cache_path = load_settings(args.confdir, args.cachedir)
     except:
-        print("Configuration directory " + args.confdir +\
-              " could not be created! Exiting...")
+        print("Data directories "+args.confdir+" and "+args.cachedir+" could not be created! Exiting...")
         raise SystemExit()
     minimized = True if args.minimized is True else None
     urgent_hint = True if args.urgent_hint is True else None
 
-    win = sca.ScudCloud(debug=args.debug, minimized=minimized, urgent_hint=urgent_hint, settings_path=settings_path)
+    win = sca.ScudCloud(
+        debug=args.debug,
+        minimized=minimized,
+        urgent_hint=urgent_hint,
+        settings_path=settings_path,
+        cache_path=cache_path
+    )
     app.commitDataRequest.connect(win.setForceClose, type=QtCore.Qt.DirectConnection)
 
     server = QLocalServer()
@@ -70,31 +75,38 @@ def restore():
     win.showNormal()
     win.activateWindow()
 
-def load_settings(confdir):
-    if not os.path.isdir(confdir):
-        os.makedirs(confdir)
-    if confdir not in sys.path:
-        sys.path[0:0] = [confdir]
-    return confdir
+def load_settings(*dirs):
+    for d in dirs:
+        if not os.path.isdir(d):
+            os.makedirs(d)
+    if dirs[0] not in sys.path:
+        sys.path[0:0] = [dirs[0]]
+    return dirs
 
 def parse_arguments():
     from argparse import ArgumentParser
     from os.path import expanduser
     if 'XDG_CONFIG_HOME' in os.environ and os.environ['XDG_CONFIG_HOME']:
-        default_confdir = os.environ['XDG_CONFIG_HOME'] + '/scudcloud'
+        default_confdir = os.path.join(os.environ['XDG_CONFIG_HOME'], 'scudcloud')
     else:
-        default_confdir = '~/.config/scudcloud'
+        default_confdir = Resources.DEFAULT_CONFDIR
+    if 'XDG_CACHE_HOME' in os.environ and os.environ['XDG_CACHE_HOME']:
+        default_cachedir = os.path.join(os.environ['XDG_CACHE_HOME'], 'scudcloud')
+    else:
+        default_cachedir = Resources.DEFAULT_CACHEDIR
     parser = ArgumentParser()
-    parser.add_argument('--confdir',    dest='confdir',      metavar='dir', default=default_confdir, help="change the configuration directory")
-    parser.add_argument('--debug',      dest='debug',        type=bool,     default=False,           help="enable webkit debug console (default: False)")
-    parser.add_argument('--minimized',  dest='minimized',    type=bool,     default=False,           help="start minimized to tray (default: False)")
-    parser.add_argument('--urgent-hint',dest='urgent_hint',  type=bool,     default=False,           help="set window manager URGENT hint( default: False)")
-    parser.add_argument('--version',    action="store_true",                                         help="print version and exit")
+    parser.add_argument('--confdir',    dest='confdir',      metavar='dir', default=default_confdir,  help="change the configuration directory")
+    parser.add_argument('--cachedir',   dest='cachedir',     metavar='dir', default=default_cachedir, help="change the default cache directory")
+    parser.add_argument('--debug',      dest='debug',        type=bool,     default=False,            help="enable webkit debug console (default: False)")
+    parser.add_argument('--minimized',  dest='minimized',    type=bool,     default=False,            help="start minimized to tray (default: False)")
+    parser.add_argument('--urgent-hint',dest='urgent_hint',  type=bool,     default=False,            help="set window manager URGENT hint( default: False)")
+    parser.add_argument('--version',    action="store_true",                                          help="print version and exit")
     args = parser.parse_args()
     if args.version:
         versions()
         sys.exit()
     args.confdir = expanduser(args.confdir)
+    args.cachedir = expanduser(args.cachedir)
     return args
 
 def versions():

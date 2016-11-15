@@ -46,7 +46,7 @@ class Speller(QObject):
         return QFile(path + ".dic").exists() and QFile(path + ".aff").exists();
 
     def getDictionaryPath(self):
-        dicPath = Resources.SPELL_DICT_PATH + QLocale.system().name()
+        dicPath = os.path.join(Resources.SPELL_DICT_PATH, QLocale.system().name())
         if self.dictionaryExists(dicPath):
             return dicPath
         return ''
