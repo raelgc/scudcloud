@@ -168,6 +168,15 @@ Make sure that `File` > `Close to Tray` is checked.
 
 This is the font-family required (i.e., you need of them): `Monaco, Menlo, Consolas, Courier New, monospace`.
 
+#### 9. Viewing snippets consumes too much resources
+
+This is a known behavior of python webkit. But you can disable snippets inline view (they'll be opened in browser).
+
+To achieve this, edit the config file located at `~/.config/scudcloud/scudcloud.cfg` and add the following line:
+
+    Snippets=False
+
+
 # License
 
 ScudCloud is is released under the [MIT License](/LICENSE).

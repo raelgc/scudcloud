@@ -1,6 +1,6 @@
 from scudcloud.resources import Resources
 
-import sys, subprocess, os, json, tempfile
+import sys, subprocess, os, json
 from urllib import request
 from urllib.parse import parse_qs, urlparse, urlsplit
 
@@ -10,7 +10,6 @@ from PyQt5.QtCore import QBuffer, QByteArray, QUrl
 from PyQt5.QtWebKitWidgets import QWebView, QWebPage
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtNetwork import QNetworkProxy
-
 
 class Wrapper(QWebView):
 
@@ -24,8 +23,11 @@ class Wrapper(QWebView):
         self.configure_proxy()
         QWebView.__init__(self)
         self.window = window
-        with open(Resources.get_path("scudcloud.js"), "r") as f:
-            self.js = f.read()
+        with open(Resources.get_path('scudcloud.js'), 'r') as f:
+            self.default_js = f.read()
+        if self.window.disable_snippets:
+            with open(Resources.get_path('disable_snippets.js'), 'r') as f:
+                self.disable_snippets_js = f.read()
         self.setZoomFactor(self.window.zoom)
         self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.urlChanged.connect(self._urlChanged)
@@ -118,7 +120,8 @@ class Wrapper(QWebView):
 
     def _loadStarted(self):
         # Some custom CSS to clean/fix UX
-        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(Resources.get_path("resources.css")))
+        resources = os.path.join(self.window.cache_path, 'resources.css')
+        self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(resources))
 
     def mousePressEvent(self, event):
         if self.window.debug: print("Mouse Button {}".format(event.button()))
@@ -145,7 +148,9 @@ class Wrapper(QWebView):
         # Starting the webkit-JS bridge
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         # Loading ScudCloud JS client
-        self.page().currentFrame().evaluateJavaScript(self.js)
+        self.page().currentFrame().evaluateJavaScript(self.default_js)
+        if self.window.disable_snippets:
+            self.page().currentFrame().evaluateJavaScript(self.disable_snippets_js)
         self.window.statusBar().hide()
 
     def systemOpen(self, url):
@@ -222,7 +227,7 @@ class Wrapper(QWebView):
         self.name = data['teams'][0]['team_name']
         # Using team id to avoid invalid icon paths (Fixes #315)
         icon_name = 'scudcloud_' + data['teams'][0]['id'] + '.jpg'
-        icon_path = os.path.join(tempfile.gettempdir(), icon_name)
+        icon_path = os.path.join(self.window.cache_path, icon_name)
         # Download the file to use in notifications
         file_name, headers = request.urlretrieve(data['icon'], icon_path)
         self.icon = file_name
