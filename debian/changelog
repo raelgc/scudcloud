@@ -1,3 +1,11 @@
+scudcloud (1.37-1) trusty; urgency=medium
+
+  * Adding an option to disable snippets (#140)
+  * Moving team icons to user land (#497)
+  * Moving cache path to XDG_CACHE_HOME (#505)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 16 Nov 2016 08:16:11 -0200
+
 scudcloud (1.36-1) yakkety; urgency=medium
 
   * Fixing right-click crashing (#503)
