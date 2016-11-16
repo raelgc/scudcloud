@@ -18,18 +18,11 @@ from scudcloud.version import __version__
 
 import fcntl, platform, signal, tempfile
 from sip import SIP_VERSION_STR
-<<<<<<< HEAD
+from shutil import copyfile
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.Qt import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
-=======
-from shutil import copyfile
-from PyQt4 import QtGui, QtCore
-from PyQt4.Qt import PYQT_VERSION_STR
-from PyQt4.QtCore import QT_VERSION_STR
-from PyQt4.QtNetwork import QLocalServer, QLocalSocket
->>>>>>> master
 
 # The ScudCloud QMainWindow
 win = None
