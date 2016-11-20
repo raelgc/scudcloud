@@ -71,11 +71,6 @@ sudo apt-get install scudcloud
 
 If you want spell checking and a Slack icon, follow related instructions on [Ubuntu Install section](#ubuntukubuntu-and-mint).
 
-### 
-```
-
-If you want spell checking and a Slack icon, follow related instructions on [Ubuntu Install section](#ubuntukubuntu-and-mint).
-
 ## Arch Linux
 
 There is a [PKGBUILD available][pkgbuild] on the Arch User Repository. You can install it
