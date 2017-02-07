@@ -1,3 +1,15 @@
+scudcloud (1.38-2) trusty; urgency=medium
+
+  * Publishing on Trusty
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 07 Feb 2017 09:31:22 -0200
+
+scudcloud (1.38-1) precise; urgency=medium
+
+  * Fixing teams loading (#518)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 07 Feb 2017 09:28:13 -0200
+
 scudcloud (1.37-1) trusty; urgency=medium
 
   * Adding an option to disable snippets (#140)
