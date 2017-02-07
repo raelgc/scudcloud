@@ -100,10 +100,19 @@ ScudCloud = {
 		return channels;
 	},
 	listTeams: function(){
-		var list = TS.getAllTeams();
-		// Fix for current team displaying no icon
-		list[0].team_icon = {"image_44":TS.model.team.icon.image_44};
-		return list;
+		var currentTeam = {
+			id: TS.boot_data.user_id,
+			team_color: null,
+			team_icon: TS.model.team.icon,
+			team_id: TS.model.team.id,
+			team_name: TS.model.team.name,
+			team_url: "https://" + TS.model.team.domain + ".slack.com/"
+		};
+		var teams = [currentTeam];
+		for(var id in TS.boot_data.other_accounts){
+			teams.push(TS.boot_data.other_accounts[id]);
+		}
+		return teams;
 	},
 	quicklist: function(){
 		desktop.quicklist(ScudCloud.listChannels());
@@ -124,11 +133,8 @@ ScudCloud = {
 		document.location = TS.boot_data.signin_url;
 	},
 	getCurrentTeam: function(){
-		var list = TS.getAllTeams();
-		if(list!=null) for(var i=0;list.length;i++){
-			if(list[i].team_url==TS.boot_data.team_url){
-				return list[i].id;
-			}
+		if(TS.boot_data.user_id){
+			return TS.boot_data.user_id;
 		}
 		return "";
 	},
