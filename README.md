@@ -57,13 +57,14 @@ sudo apt-get update
 sudo apt-get upgrade
 ```
 
-## Debian
+## Debian and derivatives like BunsenLabs Linux
 
-Make sure `software-properties-common` is installed, then run:
+Make sure the `software-properties-common` and `lsb-release` packages are installed, then run:
 
 ```
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
-sudo sed -i 's/jessie/trusty/g' /etc/apt/sources.list.d/rael-gc-scudcloud-jessie.list
+DISTRIB_CODENAME=$(lsb_release -sc)
+sudo sed -i "s/${DISTRIB_CODENAME}/trusty/g" /etc/apt/sources.list.d/rael-gc-scudcloud-${DISTRIB_CODENAME}.list
 sudo apt-get update
 sudo apt-get install scudcloud
 ```
