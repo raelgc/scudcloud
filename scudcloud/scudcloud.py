@@ -421,6 +421,8 @@ class ScudCloud(QtWidgets.QMainWindow):
         self.setVisible(True)
 
     def exit(self):
+        # Make sure tray is not visible (Fixes #513)
+        self.tray.setVisible(False)
         self.setForceClose()
         self.close()
 
