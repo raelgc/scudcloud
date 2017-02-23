@@ -22,7 +22,6 @@ scudcloud (1.38-1) yakkety; urgency=medium
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 16 Nov 2016 08:34:50 -0200
 
->>>>>>> Stashed changes
 scudcloud (1.37-1) trusty; urgency=medium
 
   * Adding an option to disable snippets (#140)
