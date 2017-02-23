@@ -1,20 +1,26 @@
+scudcloud (1.41-1) xenial; urgency=medium
+
+  * Adding more time to team loading (#518)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 23 Feb 2017 07:59:58 -0300
+
+scudcloud (1.40-1) yakkety; urgency=medium
+
+  * Publishing on yakkety
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 07 Feb 2017 09:51:47 -0200
+
 scudcloud (1.39-1) trusty; urgency=medium
-
-  * Fixing version
-
- -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 07 Feb 2017 09:35:30 -0200
-
-scudcloud (1.38-2) trusty; urgency=medium
-
-  * Publishing on Trusty
-
- -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 07 Feb 2017 09:31:22 -0200
-
-scudcloud (1.38-1) precise; urgency=medium
 
   * Fixing teams loading (#518)
 
- -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 07 Feb 2017 09:28:13 -0200
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 07 Feb 2017 09:35:30 -0200
+
+scudcloud (1.38-1) yakkety; urgency=medium
+
+  * Publishing on yakkety
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 16 Nov 2016 08:34:50 -0200
 
 scudcloud (1.37-1) trusty; urgency=medium
 
@@ -210,7 +216,7 @@ scudcloud (1.21-2) trusty; urgency=medium
 scudcloud (1.21-1) precise; urgency=medium
 
   * Support mouse forward/back navigation (#128)
-  * Remove 'Download the Slack App' from menu (#426) 
+  * Remove 'Download the Slack App' from menu (#426)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 12 Apr 2016 18:20:48 -0300
 
@@ -393,20 +399,20 @@ scudcloud (1.2-0) trusty; urgency=medium
 
 scudcloud (1.1-12) trusty; urgency=medium
 
-  * URLs breaking at first '&' (#330) 
+  * URLs breaking at first '&' (#330)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 06 Jan 2016 13:07:34 -0200
 
 scudcloud (1.1-11) trusty; urgency=medium
 
   * Exit application on request by session manager (#314)
-  * Fix URL fragments in copied links (#328) 
+  * Fix URL fragments in copied links (#328)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 29 Dec 2015 18:35:32 -0200
 
 scudcloud (1.1-10) trusty; urgency=medium
 
-  * Don't return "&v=3" part when stripping redirection code (#324) 
+  * Don't return "&v=3" part when stripping redirection code (#324)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 22 Dec 2015 13:02:21 -0200
 
@@ -418,8 +424,8 @@ scudcloud (1.1-9) trusty; urgency=medium
 
 scudcloud (1.1-8) trusty; urgency=medium
 
-  * Strip redirection code when copying links (#42) 
-  * Avoid crash if slash in team name (#315) 
+  * Strip redirection code when copying links (#42)
+  * Avoid crash if slash in team name (#315)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 10 Dec 2015 20:44:03 -0200
 
@@ -947,7 +953,7 @@ scudcloud (1.0-15) trusty; urgency=low
 
 scudcloud (1.0-14) trusty; urgency=low
 
-  * Adding count to systray (#16) 
+  * Adding count to systray (#16)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 12 Mar 2015 10:33:49 -0300
 
