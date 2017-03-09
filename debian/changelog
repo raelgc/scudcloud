@@ -1,3 +1,9 @@
+scudcloud (1.42-1) yakkety; urgency=medium
+
+  * Publishing on yakkety
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 23 Feb 2017 08:20:25 -0300
+
 scudcloud (1.41-1) xenial; urgency=medium
 
   * Adding more time to team loading (#518)
