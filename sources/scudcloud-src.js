@@ -1,3 +1,4 @@
+var MutationObserver = MutationObserver || WebKitMutationObserver;
 ScudCloud = {
 	unloaded: true,
 	// This will fix Preferences > Advanced Options (#469)
