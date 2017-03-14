@@ -1,3 +1,9 @@
+scudcloud (1.45-1) xenial; urgency=medium
+
+  * Preving earlier notification attempt (#532)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 14 Mar 2017 15:47:03 -0300
+
 scudcloud (1.44-1) yakkety; urgency=medium
 
   * Publishing on yakkety

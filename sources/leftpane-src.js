@@ -29,17 +29,25 @@ var LeftPane = {
 		if(i < list.length) list[i].click();
 	},
 	alert: function(team, count){
-		document.getElementById(team+"_highlight").classList.remove('hidden');
-		document.getElementById(team+"_highlight").innerHTML = count;
+		if(document.getElementById(team+"_highlight")){
+			document.getElementById(team+"_highlight").classList.remove('hidden');
+			document.getElementById(team+"_highlight").innerHTML = count;
+		}
 	},
 	unread: function(team){
-		document.getElementById(team).classList.add('unread');
+		if(document.getElementById(team)){
+			document.getElementById(team).classList.add('unread');
+		}
 	},
 	stopAlert: function(team){
-		document.getElementById(team+"_highlight").classList.add('hidden');
+		if(document.getElementById(team+"_highlight")){
+			document.getElementById(team+"_highlight").classList.add('hidden');
+		}
 	},
 	stopUnread: function(team){
-		document.getElementById(team).classList.remove('unread');
+		if(document.getElementById(team)){
+			document.getElementById(team).classList.remove('unread');
+		}
 	},
 	switchTo: function(id, url){
 		leftPane.switchTo(url);
@@ -57,7 +65,7 @@ var LeftPane = {
 		var index = 0;
 		for(; index < list.length; index++){
 			if (list[index].classList.contains("active")) {
-				break;			
+				break;
 			}
 		}
 		// Go up or down
