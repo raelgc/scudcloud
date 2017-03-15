@@ -185,7 +185,7 @@ class Wrapper(QWebView):
         self.evaluate("createSnippet")
 
     def team(self):
-        return self.evaluate_and_return("getCurrentTeam", None)
+        return self.evaluate_and_return("getCurrentTeam")
 
     def logout(self):
         self.evaluate("logout")
@@ -200,7 +200,7 @@ class Wrapper(QWebView):
         self.systemOpen("https://github.com/raelgc/scudcloud")
 
     def listChannels(self):
-        return self.evaluate_and_return("listChannels", None)
+        return self.evaluate_and_return("listChannels")
 
     def openChannel(self, menuitem, timestamp):
         self.evaluate("join", menuitem.property_get("id"))
