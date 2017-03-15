@@ -26,7 +26,7 @@ ScudCloud = {
     },
 	// TSSSB.call
 	call: function(name, args){
-		ScudCloud.log(name, args);
+		//ScudCloud.log(name, args);
 		switch(name){
 			case "reload":
 				return ScudCloud.reload();
@@ -78,13 +78,7 @@ ScudCloud = {
 	},
 	// ScudCloud internal functions
 	log: function(name, args){
-		// Sometimes stringify will fail with complex objects. Specifically, it'll break message edit (#)
-		try {
-			if("object"== typeof(args)) args = JSON.stringify(args);
-		} catch (e) {
-			args = '';
-		}
-		console.log("ScudCloud."+name+", args: "+args);
+		console.log("ScudCloud."+name);
 	},
 	populate: function(){
 		// Wait until image_44 get ready (Fixes #454)
