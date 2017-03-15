@@ -17,3 +17,5 @@ pre, pre > span { font-family: Monaco,Menlo,Consolas,"Courier New",monospace; }
 ts-jumper ol li .item_details { width: 100% !important; }
 /* "Create new channel" button is in wrong position (Fixes #495) */
 .channels_list_new_btn { right: 16px !important; }
+/* Fixing flex_pane display (Fixes #515) */
+#col_flex { display: block !important; }
