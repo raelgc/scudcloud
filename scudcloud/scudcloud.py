@@ -19,7 +19,7 @@ from PyQt5.QtNetwork import QNetworkDiskCache
 # Auto-detection of dbus and dbus.mainloop.qt
 try:
     import dbus
-    from dbus.mainloop.qt import DBusQtMainLoop
+    from dbus.mainloop.pyqt5 import DBusQtMainLoop
 except ImportError:
     DBusQtMainLoop = None
 
