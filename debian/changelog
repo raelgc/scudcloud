@@ -1,3 +1,15 @@
+scudcloud (1.48-1) xenial; urgency=medium
+
+  * Fixing flexpane display (#515)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 15 Mar 2017 10:21:36 -0300
+
+scudcloud (1.47-1) xenial; urgency=medium
+
+  * Fixing MutationObserver in qt4 version (#532)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 14 Mar 2017 17:04:55 -0300
+
 scudcloud (1.46-1) yakkety; urgency=medium
 
   * Publishing on yakkety
