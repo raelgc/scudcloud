@@ -2,8 +2,8 @@ Source: scudcloud
 Section: python
 Priority: optional
 Maintainer: Rael Gugelmin Cunha <rael.gc@gmail.com>
-Build-Depends: debhelper (>= 9), python3, python3-setuptools, dh-python
-Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 10), python3, python3-setuptools, dh-python
+Standards-Version: 3.9.7
 Homepage: https://github.com/raelgc/scudcloud
 
 Package: scudcloud

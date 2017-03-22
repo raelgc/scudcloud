@@ -24,3 +24,4 @@ scudcloud.egg-info/
 debian/files
 debian/scudcloud/
 debian/scudcloud.*
+debian/debhelper-build-stamp
