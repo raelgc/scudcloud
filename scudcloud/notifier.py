@@ -34,4 +34,7 @@ class Notifier(object):
         else:
             notice = notify2.Notification(title, message, icon)
         notice.set_hint_string('x-canonical-append', '')
-        notice.show()
+        try:
+            notice.show()
+        except:
+            pass
