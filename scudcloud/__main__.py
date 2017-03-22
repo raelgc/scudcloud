@@ -53,6 +53,12 @@ def main():
     # Let's move the CSS to cachedir to enable additional actions
     copyfile(Resources.get_path('resources.css'), os.path.join(cache_path, 'resources.css'))
 
+    # If there is an qt4 config and not a qt5, let's copy the old one
+    qt4_config = os.path.join(settings_path, 'scudcloud.cfg')
+    qt5_config = os.path.join(settings_path, 'scudcloud_qt5.cfg')
+    if os.path.exists(qt4_config) and not os.path.exists(qt5_config):
+        copyfile(qt4_config, qt5_config)
+
     win = sca.ScudCloud(
         debug=args.debug,
         minimized=minimized,
