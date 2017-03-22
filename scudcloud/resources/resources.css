@@ -1,3 +1,9 @@
 nav.top, footer, #prefs_mac_ssb_tab {display: none !important;}
 /* Removes the "Download the Slack App..." menu entry */
 .slack_menu_download {display: none !important;}
+/* Fixing messages_container height */
+#messages_container {
+  overflow-y: inherit !important;
+  height: auto !important;
+  bottom: 40px !important;
+}
