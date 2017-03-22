@@ -1,3 +1,9 @@
+scudcloud (1.49-1) xenial; urgency=medium
+
+  * Upgrading to qt5 (#254)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 22 Mar 2017 11:12:52 -0300
+
 scudcloud (1.48-1) xenial; urgency=medium
 
   * Fixing flexpane display (#515)
