@@ -1,18 +1,18 @@
 from scudcloud.resources import Resources
 import scudcloud
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Systray(QtGui.QSystemTrayIcon):
+class Systray(QtWidgets.QSystemTrayIcon):
 
     urgent = False
 
     def __init__(self, window):
         super(Systray, self).__init__(QtGui.QIcon.fromTheme("scudcloud"), window)
-        self.connect(self, QtCore.SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.activatedEvent)
+        self.activated.connect(self.activatedEvent)
         self.window = window
         self.setToolTip('ScudCloud')
-        self.menu = QtGui.QMenu(self.window)
+        self.menu = QtWidgets.QMenu(self.window)
         self.menu.addAction('Show', self.restore)
         if scudcloud.scudcloud.Unity is None:
             self.menu.addAction('Toggle Menubar', self.toggleMenuBar)
@@ -51,7 +51,7 @@ class Systray(QtGui.QSystemTrayIcon):
         self.window.toggleMenuBar()
 
     def activatedEvent(self, reason):
-        if reason in [QtGui.QSystemTrayIcon.MiddleClick, QtGui.QSystemTrayIcon.Trigger]:
+        if reason in [QtWidgets.QSystemTrayIcon.MiddleClick, QtWidgets.QSystemTrayIcon.Trigger]:
             if self.window.isHidden() or self.window.isMinimized() or not self.window.isActiveWindow():
                 self.restore()
             else:

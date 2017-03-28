@@ -1,4 +1,5 @@
-from PyQt4 import QtCore, QtNetwork
+#!/usr/bin/env python3
+from PyQt5 import QtCore, QtNetwork
 
 class PersistentCookieJar(QtNetwork.QNetworkCookieJar):
 
@@ -20,4 +21,3 @@ class PersistentCookieJar(QtNetwork.QNetworkCookieJar):
         data = self.mainWindow.settings.value("Cookies")
         if data is not None:
             self.setAllCookies(QtNetwork.QNetworkCookie.parseCookies(data))
-

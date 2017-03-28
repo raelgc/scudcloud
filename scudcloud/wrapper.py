@@ -1,14 +1,16 @@
+from scudcloud.browser import Browser
 from scudcloud.resources import Resources
 
 import sys, subprocess, os, json
 from urllib import request
 from urllib.parse import parse_qs, urlparse, urlsplit
 
-from PyQt4 import QtWebKit, QtGui, QtCore
-from PyQt4.Qt import QApplication, QKeySequence, QTimer
-from PyQt4.QtCore import QBuffer, QByteArray, QUrl
-from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
-from PyQt4.QtNetwork import QNetworkProxy
+from PyQt5 import QtWebKit, QtGui, QtCore, QtWidgets
+from PyQt5.Qt import QApplication, QKeySequence, QTimer
+from PyQt5.QtCore import QBuffer, QByteArray, QUrl
+from PyQt5.QtWebKitWidgets import QWebView, QWebPage
+from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtNetwork import QNetworkProxy
 
 class Wrapper(QWebView):
 
@@ -28,7 +30,8 @@ class Wrapper(QWebView):
             with open(Resources.get_path('disable_snippets.js'), 'r') as f:
                 self.disable_snippets_js = f.read()
         self.setZoomFactor(self.window.zoom)
-        self.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.setPage(Browser())
+        self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.urlChanged.connect(self._urlChanged)
         self.loadStarted.connect(self._loadStarted)
         self.loadFinished.connect(self._loadFinished)
@@ -61,7 +64,7 @@ class Wrapper(QWebView):
 
     def contextMenuEvent(self, event):
         entriesToHide = ['Direction', 'Open in New Window', 'Save Link...']
-        menu = QtGui.QMenu(self)
+        menu = QtWidgets.QMenu(self)
         hit = self.page().currentFrame().hitTestContent(event.pos())
         if self.window.speller.initialized:
             element = hit.element()
@@ -74,11 +77,11 @@ class Wrapper(QWebView):
                 if 'Copy' == a.text():
                     menu.addAction(a)
                     # Adding Copy Quoted
-                    action = QtGui.QAction('Copy Quoted', self)
+                    action = QtWidgets.QAction('Copy Quoted', self)
                     action.triggered.connect(lambda: self.copyQuoted(str(self.selectedText())))
                     menu.addAction(action)
                 elif 'Open Link' == a.text() and not url.isEmpty():
-                    action = QtGui.QAction('Open Link', self)
+                    action = QtWidgets.QAction('Open Link', self)
                     action.triggered.connect(lambda: self.systemOpen(
                         self._urlToString(url)))
                     menu.addAction(action)
@@ -86,7 +89,7 @@ class Wrapper(QWebView):
                     continue
                 # Let's skip Slack redirect engine only when copying the link (Fixes #42)
                 elif 'Copy Link' == a.text() and not url.isEmpty():
-                    action = QtGui.QAction('Copy Link', self)
+                    action = QtWidgets.QAction('Copy Link', self)
                     action.triggered.connect(lambda: self.decodeAndCopy(
                         self._urlToString(url)))
                     menu.addAction(action)
@@ -110,21 +113,12 @@ class Wrapper(QWebView):
             decodedURL = url
         QApplication.clipboard().setText(decodedURL)
 
-    def _call(self, function, arg=None, ret=False):
+    def call(self, function, arg=None):
         if isinstance(arg, str):
             arg = "'"+arg+"'"
         if arg is None:
             arg = ""
-        if ret:
-            return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
-        else:
-            self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");null;")
-
-    def evaluate(self, function, arg=None):
-        self._call(function, arg, False)
-
-    def evaluate_and_return(self, function, arg=None):
-        self._call(function, arg, True)
+        return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def _loadStarted(self):
         # Some custom CSS to clean/fix UX
@@ -156,9 +150,9 @@ class Wrapper(QWebView):
         # Starting the webkit-JS bridge
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         # Loading ScudCloud JS client
-        self.page().currentFrame().evaluateJavaScript(self.default_js+'null;')
+        self.page().currentFrame().evaluateJavaScript(self.default_js)
         if self.window.disable_snippets:
-            self.page().currentFrame().evaluateJavaScript(self.disable_snippets_js+'null;')
+            self.page().currentFrame().evaluateJavaScript(self.disable_snippets_js)
         self.window.statusBar().hide()
 
     def systemOpen(self, url):
@@ -175,23 +169,23 @@ class Wrapper(QWebView):
             self.systemOpen(url)
 
     def sendTickle(self):
-        self.evaluate("sendTickle")
+        self.call("sendTickle")
 
     def preferences(self):
         self.window.show()
-        self.evaluate("preferences")
+        self.call("preferences")
 
     def createSnippet(self):
-        self.evaluate("createSnippet")
+        self.call("createSnippet")
 
     def team(self):
-        return self.evaluate_and_return("getCurrentTeam")
+        return self.call("getCurrentTeam")
 
     def logout(self):
-        self.evaluate("logout")
+        self.call("logout")
 
     def help(self):
-        self.evaluate("help")
+        self.call("help")
 
     def helpCenter(self):
         self.systemOpen("https://slack.zendesk.com/hc/en-us")
@@ -200,10 +194,10 @@ class Wrapper(QWebView):
         self.systemOpen("https://github.com/raelgc/scudcloud")
 
     def listChannels(self):
-        return self.evaluate_and_return("listChannels")
+        return self.call("listChannels")
 
     def openChannel(self, menuitem, timestamp):
-        self.evaluate("join", menuitem.property_get("id"))
+        self.call("join", menuitem.property_get("id"))
         self.window.show()
 
     @QtCore.pyqtSlot()
@@ -253,7 +247,7 @@ class Wrapper(QWebView):
             byteArray = QByteArray()
             buffer = QBuffer(byteArray)
             pixmap.save(buffer, "PNG")
-            self.evaluate("setClipboard", str(byteArray.toBase64(), sys.stdout.encoding))
+            self.call("setClipboard", str(byteArray.toBase64(), sys.stdout.encoding))
 
     @QtCore.pyqtSlot(str)
     def open(self, url):

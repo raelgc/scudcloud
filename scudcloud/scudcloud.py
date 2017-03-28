@@ -9,28 +9,31 @@ from scudcloud.speller import Speller
 import sys, os, time
 
 from threading import Thread
-from PyQt4 import QtCore, QtGui, QtWebKit
-from PyQt4.Qt import QApplication, QKeySequence, QTimer
-from PyQt4.QtCore import QUrl, QSettings
-from PyQt4.QtWebKit import QWebSettings, QWebPage
-from PyQt4.QtNetwork import QNetworkDiskCache
+from PyQt5 import QtCore, QtGui, QtWebKit, QtWidgets, QtWebKitWidgets
+from PyQt5.Qt import QApplication, QKeySequence, QTimer
+from PyQt5.QtCore import QUrl, QSettings
+from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtWebKitWidgets import QWebPage
+from PyQt5.QtNetwork import QNetworkDiskCache
 
 # Auto-detection of dbus and dbus.mainloop.qt
 try:
     import dbus
-    from dbus.mainloop.qt import DBusQtMainLoop
+    from dbus.mainloop.pyqt5 import DBusQtMainLoop
 except ImportError:
     DBusQtMainLoop = None
 
 # Auto-detection of Unity and Dbusmenu in gi repository
 try:
+    import gi
+    gi.require_version('Unity', '7.0')
     from gi.repository import Unity, Dbusmenu
-except ImportError:
+except (ImportError, ValueError):
     Unity = None
     Dbusmenu = None
     from scudcloud.launcher import DummyLauncher
 
-class ScudCloud(QtGui.QMainWindow):
+class ScudCloud(QtWidgets.QMainWindow):
 
     forceClose = False
     messages = 0
@@ -46,7 +49,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.settings_path = settings_path
         self.cache_path = cache_path
         self.notifier = Notifier(Resources.APP_NAME, Resources.get_path('scudcloud.png'))
-        self.settings = QSettings(self.settings_path + '/scudcloud.cfg', QSettings.IniFormat)
+        self.settings = QSettings(self.settings_path + '/scudcloud_qt5.cfg', QSettings.IniFormat)
         self.notifier.enabled = self.settings.value('Notifications', defaultValue=True, type=bool)
         self.identifier = self.settings.value("Domain")
         if Unity is not None:
@@ -56,9 +59,9 @@ class ScudCloud(QtGui.QMainWindow):
         self.webSettings()
         self.snippetsSettings()
         self.leftPane = LeftPane(self)
-        self.stackedWidget = QtGui.QStackedWidget()
-        centralWidget = QtGui.QWidget(self)
-        layout = QtGui.QHBoxLayout()
+        self.stackedWidget = QtWidgets.QStackedWidget()
+        centralWidget = QtWidgets.QWidget(self)
+        layout = QtWidgets.QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
         layout.addWidget(self.leftPane)
@@ -218,14 +221,14 @@ class ScudCloud(QtGui.QMainWindow):
 
     def addMenu(self):
         # We'll register the webpage shorcuts with the window too (Fixes #338)
-        undo = self.current().pageAction(QtWebKit.QWebPage.Undo)
-        redo = self.current().pageAction(QtWebKit.QWebPage.Redo)
-        cut = self.current().pageAction(QtWebKit.QWebPage.Cut)
-        copy = self.current().pageAction(QtWebKit.QWebPage.Copy)
-        paste = self.current().pageAction(QtWebKit.QWebPage.Paste)
-        back = self.current().pageAction(QtWebKit.QWebPage.Back)
-        forward = self.current().pageAction(QtWebKit.QWebPage.Forward)
-        reload = self.current().pageAction(QtWebKit.QWebPage.Reload)
+        undo = self.current().pageAction(QWebPage.Undo)
+        redo = self.current().pageAction(QWebPage.Redo)
+        cut = self.current().pageAction(QWebPage.Cut)
+        copy = self.current().pageAction(QWebPage.Copy)
+        paste = self.current().pageAction(QWebPage.Paste)
+        back = self.current().pageAction(QWebPage.Back)
+        forward = self.current().pageAction(QWebPage.Forward)
+        reload = self.current().pageAction(QWebPage.Reload)
         self.menus = {
             "file": {
                 "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
@@ -236,14 +239,14 @@ class ScudCloud(QtGui.QMainWindow):
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
             "edit": {
-                "undo":        self.createAction(undo.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Undo), undo.shortcut()),
-                "redo":        self.createAction(redo.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Redo), redo.shortcut()),
-                "cut":         self.createAction(cut.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Cut), cut.shortcut()),
-                "copy":        self.createAction(copy.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Copy), copy.shortcut()),
-                "paste":       self.createAction(paste.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Paste), paste.shortcut()),
-                "back":        self.createAction(back.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Back), back.shortcut()),
-                "forward":     self.createAction(forward.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Forward), forward.shortcut()),
-                "reload":      self.createAction(reload.text(), lambda : self.current().page().triggerAction(QtWebKit.QWebPage.Reload), reload.shortcut()),
+                "undo":        self.createAction(undo.text(), lambda : self.current().page().triggerAction(QWebPage.Undo), undo.shortcut()),
+                "redo":        self.createAction(redo.text(), lambda : self.current().page().triggerAction(QWebPage.Redo), redo.shortcut()),
+                "cut":         self.createAction(cut.text(), lambda : self.current().page().triggerAction(QWebPage.Cut), cut.shortcut()),
+                "copy":        self.createAction(copy.text(), lambda : self.current().page().triggerAction(QWebPage.Copy), copy.shortcut()),
+                "paste":       self.createAction(paste.text(), lambda : self.current().page().triggerAction(QWebPage.Paste), paste.shortcut()),
+                "back":        self.createAction(back.text(), lambda : self.current().page().triggerAction(QWebPage.Back), back.shortcut()),
+                "forward":     self.createAction(forward.text(), lambda : self.current().page().triggerAction(QWebPage.Forward), forward.shortcut()),
+                "reload":      self.createAction(reload.text(), lambda : self.current().page().triggerAction(QWebPage.Reload), reload.shortcut()),
             },
             "view": {
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
@@ -307,7 +310,7 @@ class ScudCloud(QtGui.QMainWindow):
         self.menus["help"]["help"].setEnabled(enabled == True)
 
     def createAction(self, text, slot, shortcut=None, checkable=False):
-        action = QtGui.QAction(text, self)
+        action = QtWidgets.QAction(text, self)
         action.triggered.connect(slot)
         if shortcut is not None:
             action.setShortcut(shortcut)
@@ -365,7 +368,7 @@ class ScudCloud(QtGui.QMainWindow):
             self.focusInEvent(event)
         if event.type() == QtCore.QEvent.KeyPress:
             # Ctrl + <n>
-            modifiers = QtGui.QApplication.keyboardModifiers()
+            modifiers = QtWidgets.QApplication.keyboardModifiers()
             if modifiers == QtCore.Qt.ControlModifier:
                 if event.key() == QtCore.Qt.Key_1:   self.leftPane.click(0)
                 elif event.key() == QtCore.Qt.Key_2: self.leftPane.click(1)
@@ -384,7 +387,7 @@ class ScudCloud(QtGui.QMainWindow):
             # Ctrl + Shift + <key>
             if (modifiers & QtCore.Qt.ShiftModifier) and (modifiers & QtCore.Qt.ShiftModifier):
                 if event.key() == QtCore.Qt.Key_V: self.current().createSnippet()
-        return QtGui.QMainWindow.eventFilter(self, obj, event);
+        return QtWidgets.QMainWindow.eventFilter(self, obj, event);
 
     def focusInEvent(self, event):
         self.launcher.set_property("urgent", False)
@@ -409,6 +412,7 @@ class ScudCloud(QtGui.QMainWindow):
             self.settings.setValue("Domain", self.domains)
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
+            self.settings.setValue("Domain", self.domains)
         self.forceClose = False
 
     def show(self):
@@ -417,6 +421,8 @@ class ScudCloud(QtGui.QMainWindow):
         self.setVisible(True)
 
     def exit(self):
+        # Make sure tray is not visible (Fixes #513)
+        self.tray.setVisible(False)
         self.setForceClose()
         self.close()
 
@@ -426,7 +432,7 @@ class ScudCloud(QtGui.QMainWindow):
                 ql = Dbusmenu.Menuitem.new()
                 self.launcher.set_property("quicklist", ql)
                 for c in channels:
-                    if hasattr(c, '__getitem__') and c['is_member']:
+                    if type(c) is dict and hasattr(c, '__getitem__') and c['is_member']:
                         item = Dbusmenu.Menuitem.new ()
                         item.property_set (Dbusmenu.MENUITEM_PROP_LABEL, "#"+c['name'])
                         item.property_set ("id", c['name'])

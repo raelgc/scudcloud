@@ -3,20 +3,22 @@ Section: python
 Priority: optional
 Maintainer: Rael Gugelmin Cunha <rael.gc@gmail.com>
 Build-Depends: debhelper (>= 9), python3, python3-setuptools, dh-python
-Standards-Version: 3.9.5
+Standards-Version: 3.9.7
 Homepage: https://github.com/raelgc/scudcloud
 
 Package: scudcloud
 Architecture: all
-Depends: libqtwebkit4 (>= 2.3.2),
-         python3,
+Depends: python3,
          python3-setuptools,
          python3-dbus,
          python3-dbus.mainloop.qt,
-         python3-pyqt4,
          gir1.2-notify-0.7,
+         python3-pyqt5,
+         python3-pyqt5.qtsvg,
+         python3-pyqt5.qtwebkit,
          xdg-utils,
-         ${misc:Depends}, 
+         notification-daemon,
+         ${misc:Depends},
          ${python3:Depends}
 Recommends: sni-qt,
             fonts-lato,

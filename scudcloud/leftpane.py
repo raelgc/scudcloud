@@ -1,8 +1,9 @@
 from scudcloud.resources import Resources
 
-from PyQt4 import QtCore
-from PyQt4.QtCore import QUrl
-from PyQt4.QtWebKit import QWebView, QWebSettings
+from PyQt5 import QtCore
+from PyQt5.QtCore import QUrl
+from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtWebKitWidgets import QWebView
 
 class LeftPane(QWebView):
 
@@ -65,4 +66,3 @@ class LeftPane(QWebView):
         if self.window.debug:
             menu = self.page().createStandardContextMenu()
             menu.exec_(event.globalPos())
-
