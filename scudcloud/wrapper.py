@@ -1,3 +1,4 @@
+from scudcloud.browser import Browser
 from scudcloud.resources import Resources
 
 import sys, subprocess, os, json
@@ -29,6 +30,7 @@ class Wrapper(QWebView):
             with open(Resources.get_path('disable_snippets.js'), 'r') as f:
                 self.disable_snippets_js = f.read()
         self.setZoomFactor(self.window.zoom)
+        self.setPage(Browser())
         self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.urlChanged.connect(self._urlChanged)
         self.loadStarted.connect(self._loadStarted)
