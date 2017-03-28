@@ -1,6 +1,7 @@
-scudcloud (1.49-1) xenial; urgency=medium
+scudcloud (1.50-1) xenial; urgency=medium
 
   * Upgrading to qt5 (#254)
+  * Fixing deprecation warning (#541)
 
  -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 22 Mar 2017 11:12:52 -0300
 
