@@ -9,6 +9,8 @@ class Systray(QtWidgets.QSystemTrayIcon):
 
     def __init__(self, window):
         super(Systray, self).__init__(QtGui.QIcon.fromTheme("scudcloud"), window)
+        if QtGui.QIcon.themeName() == '':
+            QtGui.QIcon.setThemeName('hicolor')
         self.activated.connect(self.activatedEvent)
         self.window = window
         self.setToolTip('ScudCloud')
