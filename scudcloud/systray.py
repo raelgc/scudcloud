@@ -9,6 +9,7 @@ class Systray(QtWidgets.QSystemTrayIcon):
 
     def __init__(self, window):
         super(Systray, self).__init__(QtGui.QIcon.fromTheme("scudcloud"), window)
+        # When theme is not detect, let's force hicolor (Fixes #524)
         if QtGui.QIcon.themeName() == '':
             QtGui.QIcon.setThemeName('hicolor')
         self.activated.connect(self.activatedEvent)
