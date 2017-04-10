@@ -1,3 +1,10 @@
+scudcloud (1.51-1) xenial; urgency=medium
+
+  * Fixing other teams loading (#554)
+  * Fixing missing icon in systray (#524)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 10 Apr 2017 08:49:30 -0300
+
 scudcloud (1.50-1) xenial; urgency=medium
 
   * Upgrading to qt5 (#254)
