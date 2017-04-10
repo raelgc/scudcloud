@@ -1,3 +1,9 @@
+scudcloud (1.53-1) trusty; urgency=medium
+
+  * Fixes MutationObserver in Ubuntu Qt 5.2.1 (#551)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Mon, 10 Apr 2017 10:09:02 -0300
+
 scudcloud (1.52-1) xenial; urgency=medium
 
   * Wrong package depenency (#560)
