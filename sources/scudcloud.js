@@ -86,10 +86,12 @@ ScudCloud = {
 		console.log("ScudCloud."+name+", args: "+args);
 	},
 	populate: function(){
-		// Wait until image_44 get ready (Fixes #454)
-		setTimeout(function(){
+		// Let's really check if image_44 is ready (Fixes #554)
+		if('undefined'!= TS && TS.model && TS.model.team && TS.model.team.icon && TS.model.team.icon.image_44){
 			desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
-		}, 2000);
+		} else {
+			setTimeout(ScudCloud.populate, 500);
+		}
 	},
 	createSnippet: function(){
 		return TS.ui.snippet_dialog.start();
