@@ -1,3 +1,5 @@
+// Fixes MutationObserver in Qt 5.2.1 (#551)
+var MutationObserver = MutationObserver || WebKitMutationObserver;
 ScudCloud = {
 	unloaded: true,
 	// This will fix Preferences > Advanced Options (#469)
