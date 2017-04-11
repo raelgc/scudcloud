@@ -1,5 +1,3 @@
-// Fixes MutationObserver in Qt 5.2.1 (#551)
-var MutationObserver = MutationObserver || WebKitMutationObserver;
 ScudCloud = {
 	unloaded: true,
 	// This will fix Preferences > Advanced Options (#469)
@@ -92,7 +90,10 @@ ScudCloud = {
 		if('undefined'!= TS && TS.model && TS.model.team && TS.model.team.icon && TS.model.team.icon.image_44){
 			desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
 		} else {
-			setTimeout(ScudCloud.populate, 500);
+			var max = 1000;
+			var min = 100;
+			var timer = Math.round(Math.random() * (max - min)) + min;
+			setTimeout(ScudCloud.populate, timer);
 		}
 	},
 	createSnippet: function(){
@@ -146,7 +147,7 @@ ScudCloud = {
 		document.location = TS.boot_data.logout_url;
 	},
 	help: function(){
-		return TS.help_dialog.start();
+		return TS.help_modal.start();
 	}
 };
 document.onpaste = function(e){desktop.pasted(false);};

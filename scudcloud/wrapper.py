@@ -1,8 +1,8 @@
 from scudcloud.browser import Browser
+from scudcloud.downloader import Downloader
 from scudcloud.resources import Resources
 
 import sys, subprocess, os, json
-from urllib import request
 from urllib.parse import parse_qs, urlparse, urlsplit
 
 from PyQt5 import QtWebKit, QtGui, QtCore, QtWidgets
@@ -124,6 +124,8 @@ class Wrapper(QWebView):
         # Some custom CSS to clean/fix UX
         resources = os.path.join(self.window.cache_path, 'resources.css')
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(resources))
+        # Fixing lack of MutationObserver in Qt 5.2.1 (#551)
+        self.page().currentFrame().evaluateJavaScript("var MutationObserver = MutationObserver || WebKitMutationObserver;")
 
     def mousePressEvent(self, event):
         if self.window.debug: print("Mouse Button {}".format(event.button()))
@@ -231,8 +233,8 @@ class Wrapper(QWebView):
         icon_name = 'scudcloud_' + data['teams'][0]['id'] + '.jpg'
         icon_path = os.path.join(self.window.cache_path, icon_name)
         # Download the file to use in notifications
-        file_name, headers = request.urlretrieve(data['icon'], icon_path)
-        self.icon = file_name
+        self.downloader = Downloader(self, data['icon'], icon_path)
+        self.downloader.start()
 
     @QtCore.pyqtSlot(bool)
     def enableMenus(self, enabled):
