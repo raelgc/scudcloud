@@ -1,3 +1,10 @@
+scudcloud (1.55-1) xenial; urgency=medium
+
+  * Small performance improvements
+  * Fixing spell corrector
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 11 Apr 2017 16:42:57 -0300
+
 scudcloud (1.54-1) xenial; urgency=medium
 
   * Small performance improvement on startup
