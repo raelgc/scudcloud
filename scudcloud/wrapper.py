@@ -125,7 +125,7 @@ class Wrapper(QWebView):
         resources = os.path.join(self.window.cache_path, 'resources.css')
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(resources))
         # Fixing lack of MutationObserver in Qt 5.2.1 (#551)
-        self.page().currentFrame().evaluateJavaScript("var MutationObserver = MutationObserver || WebKitMutationObserver;")
+        self.page().currentFrame().evaluateJavaScript("var MutationObserver = MutationObserver || WebKitMutationObserver;null")
 
     def mousePressEvent(self, event):
         if self.window.debug: print("Mouse Button {}".format(event.button()))
@@ -152,9 +152,9 @@ class Wrapper(QWebView):
         # Starting the webkit-JS bridge
         self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
         # Loading ScudCloud JS client
-        self.page().currentFrame().evaluateJavaScript(self.default_js)
+        self.page().currentFrame().evaluateJavaScript(self.default_js+";null")
         if self.window.disable_snippets:
-            self.page().currentFrame().evaluateJavaScript(self.disable_snippets_js)
+            self.page().currentFrame().evaluateJavaScript(self.disable_snippets_js+";null")
         self.window.statusBar().hide()
 
     def systemOpen(self, url):
