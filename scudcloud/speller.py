@@ -68,8 +68,9 @@ class Speller(QObject):
 
     def getWord(self, element):
         text = str(element.evaluateJavaScript("this.value"))
-        pos = int(int(element.evaluateJavaScript("this.selectionStart")) + int(1))
-        finder =  QTextBoundaryFinder(QTextBoundaryFinder.Word, text)
+        selectionStart = element.evaluateJavaScript("this.selectionStart") or 0
+        pos = int(int(selectionStart) + int(1))
+        finder = QTextBoundaryFinder(QTextBoundaryFinder.Word, text)
         finder.setPosition(pos)
         self.startPos = finder.toPreviousBoundary()
         return text[self.startPos:finder.toNextBoundary()].strip()
