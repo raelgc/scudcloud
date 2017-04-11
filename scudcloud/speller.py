@@ -57,21 +57,33 @@ class Speller(QObject):
         new = action.data()
         if isinstance(new, bytes):
             new = new.decode('utf8')
-        text = str(element.evaluateJavaScript("this.value"))
-        cursorPos = int(element.evaluateJavaScript("this.selectionStart"))
+        text = self._getText(element)
+        cursorPos = self._getSelectionStart(element)
         text = text[:self.startPos] + new + text[self.startPos+len(word):]
         text = text.replace('\\', "\\\\")
         text = text.replace('\n', "\\n")
-        text = text.replace('\'', "\\'")
-        element.evaluateJavaScript("this.value='{}'".format(text))
-        element.evaluateJavaScript("this.selectionStart=this.selectionEnd={}".format(cursorPos))
+        text = text.replace("'", "\\'")
+        element.evaluateJavaScript("$('.ql-editor > p').text('{}');null".format(text))
+        element.evaluateJavaScript(
+            'var node=document.querySelector(".ql-editor > p");'
+            'node.focus();'
+            'var textNode=node.firstChild,caret={},range=document.createRange();'
+            'range.setStart(textNode,caret),range.setEnd(textNode,caret);'
+            'var sel=window.getSelection();'
+            'sel.removeAllRanges(),sel.addRange(range);null'
+            .format(cursorPos)
+        )
+
+    def _getText(self, element):
+        return str(element.toPlainText())
+
+    def _getSelectionStart(self, element):
+        return int(element.evaluateJavaScript("document.getSelection().anchorOffset")) or 0
 
     def getWord(self, element):
-        text = str(element.evaluateJavaScript("this.value"))
-        selectionStart = element.evaluateJavaScript("this.selectionStart") or 0
-        pos = int(int(selectionStart) + int(1))
+        text = self._getText(element)
         finder = QTextBoundaryFinder(QTextBoundaryFinder.Word, text)
-        finder.setPosition(pos)
+        finder.setPosition(self._getSelectionStart(element) + 1)
         self.startPos = finder.toPreviousBoundary()
         return text[self.startPos:finder.toNextBoundary()].strip()
 
