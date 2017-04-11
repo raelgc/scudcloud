@@ -1,3 +1,10 @@
+scudcloud (1.54-1) xenial; urgency=medium
+
+  * Small performance improvement on startup
+  * Fixing right-click crashing (#537)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 11 Apr 2017 08:10:06 -0300
+
 scudcloud (1.53-1) trusty; urgency=medium
 
   * Fixes MutationObserver in Ubuntu Qt 5.2.1 (#551)
