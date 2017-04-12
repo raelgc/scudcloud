@@ -122,6 +122,7 @@ class ScudCloud(QtWidgets.QMainWindow):
         webView.page().networkAccessManager().setCache(self.diskCache)
         webView.load(QtCore.QUrl(url))
         webView.show()
+        webView.setZoomFactor(self.zoom)
         self.stackedWidget.addWidget(webView)
         self.stackedWidget.setCurrentWidget(webView)
 
