@@ -11,5 +11,8 @@ class Downloader(QThread):
         self.path = path
 
     def run(self):
-        file_name, headers = request.urlretrieve(self.icon, self.path)
-        self.wrapper.icon = file_name
+        try:
+            file_name, headers = request.urlretrieve(self.icon, self.path)
+            self.wrapper.icon = file_name
+        except:
+            pass
