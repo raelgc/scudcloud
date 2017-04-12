@@ -29,7 +29,6 @@ class Wrapper(QWebView):
         if self.window.disable_snippets:
             with open(Resources.get_path('disable_snippets.js'), 'r') as f:
                 self.disable_snippets_js = f.read()
-        self.setZoomFactor(self.window.zoom)
         self.setPage(Browser())
         self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.urlChanged.connect(self._urlChanged)
