@@ -89,6 +89,8 @@ ScudCloud = {
 		// Let's really check if image_44 is ready (Fixes #554)
 		if('undefined'!= TS && TS.model && TS.model.team && TS.model.team.icon && TS.model.team.icon.image_44){
 			desktop.populate(JSON.stringify({'channels': ScudCloud.listChannels(), 'teams': ScudCloud.listTeams(), 'icon': TS.model.team.icon.image_44}));
+			// Restoring image pasting into message input (Fixes #563)
+			document.querySelector(".ql-editor").addEventListener('paste', desktop.pasted);
 		} else {
 			var max = 1000;
 			var min = 100;
