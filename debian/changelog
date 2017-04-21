@@ -1,3 +1,9 @@
+scudcloud (1.57-1) xenial; urgency=medium
+
+  * Fixing image pasting in qt5 (#563)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 20 Apr 2017 20:53:06 -0300
+
 scudcloud (1.56-1) xenial; urgency=medium
 
   * Fixing zoom level (#547)
