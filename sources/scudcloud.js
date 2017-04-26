@@ -155,6 +155,9 @@ ScudCloud = {
 document.onpaste = function(e){desktop.pasted(false);};
 // Forcing call button handling
 $('body').delegate('#channel_calls_button', 'click', function(){desktop.open(TS.boot_data.team_url+'call/'+TS.model.active_cid);});
+// Forcing new posts to get opened in system browser (Fixes #225, #568)
+$("body").undelegate('a[href="/files/create/space"]', "click");
+$("body").delegate('a[href="/files/create/space"]', "click", function(e){desktop.createPost(TS.boot_data.team_url);e.preventDefault();});
 window.winssb = TSSSB = ScudCloud;
 // Sometimes didFinishLoading is not loaded
 if(ScudCloud.unloaded){
