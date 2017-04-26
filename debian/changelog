@@ -1,3 +1,9 @@
+scudcloud (1.58-1) xenial; urgency=medium
+
+  * Fixing post link (#568)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 26 Apr 2017 08:08:58 -0300
+
 scudcloud (1.57-1) xenial; urgency=medium
 
   * Fixing image pasting in qt5 (#563)
