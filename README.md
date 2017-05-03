@@ -101,7 +101,7 @@ sudo dnf install scudcloud
 
 The manual install is intended for not supported distros (if you want to contribute with a package for your distro, you're welcome!).
 
-First, you'll need to install at least packages for `python3`, `python3-setuptools`, `python-qt4` (`qt4` for `python3`) and `python-dbus` (`dbus` library for `python3`).
+First, you'll need to install at least packages for `python3`, `python3-setuptools`, `python3-pyqt5.qtwebkit` (or equivalent `qt5` version of `qtwebkit` for `python3`) and `python-dbus` (`dbus` library for `python3`).
 
 Then run the following steps:
 
