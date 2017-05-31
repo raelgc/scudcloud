@@ -4,7 +4,7 @@ class Resources:
 
     APP_NAME = 'ScudCloud'
     # Fake user agent to bypass deprecation warning (Fixes #541)
-    USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+    USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit (KHTML, like Gecko) ScudCloud/v1.58 Chrome/999 Safari'
     SIGNIN_URL = 'https://slack.com/signin'
     MAINPAGE_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/?$')
     MESSAGES_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/messages/.*')
