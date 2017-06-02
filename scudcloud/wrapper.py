@@ -42,7 +42,13 @@ class Wrapper(QWebView):
         self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
 
     def configure_proxy(self):
-        proxy = urlparse(os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY'))
+        try:
+          from urllib.parse import unquote
+        except ImportError:
+          from urllib import unquote
+        url = os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY')
+        url_decode = unquote(url)
+        proxy = urlparse(url_decode)
         if proxy.hostname is not None and proxy.port is not None:
             q_network_proxy = QNetworkProxy(QNetworkProxy.HttpProxy, proxy.hostname, proxy.port)
             if proxy.username is not None:
