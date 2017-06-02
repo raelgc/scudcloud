@@ -46,7 +46,7 @@ class Wrapper(QWebView):
           from urllib.parse import unquote
         except ImportError:
           from urllib import unquote
-        url = os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY')
+        url = os.environ.get('http_proxy') or os.environ.get('HTTP_PROXY') or ''
         url_decode = unquote(url)
         proxy = urlparse(url_decode)
         if proxy.hostname is not None and proxy.port is not None:
