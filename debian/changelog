@@ -1,3 +1,10 @@
+scudcloud (1.59-1) xenial; urgency=medium
+
+  * Fixing encoded characters in http_proxy (#577)
+  * Fixing Google account login (#576)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Thu, 01 Jun 2017 22:11:22 -0300
+
 scudcloud (1.58-1) xenial; urgency=medium
 
   * Fixing post link (#568)
