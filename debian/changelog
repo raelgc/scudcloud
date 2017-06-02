@@ -1,3 +1,9 @@
+scudcloud (1.60-1) xenial; urgency=medium
+
+  * Fixing crash when no proxy is present (#580)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 02 Jun 2017 07:46:36 -0300
+
 scudcloud (1.59-1) xenial; urgency=medium
 
   * Fixing encoded characters in http_proxy (#577)
