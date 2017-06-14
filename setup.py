@@ -12,8 +12,8 @@ class MinifyJsBuildCommand(build_py):
     Processes JavaScript files with jsmin to yield minified versions.
     """
     description = 'Minify JavaScript sources'
-    jsdirs = ['sources']
-    resdir = ['scudcloud', 'resources']
+    jsdir = os.path.join('scudcloud', 'resources')
+    resdir = os.path.join('scudcloud', 'resources')
 
     def minify(self, source, target):
         import jsmin
@@ -26,12 +26,11 @@ class MinifyJsBuildCommand(build_py):
         # run this first - creates the target dirs
         build_py.run(self)
 
-        for jsdir in self.jsdirs:
-            log.info('minifying js under %s' % jsdir)
-            jsfiles = glob.glob(os.path.join(jsdir, '*.js'))
-            for jsfile in jsfiles:
-                target = os.path.join(*([self.build_lib] + self.resdir + [os.path.basename(jsfile)]))
-                self.minify(jsfile, target)
+        log.info('minifying js under %s' % self.jsdir)
+        jsfiles = glob.glob(os.path.join(self.jsdir, '*.js'))
+        for jsfile in jsfiles:
+            target = os.path.join(self.build_lib, self.resdir, os.path.basename(jsfile))
+            self.minify(jsfile, target)
 
 def _data_files():
     for theme in ['hicolor', 'ubuntu-mono-dark', 'ubuntu-mono-light', 'elementary']:
@@ -59,7 +58,10 @@ setup(name='scudcloud',
       license = "MIT",
       maintainer='Andrew Stiegmann',
       maintainer_email='andrew.stiegmann@gmail.com',
-      package_data={'scudcloud': ['resources/*',]},
+      package_data = {
+          # *.js will be processed separately
+          'scudcloud': ['resources/*.css', 'resources/*.html', 'resources/*.png',]
+      },
       packages=['scudcloud',],
       requires=['dbus', 'PyQt5',],
       url='https://github.com/raelgc/scudcloud',
