@@ -1,1 +1,81 @@
-var LeftPane={addTeam:function(a,b,c,d,e){var f=document.getElementById(a);if(null===f){var g=document.getElementById("teams"),h=document.createElement("li");h.id=a,h.setAttribute("onclick","LeftPane.switchTo('"+a.replace(/'/g,"&quot;")+"','"+c.replace(/'/g,"&quot;")+"')"),h.setAttribute("title",b),h.innerHTML=b[0],d&&(h.style.backgroundImage="url('"+d.replace(/'/g,"&quot;")+"')",h.innerHTML="");var i=document.createElement("div");i.id=a+"_highlight",i.setAttribute("class","highlight hidden"),i.innerHTML="1",g.appendChild(h),h.appendChild(i),e&&LeftPane.setActive(a),LeftPane.switchTo(a,c)}},click:function(a){var b=document.getElementsByTagName("li");a<b.length&&b[a].click()},alert:function(a,b){document.getElementById(a+"_highlight")&&(document.getElementById(a+"_highlight").classList.remove("hidden"),document.getElementById(a+"_highlight").innerHTML=b)},unread:function(a){document.getElementById(a)&&document.getElementById(a).classList.add("unread")},stopAlert:function(a){document.getElementById(a+"_highlight")&&document.getElementById(a+"_highlight").classList.add("hidden")},stopUnread:function(a){document.getElementById(a)&&document.getElementById(a).classList.remove("unread")},switchTo:function(a,b){leftPane.switchTo(b),LeftPane.setActive(a)},setActive:function(a){for(var b=document.getElementsByTagName("li"),c=0;c<b.length;c++)b[c].classList.remove("active");document.getElementById(a).classList.add("active")},clickNext:function(a){for(var b=document.getElementsByTagName("li"),c=0;c<b.length&&!b[c].classList.contains("active");c++);c+=new Number(a),c>=b.length?c=0:c<0&&(c=b.length-1),LeftPane.click(c)}};
+var LeftPane = {
+	addTeam: function(id, name, url, icon, active){
+		var node = document.getElementById(id);
+        if(node === null){
+			var ul = document.getElementById('teams');
+			var li = document.createElement('li');
+			li.id = id;
+			li.setAttribute("onclick", "LeftPane.switchTo('"+id.replace(/'/g, '&quot;')+"','"+url.replace(/'/g, '&quot;')+"')");
+			li.setAttribute("title", name);
+			li.innerHTML = name[0];
+			if( icon ){
+			  li.style.backgroundImage = "url('"+ icon.replace(/'/g, '&quot;') +"')";
+			  li.innerHTML = "";
+			}
+			var div = document.createElement('div');
+			div.id = id+"_highlight";
+			div.setAttribute("class", "highlight hidden");
+			div.innerHTML = "1";
+			ul.appendChild(li);
+			li.appendChild(div);
+			if(active){
+				LeftPane.setActive(id);
+			}
+			LeftPane.switchTo(id, url);
+		}
+	},
+	click: function(i){
+		var list = document.getElementsByTagName("li");
+		if(i < list.length) list[i].click();
+	},
+	alert: function(team, count){
+		if(document.getElementById(team+"_highlight")){
+			document.getElementById(team+"_highlight").classList.remove('hidden');
+			document.getElementById(team+"_highlight").innerHTML = count;
+		}
+	},
+	unread: function(team){
+		if(document.getElementById(team)){
+			document.getElementById(team).classList.add('unread');
+		}
+	},
+	stopAlert: function(team){
+		if(document.getElementById(team+"_highlight")){
+			document.getElementById(team+"_highlight").classList.add('hidden');
+		}
+	},
+	stopUnread: function(team){
+		if(document.getElementById(team)){
+			document.getElementById(team).classList.remove('unread');
+		}
+	},
+	switchTo: function(id, url){
+		leftPane.switchTo(url);
+		LeftPane.setActive(id);
+	},
+	setActive: function(id){
+		var list = document.getElementsByTagName("li");
+		for(var i=0; i < list.length; i++){
+			list[i].classList.remove("active");
+		}
+		document.getElementById(id).classList.add("active");
+	},
+	clickNext: function(direction){
+		var list = document.getElementsByTagName("li");
+		var index = 0;
+		for(; index < list.length; index++){
+			if (list[index].classList.contains("active")) {
+				break;
+			}
+		}
+		// Go up or down
+		index += new Number(direction);
+		if (index >= list.length) {
+			index = 0;
+		} else if (index < 0) {
+			index = list.length - 1;
+		}
+		LeftPane.click(index);
+	}
+};
+

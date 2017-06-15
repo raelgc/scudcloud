@@ -1,2 +1,3 @@
 include LICENSE README.md
 recursive-include share *.desktop *.png *.svg
+recursive-include scudcloud/resources *
