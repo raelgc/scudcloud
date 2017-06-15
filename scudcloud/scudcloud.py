@@ -96,7 +96,7 @@ class ScudCloud(QtWidgets.QMainWindow):
             # Ubuntu 16.04 and KDE
             sessionBus.add_match_string("type='signal',interface='org.freedesktop.ScreenSaver'")
             # Cinnamon
-            essionBus.add_match_string("type='signal',interface='org.cinnamon.ScreenSaver'")
+            sessionBus.add_match_string("type='signal',interface='org.cinnamon.ScreenSaver'")
             sessionBus.add_message_filter(self.screenListener)
             self.tickler.timeout.connect(self.sendTickle)
         # If dbus is not present, tickler timer will act like a blocker to not send tickle too often
