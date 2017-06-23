@@ -1,3 +1,10 @@
+scudcloud (1.61-1) xenial; urgency=medium
+
+  * Auto generation of minified JS files (#512)
+  * Keep online status (#585) 
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 23 Jun 2017 07:44:38 -0300
+
 scudcloud (1.60-1) xenial; urgency=medium
 
   * Fixing crash when no proxy is present (#580)
