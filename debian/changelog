@@ -1,3 +1,9 @@
+scudcloud (1.62-1) xenial; urgency=medium
+
+  * Updating enterprise signin (#592)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Wed, 06 Sep 2017 09:26:20 -0300
+
 scudcloud (1.61-1) xenial; urgency=medium
 
   * Auto generation of minified JS files (#512)
