@@ -8,8 +8,8 @@ class Resources:
     SIGNIN_URL = 'https://slack.com/signin'
     MAINPAGE_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/?$')
     MESSAGES_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/messages/.*')
-    SSO_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/sso/saml/start$')
-    SERVICES_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.slack.com/services/.*')
+    SSO_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.(enterprise.)?slack.com/sso/saml/start\?redir=.*')
+    SERVICES_URL_RE = re.compile(r'^http[s]://[a-zA-Z0-9_\-]+.(enterprise.)?slack.com/services/.*')
     GOOGLE_OAUTH2_URL_RE = re.compile(r'^https://accounts.google.com/o/oauth')
 
     SPELL_LIMIT = 6
