@@ -23,6 +23,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.Qt import PYQT_VERSION_STR
 from PyQt5.QtCore import QT_VERSION_STR
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
+from PyQt5.QtWebKit import qWebKitVersion
 
 # The ScudCloud QMainWindow
 win = None
@@ -122,6 +123,7 @@ def versions():
     print("ScudCloud", __version__)
     print("Python", platform.python_version())
     print("Qt", QT_VERSION_STR)
+    print("WebKit", qWebKitVersion())
     print("PyQt", PYQT_VERSION_STR)
     print("SIP", SIP_VERSION_STR)
 
