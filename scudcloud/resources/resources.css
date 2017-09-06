@@ -1,2 +1,4 @@
+/* Hides login page menus and bottom links (nav and footer are displayed only at login page) */
+nav.top, footer {display: none !important;}
 /* Removes the "Download the Slack App..." menu entry */
 .slack_menu_download {display: none !important;}
