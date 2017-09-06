@@ -48,16 +48,6 @@ sudo chmod +r /usr/share/pixmaps/scudcloud.png
 sudo update-desktop-database
 ```
 
-## Ubuntu 12.04
-
-For Ubuntu 12.04 (Precise Pangolin), **additionally** you'll need to update `qtwebkit`: Slack is not compatible with `libqtwebkit4` package shipped with 12.04, hanging in the `Loading` screen. Please add the following PPAs (for updated `qtwebkit`):
-
-```term
-sudo add-apt-repository -y ppa:immerrr-k/qtwebkit4-backport
-sudo apt-get update
-sudo apt-get upgrade
-```
-
 ## Debian and derivatives like BunsenLabs Linux
 
 Make sure the `software-properties-common` and `lsb-release` packages are installed, then run:
@@ -178,6 +168,13 @@ To achieve this, edit the config file located at `~/.config/scudcloud/scudcloud.
 
     Snippets=False
 
+#### 10. How to open webkit console?
+
+Start ScudCloud with:
+
+    scudcloud --debug=True &
+    
+Then right click in the conversation pane and select `Inspect Element`. Maximize the new window and click in the `Console` tab.    
 
 # License
 
