@@ -1,3 +1,10 @@
+scudcloud (1.63-1) xenial; urgency=medium
+
+  * Improve webkit memory usage (#595)
+  * Fixes menubar reappearing (#251)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Tue, 12 Sep 2017 08:42:34 -0300
+
 scudcloud (1.62-1) xenial; urgency=medium
 
   * Updating enterprise signin (#592)
