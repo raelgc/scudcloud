@@ -176,9 +176,9 @@ class ScudCloud(QtWidgets.QMainWindow):
         state = menu.isHidden()
         menu.setVisible(state)
         if state:
-            self.settings.setValue("Menu", "False")
-        else:
             self.settings.setValue("Menu", "True")
+        else:
+            self.settings.setValue("Menu", "False")
 
     def restore(self):
         geometry = self.settings.value("geometry")
