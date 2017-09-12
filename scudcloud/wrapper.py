@@ -29,7 +29,9 @@ class Wrapper(QWebView):
         if self.window.disable_snippets:
             with open(Resources.get_path('disable_snippets.js'), 'r') as f:
                 self.disable_snippets_js = f.read()
-        self.setPage(Browser())
+        page = Browser()
+        page.setNetworkAccessManager(window.networkAccessManager)
+        self.setPage(page)
         self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.urlChanged.connect(self._urlChanged)
         self.loadStarted.connect(self._loadStarted)
@@ -240,6 +242,7 @@ class Wrapper(QWebView):
         # Download the file to use in notifications
         self.downloader = Downloader(self, data['icon'], icon_path)
         self.downloader.start()
+        self.window.clearMemory()
 
     @QtCore.pyqtSlot(bool)
     def enableMenus(self, enabled):

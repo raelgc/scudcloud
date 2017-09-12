@@ -14,7 +14,7 @@ from PyQt5.Qt import QApplication, QKeySequence, QTimer
 from PyQt5.QtCore import QUrl, QSettings
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import QWebPage
-from PyQt5.QtNetwork import QNetworkDiskCache
+from PyQt5.QtNetwork import QNetworkDiskCache, QNetworkAccessManager
 
 # Auto-detection of dbus and dbus.mainloop.qt
 try:
@@ -122,13 +122,12 @@ class ScudCloud(QtWidgets.QMainWindow):
 
     def addWrapper(self, url):
         webView = Wrapper(self)
-        webView.page().networkAccessManager().setCookieJar(self.cookiesjar)
-        webView.page().networkAccessManager().setCache(self.diskCache)
         webView.load(QtCore.QUrl(url))
         webView.show()
         webView.setZoomFactor(self.zoom)
         self.stackedWidget.addWidget(webView)
         self.stackedWidget.setCurrentWidget(webView)
+        self.clearMemory()
 
     def webSettings(self):
         self.cookiesjar = PersistentCookieJar(self)
@@ -148,6 +147,10 @@ class ScudCloud(QtWidgets.QMainWindow):
         QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
         # Enabling Inspeclet only when --debug=True (requires more CPU usage)
         QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.debug)
+        # Sharing the same networkAccessManager
+        self.networkAccessManager = QNetworkAccessManager(self)
+        self.networkAccessManager.setCookieJar(self.cookiesjar)
+        self.networkAccessManager.setCache(self.diskCache)
 
     def snippetsSettings(self):
         self.disable_snippets = self.settings.value("Snippets")
@@ -363,6 +366,7 @@ class ScudCloud(QtWidgets.QMainWindow):
                 self.quicklist(self.current().listChannels())
                 self.current().setFocus()
                 self.leftPane.click(i)
+                self.clearMemory()
                 exists = True
                 break
         if not exists:
@@ -481,3 +485,7 @@ class ScudCloud(QtWidgets.QMainWindow):
             self.launcher.set_property("count_visible", True)
             self.setWindowTitle("[{}]{}".format(str(total), self.title))
         self.messages = total
+
+    def clearMemory(self):
+        QWebSettings.globalSettings().clearMemoryCaches()
+        QWebSettings.globalSettings().clearIconDatabase()
