@@ -24,7 +24,7 @@ Open a Terminal (Ctrl+Alt+T) and run:
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
 sudo apt update && sudo apt dist-upgrade
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-sudo aptt install scudcloud
+sudo apt install scudcloud
 ```
 
 If you want **spell checking**, add the `hunspell` dictionary for your language and make sure dependencies are installed. For `en-us`:
