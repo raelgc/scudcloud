@@ -18,21 +18,13 @@ ScudCloud improves the Slack integration with Linux desktops featuring:
 
 ## Ubuntu/Kubuntu and Mint
 
-Please, first update your system with:
-
-```term
-sudo apt-get update && sudo apt-get upgrade
-```
-
-If not, ScudCloud will crash with some old components or will not be installed.
-
-Then, to install it under **Ubuntu/Kubuntu** (16.04, 15.10, 14.04), **Mint** and **Debian**, open a Terminal (Ctrl+Alt+T) and run:
+Open a Terminal (Ctrl+Alt+T) and run:
 
 ```term
 sudo apt-add-repository -y ppa:rael-gc/scudcloud
+sudo apt update && sudo apt dist-upgrade
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-sudo apt-get update
-sudo apt-get install scudcloud
+sudo aptt install scudcloud
 ```
 
 If you want **spell checking**, add the `hunspell` dictionary for your language and make sure dependencies are installed. For `en-us`:
