@@ -416,13 +416,12 @@ class ScudCloud(QtWidgets.QMainWindow):
         if not self.forceClose and self.settings.value("Systray") == "True":
             self.hide()
             event.ignore()
-        else:
+        elif self.forceClose:
             self.cookiesjar.save()
             self.settings.setValue("Domain", self.domains)
             self.settings.setValue("geometry", self.saveGeometry())
             self.settings.setValue("windowState", self.saveState())
             self.settings.setValue("Domain", self.domains)
-        self.forceClose = False
 
     def show(self):
         self.setWindowState(self.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
