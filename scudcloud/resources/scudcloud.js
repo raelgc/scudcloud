@@ -102,8 +102,8 @@ ScudCloud = {
 		return TS.ui.snippet_dialog.start();
 	},
 	listChannels: function(){
-		// Slack is now including current channel in the unarchived list (Fixes #608)
-		return TS.channels.getUnarchivedChannelsForUser();
+		// Temporary returning empty list for the quicklist (Fixes #608)
+		return [];
 	},
 	listTeams: function(){
 		var currentTeam = {
