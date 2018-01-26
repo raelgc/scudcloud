@@ -1,3 +1,9 @@
+scudcloud (1.65-1) xenial; urgency=medium
+
+  * Disabling quicklist (#608)
+
+ -- Rael Gugelmin Cunha <rael.gc@gmail.com>  Fri, 26 Jan 2018 08:32:33 -0200
+
 scudcloud (1.64-1) xenial; urgency=medium
 
   * Fixing team loading/switching (#608)
