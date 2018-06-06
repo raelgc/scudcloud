@@ -59,7 +59,7 @@ BuildArch:      noarch
 
 %description
 ScudCloud uses the QT library + Webkit to render the web version of Slack,
-but using the QWebkit-Native bridge to improve desktop integration with:
+but using the QWebEnginekit-Native bridge to improve desktop integration with:
 * multiple teams support,
 * native system notifications,
 * count of unread direct mentions at launcher/sytray icon,

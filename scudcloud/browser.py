@@ -1,10 +1,10 @@
 from scudcloud.resources import Resources
 
-from PyQt5.QtWebKitWidgets import QWebView, QWebPage
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
 
-class Browser(QWebPage):
+class Browser(QWebEnginePage):
     def __init__(self):
-        super(QWebPage, self).__init__()
+        super(QWebEnginePage, self).__init__()
 
     def userAgentForUrl(self, url):
         return Resources.USER_AGENT

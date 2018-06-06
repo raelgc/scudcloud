@@ -8,11 +8,11 @@ from urllib.parse import parse_qs, urlparse, urlsplit
 from PyQt5 import QtWebKit, QtGui, QtCore, QtWidgets
 from PyQt5.Qt import QApplication, QKeySequence, QTimer
 from PyQt5.QtCore import QBuffer, QByteArray, QUrl
-from PyQt5.QtWebKitWidgets import QWebView, QWebPage
-from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+from PyQt5.QtWebEngineWidgets import QWebEngineSettings
 from PyQt5.QtNetwork import QNetworkProxy
 
-class Wrapper(QWebView):
+class Wrapper(QWebEngineView):
 
     highlights = 0
     unreads = 0
@@ -22,7 +22,7 @@ class Wrapper(QWebView):
 
     def __init__(self, window):
         self.configure_proxy()
-        QWebView.__init__(self)
+        QWebEngineView.__init__(self)
         self.window = window
         with open(Resources.get_path('scudcloud.js'), 'r') as f:
             self.default_js = f.read()
@@ -32,7 +32,7 @@ class Wrapper(QWebView):
         page = Browser()
         page.setNetworkAccessManager(window.networkAccessManager)
         self.setPage(page)
-        self.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
+        self.page().setLinkDelegationPolicy(QWebEnginePage.DelegateAllLinks)
         self.urlChanged.connect(self._urlChanged)
         self.loadStarted.connect(self._loadStarted)
         self.loadFinished.connect(self._loadFinished)
@@ -41,7 +41,7 @@ class Wrapper(QWebView):
         self.addActions()
 
     def permissionRequested(self, frame, feature):
-        self.page().setFeaturePermission(frame, feature, QWebPage.PermissionGrantedByUser)
+        self.page().setFeaturePermission(frame, feature, QWebEnginePage.PermissionGrantedByUser)
 
     def configure_proxy(self):
         try:
@@ -60,19 +60,19 @@ class Wrapper(QWebView):
             QNetworkProxy.setApplicationProxy(q_network_proxy)
 
     def addActions(self):
-        self.pageAction(QWebPage.Undo).setShortcuts(QKeySequence.Undo)
-        self.pageAction(QWebPage.Redo).setShortcuts(QKeySequence.Redo)
-        self.pageAction(QWebPage.Cut).setShortcuts(QKeySequence.Cut)
-        self.pageAction(QWebPage.Copy).setShortcuts(QKeySequence.Copy)
-        self.pageAction(QWebPage.Paste).setShortcuts(QKeySequence.Paste)
-        self.pageAction(QWebPage.Back).setShortcuts(QKeySequence.Back)
-        self.pageAction(QWebPage.Forward).setShortcuts(QKeySequence.Forward)
-        self.pageAction(QWebPage.Reload).setShortcuts(QKeySequence.Refresh)
+        self.pageAction(QWebEnginePage.Undo).setShortcuts(QKeySequence.Undo)
+        self.pageAction(QWebEnginePage.Redo).setShortcuts(QKeySequence.Redo)
+        self.pageAction(QWebEnginePage.Cut).setShortcuts(QKeySequence.Cut)
+        self.pageAction(QWebEnginePage.Copy).setShortcuts(QKeySequence.Copy)
+        self.pageAction(QWebEnginePage.Paste).setShortcuts(QKeySequence.Paste)
+        self.pageAction(QWebEnginePage.Back).setShortcuts(QKeySequence.Back)
+        self.pageAction(QWebEnginePage.Forward).setShortcuts(QKeySequence.Forward)
+        self.pageAction(QWebEnginePage.Reload).setShortcuts(QKeySequence.Refresh)
 
     def contextMenuEvent(self, event):
         entriesToHide = ['Direction', 'Open in New Window', 'Save Link...']
         menu = QtWidgets.QMenu(self)
-        hit = self.page().currentFrame().hitTestContent(event.pos())
+        hit = self.page().hitTestContent(event.pos())
         if self.window.speller.initialized:
             element = hit.element()
             if hit.isContentEditable() and not hit.isContentSelected() and element.attribute("type") != "password":
@@ -125,14 +125,14 @@ class Wrapper(QWebView):
             arg = "'"+arg+"'"
         if arg is None:
             arg = ""
-        return self.page().currentFrame().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
+        return self.page().evaluateJavaScript("ScudCloud."+function+"("+arg+");")
 
     def _loadStarted(self):
         # Some custom CSS to clean/fix UX
         resources = os.path.join(self.window.cache_path, 'resources.css')
         self.settings().setUserStyleSheetUrl(QUrl.fromLocalFile(resources))
         # Fixing lack of MutationObserver in Qt 5.2.1 (#551)
-        self.page().currentFrame().evaluateJavaScript("var MutationObserver = MutationObserver || WebKitMutationObserver;null")
+        self.page().evaluateJavaScript("var MutationObserver = MutationObserver || WebKitMutationObserver;null")
 
     def mousePressEvent(self, event):
         if self.window.debug: print("Mouse Button {}".format(event.button()))
@@ -157,11 +157,11 @@ class Wrapper(QWebView):
 
     def _loadFinished(self, ok=True):
         # Starting the webkit-JS bridge
-        self.page().currentFrame().addToJavaScriptWindowObject("desktop", self)
+        self.page().addToJavaScriptWindowObject("desktop", self)
         # Loading ScudCloud JS client
-        self.page().currentFrame().evaluateJavaScript(self.default_js+";null")
+        self.page().evaluateJavaScript(self.default_js+";null")
         if self.window.disable_snippets:
-            self.page().currentFrame().evaluateJavaScript(self.disable_snippets_js+";null")
+            self.page().evaluateJavaScript(self.disable_snippets_js+";null")
         self.window.statusBar().hide()
 
     def systemOpen(self, url):

@@ -12,8 +12,8 @@ from threading import Thread
 from PyQt5 import QtCore, QtGui, QtWebKit, QtWidgets, QtWebKitWidgets
 from PyQt5.Qt import QApplication, QKeySequence, QTimer
 from PyQt5.QtCore import QUrl, QSettings
-from PyQt5.QtWebKit import QWebSettings
-from PyQt5.QtWebKitWidgets import QWebPage
+from PyQt5.QtWebEngineWidgets import QWebEngineSettings
+from PyQt5.QtWebEngineWidgets import QWebEnginePage
 from PyQt5.QtNetwork import QNetworkDiskCache, QNetworkAccessManager
 
 # Auto-detection of dbus and dbus.mainloop.qt
@@ -132,22 +132,10 @@ class ScudCloud(QtWidgets.QMainWindow):
     def webSettings(self):
         self.cookiesjar = PersistentCookieJar(self)
         self.zoom = self.readZoom()
-        # We don't want Flash (it causes a lot of trouble in some distros)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PluginsEnabled, False)
-        # We don't need Java
-        QWebSettings.globalSettings().setAttribute(QWebSettings.JavaEnabled, False)
-        # Enabling Local Storage (now required by Slack)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.LocalStorageEnabled, True)
-        # We need browsing history (required to not limit LocalStorage)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.PrivateBrowsingEnabled, False)
         # Enabling Cache
         self.diskCache = QNetworkDiskCache(self)
         self.diskCache.setCacheDirectory(self.cache_path)
-        # Required for copy and paste clipboard integration
-        QWebSettings.globalSettings().setAttribute(QWebSettings.JavascriptCanAccessClipboard, True)
-        # Enabling Inspeclet only when --debug=True (requires more CPU usage)
-        QWebSettings.globalSettings().setAttribute(QWebSettings.DeveloperExtrasEnabled, self.debug)
-        # Sharing the same networkAccessManager
+        # Put QWebEngineView settings here
         self.networkAccessManager = QNetworkAccessManager(self)
         self.networkAccessManager.setCookieJar(self.cookiesjar)
         self.networkAccessManager.setCache(self.diskCache)
@@ -229,14 +217,14 @@ class ScudCloud(QtWidgets.QMainWindow):
 
     def addMenu(self):
         # We'll register the webpage shorcuts with the window too (Fixes #338)
-        undo = self.current().pageAction(QWebPage.Undo)
-        redo = self.current().pageAction(QWebPage.Redo)
-        cut = self.current().pageAction(QWebPage.Cut)
-        copy = self.current().pageAction(QWebPage.Copy)
-        paste = self.current().pageAction(QWebPage.Paste)
-        back = self.current().pageAction(QWebPage.Back)
-        forward = self.current().pageAction(QWebPage.Forward)
-        reload = self.current().pageAction(QWebPage.Reload)
+        undo = self.current().pageAction(QWebEnginePage.Undo)
+        redo = self.current().pageAction(QWebEnginePage.Redo)
+        cut = self.current().pageAction(QWebEnginePage.Cut)
+        copy = self.current().pageAction(QWebEnginePage.Copy)
+        paste = self.current().pageAction(QWebEnginePage.Paste)
+        back = self.current().pageAction(QWebEnginePage.Back)
+        forward = self.current().pageAction(QWebEnginePage.Forward)
+        reload = self.current().pageAction(QWebEnginePage.Reload)
         self.menus = {
             "file": {
                 "preferences": self.createAction("Preferences", lambda : self.current().preferences()),
@@ -247,14 +235,14 @@ class ScudCloud(QtWidgets.QMainWindow):
                 "exit":        self.createAction("Quit", self.exit, QKeySequence.Quit)
             },
             "edit": {
-                "undo":        self.createAction(undo.text(), lambda : self.current().page().triggerAction(QWebPage.Undo), undo.shortcut()),
-                "redo":        self.createAction(redo.text(), lambda : self.current().page().triggerAction(QWebPage.Redo), redo.shortcut()),
-                "cut":         self.createAction(cut.text(), lambda : self.current().page().triggerAction(QWebPage.Cut), cut.shortcut()),
-                "copy":        self.createAction(copy.text(), lambda : self.current().page().triggerAction(QWebPage.Copy), copy.shortcut()),
-                "paste":       self.createAction(paste.text(), lambda : self.current().page().triggerAction(QWebPage.Paste), paste.shortcut()),
-                "back":        self.createAction(back.text(), lambda : self.current().page().triggerAction(QWebPage.Back), back.shortcut()),
-                "forward":     self.createAction(forward.text(), lambda : self.current().page().triggerAction(QWebPage.Forward), forward.shortcut()),
-                "reload":      self.createAction(reload.text(), lambda : self.current().page().triggerAction(QWebPage.Reload), reload.shortcut()),
+                "undo":        self.createAction(undo.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Undo), undo.shortcut()),
+                "redo":        self.createAction(redo.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Redo), redo.shortcut()),
+                "cut":         self.createAction(cut.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Cut), cut.shortcut()),
+                "copy":        self.createAction(copy.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Copy), copy.shortcut()),
+                "paste":       self.createAction(paste.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Paste), paste.shortcut()),
+                "back":        self.createAction(back.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Back), back.shortcut()),
+                "forward":     self.createAction(forward.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Forward), forward.shortcut()),
+                "reload":      self.createAction(reload.text(), lambda : self.current().page().triggerAction(QWebEnginePage.Reload), reload.shortcut()),
             },
             "view": {
                 "zoomin":      self.createAction("Zoom In", self.zoomIn, QKeySequence.ZoomIn),
@@ -486,5 +474,5 @@ class ScudCloud(QtWidgets.QMainWindow):
         self.messages = total
 
     def clearMemory(self):
-        QWebSettings.globalSettings().clearMemoryCaches()
-        QWebSettings.globalSettings().clearIconDatabase()
+        QWebEngineSettings.globalSettings().clearMemoryCaches()
+        QWebEngineSettings.globalSettings().clearIconDatabase()
