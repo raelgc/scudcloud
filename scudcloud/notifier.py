@@ -3,7 +3,7 @@ try:
     import gi
     gi.require_version('Notify', '0.7')
     from gi.repository import Notify
-except (ImportError, AttributeError):
+except (ImportError, AttributeError, ValueError):
     from scudcloud import notify2
     Notify = None
 
